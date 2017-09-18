@@ -16,7 +16,7 @@ const renderHelper = (res, location, routes, store) => {
     } else if (renderProps) {
       const html = renderToString(
         <Provider store={store}>
-          <RouterContext {...renderProps } />
+          <RouterContext {...renderProps} />
         </Provider>
       );
       const finalState = store.getState();

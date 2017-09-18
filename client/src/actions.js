@@ -7,10 +7,7 @@ function setClicks(nClicks) {
 
 export const reset = () => (dispatch) => {
   dispatch({ type: 'LOADING', what: 'clicks' });
-  ajax(
-    'DELETE',
-   '/api/user/clicks'
- ).then(() => {
+  ajax('DELETE', '/api/user/clicks').then(() => {
    ajax('GET', '/api/user/clicks')
    .then(data => {
      const nClicks = data.clicks;

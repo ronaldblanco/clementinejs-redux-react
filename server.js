@@ -3,6 +3,7 @@ import express from 'express';
 import routes from './app/routes';
 import mongoose from 'mongoose';
 import passport from 'passport';
+import passportGitHub from 'passport';
 import session from 'express-session';
 
 const env = process.env.NODE_ENV !== 'production' ? require('dotenv') : null;
@@ -12,6 +13,8 @@ console.log(process.env);
 
 import passportConfig from './app/config/passport';
 passportConfig(passport);
+import passportConfigGitHub from './app/config/passport-github';
+passportConfigGitHub(passportGitHub);
 
 const app = express();
 
@@ -35,7 +38,7 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-routes(app, passport);
+routes(app, passport, passportGitHub);
 
 const port = process.env.PORT || 8080;
 app.listen(port, error => {

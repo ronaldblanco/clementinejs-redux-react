@@ -7,8 +7,11 @@ export default () => (
       <img alt="logo" src="img/clementine_150.png" />
       <br />
       <p className="clementine-text">Clementine-React-Redux</p>
+      <a href="/auth/github" className="btn">
+				LOGIN GITHUB
+      </a>
       <a href="auth/twitter" className="btn">
-        Login
+        LOGIN TWITTER
       </a>
     </div>
   </div>

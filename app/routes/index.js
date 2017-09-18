@@ -2,7 +2,7 @@
 import ClickHandler from '../controllers/clickHandler.server';
 import serverRender from '../serverRender.js';
 
-export default function (app, passport) {
+export default function (app, passport, passportGitHub) {
   function isLoggedIn(req, res, next) {
     if (req.isAuthenticated()) {
       return next();
@@ -25,6 +25,15 @@ export default function (app, passport) {
 
   app.route('/auth/twitter/callback')
     .get(passport.authenticate('twitter', {
+      successRedirect: '/',
+      failureRedirect: '/login',
+    }));
+    
+  app.route('/auth/github')
+		.get(passportGitHub.authenticate('github'));
+
+  app.route('/auth/github/callback')
+    .get(passportGitHub.authenticate('github', {
       successRedirect: '/',
       failureRedirect: '/login',
     }));
