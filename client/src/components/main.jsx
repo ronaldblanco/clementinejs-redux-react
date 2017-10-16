@@ -6,7 +6,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import * as actionCreators from '../actions';
 
-const Main = ({ click, reset, clicks, user, data, adddata, deldata }) => (
+import Li from './Li.jsx';
+
+const Main = ({ click, reset, clicks, user, adddata, deldata, datas }) => (
   <div>
     <header>
       <p>Welcome, <span id="display-name">{user.username}</span>!</p>
@@ -41,8 +43,9 @@ const Main = ({ click, reset, clicks, user, data, adddata, deldata }) => (
 		
 		<div className="w3-third">
 			<p>Here are your Data Names:</p>
-			<ul className="list-group" id="list">
-			</ul>
+			
+			  <Li datas={datas} />
+			
     </div>
     
   </div>
@@ -63,7 +66,7 @@ Main.propTypes = {
     React.PropTypes.string,
     React.PropTypes.number]).isRequired,
   user: React.PropTypes.object.isRequired,
-  data: React.PropTypes.array.isRequired,
+  data: React.PropTypes.array.isRequired
 };
 
 function mapStateToProps(state) {
