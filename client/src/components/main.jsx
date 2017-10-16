@@ -8,7 +8,7 @@ import * as actionCreators from '../actions';
 
 import Li from './Li.jsx';
 
-const Main = ({ click, reset, clicks, user, adddata, deldata, datas }) => (
+const Main = ({ click, reset, clicks, user, adddata, deldata, datas, data }) => (
   <div>
     <header>
       <p>Welcome, <span id="display-name">{user.username}</span>!</p>
@@ -30,24 +30,19 @@ const Main = ({ click, reset, clicks, user, adddata, deldata, datas }) => (
         <button onClick={click} className="btn">CLICK ME!</button>
         <button onClick={reset} className="btn">RESET</button>
       </div>
-    </div>
-    
-    <div className="w3-third">
+      <br/>
+      <br/>
+      <div className="btn-container w3-third">
 			New Data Name:<input type="text" name="name" id="name" className="form-control" placeholder="Name"/><br/>
-			
               <button onClick={adddata} type="submit" className="btn btn-add btn-primary" id ="adddata">New Data!</button>
               <button onClick={deldata} type="submit" className="btn btn-delete btn-danger" id ="deldata">Delete Data!</button>
-              
-              
-         </div>
-		
-		<div className="w3-third">
+   </div>
+		<div className="btn-container w3-third">
 			<p>Here are your Data Names:</p>
-			
 			  <Li datas={datas} />
-			
     </div>
     
+    </div>
   </div>
 );
 
