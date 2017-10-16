@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 
 const Li = ({ datas }) => (
   <ul className="list-group" id="list" >
-    {datas.map(data =>
-      <Input  name={data.name}  />
+    {datas.map((data, index) =>
+      <Input key={index} name={data.name} />
     )}
   </ul>
 );

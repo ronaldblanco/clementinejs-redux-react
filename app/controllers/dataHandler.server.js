@@ -10,7 +10,7 @@ function DataHandler () {
 			.findOne({ 'twitter.id': req.user.twitter.id }, { '_id': false })
 			.exec((err, result) => {
 				if (err) { throw err; }
-				console.log(result.info);
+				//console.log(result.info);
 				res.json(result.info);
 			});
 	};
