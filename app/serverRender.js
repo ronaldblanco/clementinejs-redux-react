@@ -50,9 +50,7 @@ export default (req, res) => {
     if (req.url === '/login') return res.redirect(302, '/main');
     Users.findOne({ 'twitter.id': user.id }, (err, response) => {
       if (err) return res.status(500).send(err.message);
-      //console.log(response);
-      const initialState = { counter: response.nbrClicks.clicks, clicks: response.nbrClicks.clicks, loggedIn: true, user, data: response.info.data };
-      //const initialState = { clicksReducer: {counter: response.nbrClicks.clicks, clicks: response.nbrClicks.clicks, loggedIn: true, user}, datasReducer:[] };
+      const initialState = { counter: response.nbrClicks.clicks, clicks: response.nbrClicks.clicks, loggedIn: true, user, data: response.info.data || [] };
       const store = createStore(reducer, initialState);
       const routes = createRoutes(store);
       return renderHelper(res, req.url, routes, store);

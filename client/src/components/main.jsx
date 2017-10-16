@@ -46,12 +46,6 @@ const Main = ({ click, reset, clicks, user, adddata, deldata, datas, data }) => 
   </div>
 );
 
-
-/*
-
-*/
-
-
 Main.propTypes = {
   click: React.PropTypes.func.isRequired,
   reset: React.PropTypes.func.isRequired,

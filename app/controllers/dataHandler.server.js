@@ -18,7 +18,7 @@ function DataHandler () {
 	this.addData = (req, res) => {
 		
 		var myUrl = url.parse(req.originalUrl);
-		console.log(myUrl);
+		//console.log(myUrl);
 		var newData = {'name': unescape(myUrl.query.params.name)};
 		Users
 			.findOneAndUpdate({ 'twitter.id': req.user.twitter.id }, { $push: { 'info.data': newData } })
