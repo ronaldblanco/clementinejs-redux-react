@@ -10,6 +10,9 @@ const User = new Schema({
   nbrClicks: {
     clicks: Number,
   },
+	info: {
+      data: Array
+  }
 });
 
 export default mongoose.model('User', User);

@@ -1,23 +1,16 @@
 
 import ClickHandler from '../controllers/clickHandler.server';
-import DataHandler from '../controllers/dataHandler.server.js';
 import serverRender from '../serverRender.js';
 
 export default function (app, passport, passportGitHub) {
-  
   function isLoggedIn(req, res, next) {
     if (req.isAuthenticated()) {
       return next();
     }
     return res.json({ status: 'forbidden' });
   }
-  
-  function isNotLoggedIn (req, res, next) {
-		return next();
-  }
 
   const clickHandler = new ClickHandler();
-  const dataHandler = new DataHandler();
 
   app.route('/api/user')
     .get((req, res) => {
@@ -55,15 +48,6 @@ export default function (app, passport, passportGitHub) {
 		.get(isLoggedIn, clickHandler.getClicks)
 		.post(isLoggedIn, clickHandler.addClick)
 		.delete(isLoggedIn, clickHandler.resetClicks);
-		
-	app.route('/api/:id/info')
-		.get(isLoggedIn, dataHandler.getDatas);
-		
-	app.route('/api/:id/infoadd')
-		.post(isLoggedIn, dataHandler.addData);
-		
-	app.route('/api/:id/infodel')
-  .delete(isLoggedIn, dataHandler.deleteData);
 
   app.route('/*')
     .get(serverRender

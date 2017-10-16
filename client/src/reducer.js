@@ -42,6 +42,12 @@ function deldata (state, actionIndex){
     return newState;
 }
 
+function setdatas (state, datas){
+    let newState = state;
+    newState.data = datas;
+    return newState;
+}
+
 const initState = { clicks: 0, loggedIn: false, data: [] };
 
 export default (state = initState, action) => {
@@ -55,7 +61,7 @@ export default (state = initState, action) => {
     case 'DEL_DATA':
       return deldata(state, action.index);
     case 'SET_DATAS':
-      return action.data;
+      return setdatas(state, action.data);
     default:
       return state;
   }
