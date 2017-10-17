@@ -123,7 +123,7 @@ function UserHandler (emailServer) {
 					to:      "New User <"+ username +">",
 					//cc:      "else <else@your-email.com>",
 					subject: "Your password was reset!"
-				}, function(err, message) { console.log(err || message);/*functions.logIt(logger, err || message);*/ });//res.redirect('/auth/localnewok');
+				}, function(err, message) { /*console.log(err || message);*/functions.logIt(logger, err || message); });//res.redirect('/auth/localnewok');
 				message.message = "The password was reset correctly; an email was send to the user!";
 				message.type = "alert alert-success";
 				res.send({"message":"The password was reset correctly; an email was send to the user!"});

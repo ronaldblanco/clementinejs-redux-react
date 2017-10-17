@@ -3,9 +3,12 @@ import { MainContainer as Main } from './components/main.jsx';
 import Login from './components/login.jsx';
 import AuthLocal from './components/localauth/AuthLocal.jsx';
 import CreateLocal from './components/localauth/CreateLocal.jsx';
-import ResetLocal from './components/localauth/ResetLocal.jsx';
+import { ResetLocalComponent as ResetLocal } from './components/localauth/ResetLocal.jsx';
 import CreationOkLocal from './components/localauth/CreationOkLocal.jsx';
 import { ProfileContainer as Profile } from './components/profile.jsx';
+
+console.log(CreateLocal);
+console.log(ResetLocal);
 
 const App = ({ children }) => (
   <div>

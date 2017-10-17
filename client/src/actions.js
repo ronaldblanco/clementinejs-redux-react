@@ -72,25 +72,22 @@ function setMess(mess) {
   return { type: 'SET_MESS', mess: mess };
 }
 
-var message = null;
-/*function updateMess (data){
-      var info = JSON.parse(data);
-      if(info.message != null && info.message != undefined){
-         message.innerHTML = '<div class="'+info.type+'"><h2>'+ info.message +'</h2></div>';
-      }
-}*/
+//var message = null;
+
 export const resetlocal = () => (dispatch) =>{
-  dispatch({ type: 'LOADING', what: 'message' });
-		message = document.querySelector('#message');
-		//document.querySelector('#resetaction').addEventListener('click', function(){
+  //document.querySelector('#resetaction').addEventListener('click', function(){
+  console.log('resetLocal');
+    dispatch({ type: 'LOADING', what: 'message' });
+		//message = document.querySelector('#message');
             var resetUsername = document.querySelector('#resetusername').value;
-            ajax('POST', 'reset?name=' + resetUsername).then(() => {
-               ajax('GET', 'message')
+            ajax('POST', '/auth/localnewreset?name=' + resetUsername).then(() => {
+               ajax('GET', '/auth/localnewmessage')
                 .then(data => {
                   //updateMess(data);
                   dispatch(setMess(data));
                  }, error => { console.log(error); });
             }, error => { console.log(error); });
-            
-         //});
+  //});
 };
+
+////////////////////////////////////////////////////////////////////////////////////////

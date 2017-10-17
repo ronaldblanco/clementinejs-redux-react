@@ -1,5 +1,5 @@
 
-import { getUser, getClicks, getDatas } from '../reducer';
+import { getUser, getClicks, getDatas, getMess } from '../reducer';
 import { Link } from 'react-router';
 
 import React from 'react';
@@ -55,7 +55,8 @@ Main.propTypes = {
     React.PropTypes.string,
     React.PropTypes.number]).isRequired,
   user: React.PropTypes.object.isRequired,
-  data: React.PropTypes.array.isRequired
+  data: React.PropTypes.array.isRequired,
+  massage: React.PropTypes.string
 };
 
 function mapStateToProps(state) {
@@ -63,6 +64,7 @@ function mapStateToProps(state) {
     user: getUser(state),
     clicks: getClicks(state),
     datas: getDatas(state),
+    message: getMess(state)
   };
 }
 

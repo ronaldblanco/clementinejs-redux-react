@@ -7,6 +7,11 @@ import passportGitHub from 'passport';
 import passportLocal from 'passport';
 import session from 'express-session';
 
+import winston from 'winston';
+require('winston-daily-rotate-file');
+import compression from 'compression';
+import functions from'./app/common/functions.server.js';
+
 const env = process.env.NODE_ENV !== 'production' ? require('dotenv') : null;
 if (env) env.load();
 
@@ -56,6 +61,37 @@ app.use(session({
 
 app.use(passport.initialize());
 app.use(passport.session());
+
+//////////////////////////
+if (process.env.NODE_ENV === 'development'){
+    //Gulp build execution
+    //functions.execute('gulp build');
+    /////////////////////////////////////////////
+    //CHECK FOLDER LOG AND CREATE IT////////////////////////////////////
+    functions.ensureExists(__dirname + '/log', '0744', function(err) {
+        if (err) console.error(err);
+        else console.log('Folder Log was created or existed');
+    });
+    //////////////////////////////////////////////////
+
+    //LOGGER//////////////////////////////////////////
+    var logger = new (winston.Logger)({
+        transports: [
+        functions.transport
+        ]
+    });
+    functions.logIt(logger,'//////////////////STARTING LOGGER INFO////////////////////////');
+/////////////////////////////////////////////////
+}
+/////////////////////////
+
+//Forzing Cache of static/////////////////////////
+app.use(functions.cacheIt);
+/////////////////////////////////////////////////
+
+//COMPRESSION////////////////////////////////////
+app.use(compression({filter: functions.shouldCompress}));
+/////////////////////////////////////////////////
 
 routes(app, passport, passportGitHub, emailServer, passportLocal);
 

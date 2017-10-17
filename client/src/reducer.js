@@ -80,3 +80,4 @@ export const getClicks = state => state.clicks || '0';
 export const getLoggedIn = state => state.loggedIn;
 
 export const getDatas = state => state.data || [];
+export const getMess = state => state.message || '';
