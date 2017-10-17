@@ -16,6 +16,8 @@ import passportConfig from './app/config/passport';
 passportConfig(passport);
 import passportConfigGitHub from './app/config/passport-github';
 passportConfigGitHub(passportGitHub);
+import passportConfigLocal from './app/config/passport-local';
+passportConfigLocal(passportLocal);
 
 const app = express();
 
@@ -40,6 +42,11 @@ const configHotReloading =
   ? require('./app/config/hotReload') : null;
 
 if (configHotReloading) configHotReloading(app);
+
+//////////////////////////////////////////////
+app.use(require('cookie-parser')());
+app.use(require('body-parser').urlencoded({ extended: true }));
+//////////////////////////////////////////////
 
 app.use(session({
   secret: process.env.SECRET_SESSION || 'secretClementine',

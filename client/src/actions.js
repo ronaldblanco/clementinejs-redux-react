@@ -31,6 +31,7 @@ export const click = () => (dispatch) => {
 };
 
 ////////////////////////////////////////////////////////////////////////////
+//DATA CONTROLLER
 
 function setDatas(nDatas) {
   return { type: 'SET_DATAS', data: nDatas };
@@ -63,4 +64,33 @@ export const deldata = () => (dispatch) => {
    }, error => { console.log(error); });
  }, error => { console.log(error); });
  
+};
+
+//////////////////////////////////////////////////////////////////////////
+//RESET LOCAL
+function setMess(mess) {
+  return { type: 'SET_MESS', mess: mess };
+}
+
+var message = null;
+/*function updateMess (data){
+      var info = JSON.parse(data);
+      if(info.message != null && info.message != undefined){
+         message.innerHTML = '<div class="'+info.type+'"><h2>'+ info.message +'</h2></div>';
+      }
+}*/
+export const resetlocal = () => (dispatch) =>{
+  dispatch({ type: 'LOADING', what: 'message' });
+		message = document.querySelector('#message');
+		//document.querySelector('#resetaction').addEventListener('click', function(){
+            var resetUsername = document.querySelector('#resetusername').value;
+            ajax('POST', 'reset?name=' + resetUsername).then(() => {
+               ajax('GET', 'message')
+                .then(data => {
+                  //updateMess(data);
+                  dispatch(setMess(data));
+                 }, error => { console.log(error); });
+            }, error => { console.log(error); });
+            
+         //});
 };

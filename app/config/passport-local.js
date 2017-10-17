@@ -1,10 +1,10 @@
 
 
 var localStrategy = require('passport-local').Strategy;
-var md5Hex = require('md5-hex');
+import md5Hex from'md5-hex';
 //var twitterStrategy = require('passport-twitter').Strategy;
 //var GitHubStrategy = require('passport-github').Strategy;
-var User = require('../models/users');
+import User from '../models/users';
 //var configAuth = require('./auth');
 
 module.exports = function (passportLocal) {

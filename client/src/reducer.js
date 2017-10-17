@@ -48,7 +48,13 @@ function setdatas (state, datas){
     return newState;
 }
 
-const initState = { clicks: 0, loggedIn: false, data: [] };
+function setmess (state, mess){
+    let newState = state;
+    newState.message = mess;
+    return newState;
+}
+
+const initState = { clicks: 0, loggedIn: false, data: [], message: '' };
 
 export default (state = initState, action) => {
   switch (action.type) {
@@ -62,6 +68,8 @@ export default (state = initState, action) => {
       return deldata(state, action.index);
     case 'SET_DATAS':
       return setdatas(state, action.data);
+    case 'SET_MESS':
+      return setmess(state, action.mess);
     default:
       return state;
   }

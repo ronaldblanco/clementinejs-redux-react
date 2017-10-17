@@ -1,17 +1,18 @@
+'use strict';
 
-
-var Users = require('../models/users.js');
-var message = require('../models/message.js');
+import Users from '../models/users.js';
+//var Users = require('../models/users.js');
+import message from '../models/message.js';
 //var Users1 = require('../models/users.js');
-var email = require("emailjs/email");
-var randomize = require('randomatic');
-var md5Hex = require('md5-hex');
+import email from "emailjs/email";
+import randomize from 'randomatic';
+import md5Hex from 'md5-hex';
 //var url = require("urlparser");
 
-var winston = require('winston');
+import winston from 'winston';
 require('winston-daily-rotate-file');
 //var fs = require('fs');
-var functions = require('../common/functions.server.js');
+import functions from '../common/functions.server.js';
 
 //LOGGER//////////////////////////////////////////
 var logger = new (winston.Logger)({
@@ -122,7 +123,7 @@ function UserHandler (emailServer) {
 					to:      "New User <"+ username +">",
 					//cc:      "else <else@your-email.com>",
 					subject: "Your password was reset!"
-				}, function(err, message) { functions.logIt(logger, err || message); });//res.redirect('/auth/localnewok');
+				}, function(err, message) { console.log(err || message);/*functions.logIt(logger, err || message);*/ });//res.redirect('/auth/localnewok');
 				message.message = "The password was reset correctly; an email was send to the user!";
 				message.type = "alert alert-success";
 				res.send({"message":"The password was reset correctly; an email was send to the user!"});

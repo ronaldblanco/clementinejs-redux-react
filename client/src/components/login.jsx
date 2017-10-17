@@ -1,5 +1,6 @@
 
 import React from 'react';
+let Link = require('react-router').Link;
 
 export default () => (
   <div className="container">
@@ -13,6 +14,7 @@ export default () => (
       <a href="auth/twitter" className="btn">
         LOGIN TWITTER
       </a>
+      <Link className="btn" id="login-btn" to={"/authlocal"}><img src="/public/img/local.png" alt="twitter logo" width="32px" />LOCAL LOGIN</Link>
     </div>
   </div>
 );

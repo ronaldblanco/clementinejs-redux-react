@@ -75,10 +75,10 @@ export default function (app, passport, passportGitHub, emailServer, passportLoc
     );
     
     /////////////////////////////////////////////////////////////////	
-	app.route('/authlocal')
+	/*app.route('/authlocal')
 		.get(function (req, res) {
 			res.sendFile(path + '/public/loginlocal.html');
-		});
+		});*/
 		
 	app.route('/auth/local') 
 		.get(passportLocal.authenticate('local', { 
