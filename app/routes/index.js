@@ -1,9 +1,10 @@
-
+var path = process.cwd();
 import ClickHandler from '../controllers/clickHandler.server';
 import DataHandler from '../controllers/dataHandler.server.js';
+import UserHandler from '../controllers/userHandler.server.js';
 import serverRender from '../serverRender.js';
 
-export default function (app, passport, passportGitHub) {
+export default function (app, passport, passportGitHub, emailServer, passportLocal) {
   
   function isLoggedIn(req, res, next) {
     if (req.isAuthenticated()) {
@@ -18,6 +19,7 @@ export default function (app, passport, passportGitHub) {
 
   const clickHandler = new ClickHandler();
   const dataHandler = new DataHandler();
+  const userHandler = new UserHandler(emailServer);
 
   app.route('/api/user')
     .get((req, res) => {
@@ -71,4 +73,38 @@ export default function (app, passport, passportGitHub) {
       // res.sendFile(`${path}/public/index.html`);
       // }
     );
+    
+    /////////////////////////////////////////////////////////////////	
+	app.route('/authlocal')
+		.get(function (req, res) {
+			res.sendFile(path + '/public/loginlocal.html');
+		});
+		
+	app.route('/auth/local') 
+		.get(passportLocal.authenticate('local', { 
+			failureRedirect: '/authlocal' }),
+		function(req, res) {
+    		res.redirect('/');
+		})
+		.post(passportLocal.authenticate('local', { 
+			failureRedirect: '/authlocal' }),
+		function(req, res) {
+    		res.redirect('/');
+		});
+		
+	app.route('/auth/localnew')
+		.post(isNotLoggedIn, userHandler.addUser);
+		
+	app.route('/auth/localnewreset')
+		.post(isNotLoggedIn, userHandler.resetPass);
+		
+	app.route('/auth/localnewmessage')
+		.get(isNotLoggedIn, userHandler.message);
+	
+	app.route('/auth/localnewok')
+		.get(function (req, res) {
+			res.sendFile(path + '/public/usercreationOK.html');
+		});
+	/////////////////////////////////////////////////////////////////
+	
 }

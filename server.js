@@ -4,6 +4,7 @@ import routes from './app/routes';
 import mongoose from 'mongoose';
 import passport from 'passport';
 import passportGitHub from 'passport';
+import passportLocal from 'passport';
 import session from 'express-session';
 
 const env = process.env.NODE_ENV !== 'production' ? require('dotenv') : null;
@@ -22,6 +23,17 @@ mongoose.connect(process.env.MONGODB_URI ||
   process.env.MONGO_URI || process.env.MONGOLAB_URI);
 
 app.use('/', express.static(`${process.cwd()}/public`));
+/////EMAIL CONFIG////////////////////////////////////////////////////////////////////////////
+app.use('/emailjs', express.static(process.cwd() + '/node_modules/emailjs'));
+////////////////////////////////////////////////////////////////////////////////////
+/////EMAIL CONFIG////////////////////////////////////////////////////////////////////////////
+var emailServer = {
+    'user' : process.env.EMAILUSER,
+    'password' : process.env.EMAILPASS,
+    'host' : process.env.EMAILHOST,
+    'port' : process.env.EMAILPORT
+};
+////////////////////////////////////////////////////////////////////////////////////
 
 const configHotReloading =
   process.env.NODE_ENV === 'development' && !process.env.DISABLE_WEBPACK
@@ -38,7 +50,7 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-routes(app, passport, passportGitHub);
+routes(app, passport, passportGitHub, emailServer, passportLocal);
 
 const port = process.env.PORT || 8080;
 app.listen(port, error => {

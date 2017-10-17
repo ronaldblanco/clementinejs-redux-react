@@ -6,6 +6,9 @@ const User = new Schema({
     id: String,
     displayName: String,
     username: String,
+    photo: String,
+    email: String,
+    password: String
   },
   nbrClicks: {
     clicks: Number,
