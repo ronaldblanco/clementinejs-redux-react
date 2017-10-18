@@ -24,25 +24,29 @@ const Main = ({ click, reset, clicks, user, adddata, deldata, datas, data }) => 
     </div>
 
     <div className="container">
+    <div className="w3-row-padding">
+    <div className="w3-third">
       <p>You have clicked the button <span id="click-nbr">{clicks}</span> times.</p>
       <br />
       <div className="btn-container">
         <button onClick={click} className="btn">CLICK ME!</button>
         <button onClick={reset} className="btn">RESET</button>
       </div>
+      </div>
       <br/>
       <br/>
-      <div className="btn-container w3-third">
+      <div className="w3-third">
 			New Data Name:<input type="text" name="name" id="name" className="form-control" placeholder="Name"/><br/>
               <button onClick={adddata} type="submit" className="btn btn-add btn-primary" id ="adddata">New Data!</button>
               <button onClick={deldata} type="submit" className="btn btn-delete btn-danger" id ="deldata">Delete Data!</button>
    </div>
-		<div className="btn-container w3-third">
+		<div className="w3-third">
 			<p>Here are your Data Names:</p>
 			  <Li datas={datas} />
     </div>
     
     </div>
+  </div>
   </div>
 );
 
