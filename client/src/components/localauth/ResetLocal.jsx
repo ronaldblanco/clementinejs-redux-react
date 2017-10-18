@@ -10,9 +10,9 @@ import * as actionCreators from '../../actions';
 const ResetLocal = ({ message, resetlocal }) => (
 			<div className="container">
 				<div>
-					<div className="" id="message"><h3>{ message }</h3></div>
+					<div className={message.type} id="message"><h3>{ message.message }</h3></div>
 					
-					<img src="/public/img/clementine_150.png" />
+					<img src="img/clementine_150.png" />
 					<br />
 					<p className="clementine-text">Clementine.js</p>
 					<Link className="menu" className="btn" id="login-btn" to={"/authlocal"}>Login Local User</Link>
@@ -33,7 +33,7 @@ const ResetLocal = ({ message, resetlocal }) => (
 });*/
 
 ResetLocal.propTypes = {
-  message: React.PropTypes.string,
+  message: React.PropTypes.object,
   resetlocal: React.PropTypes.func.isRequired,
 };
 

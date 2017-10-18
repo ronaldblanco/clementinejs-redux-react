@@ -54,7 +54,7 @@ function setmess (state, mess){
     return newState;
 }
 
-const initState = { clicks: 0, loggedIn: false, data: [], message: '' };
+const initState = { clicks: 0, loggedIn: false, data: [], message: { message: '', type: '' } };
 
 export default (state = initState, action) => {
   switch (action.type) {
@@ -80,4 +80,4 @@ export const getClicks = state => state.clicks || '0';
 export const getLoggedIn = state => state.loggedIn;
 
 export const getDatas = state => state.data || [];
-export const getMess = state => state.message || '';
+export const getMess = state => state.message || { message: '', type: '' };

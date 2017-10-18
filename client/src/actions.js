@@ -76,17 +76,17 @@ function setMess(mess) {
 
 export const resetlocal = () => (dispatch) =>{
   //document.querySelector('#resetaction').addEventListener('click', function(){
-  console.log('resetLocal');
+  //console.log('resetLocal');
     dispatch({ type: 'LOADING', what: 'message' });
-		var message = document.querySelector('#message');
+		//var message = document.querySelector('#message');
             var resetUsername = document.querySelector('#resetusername').value;
             ajax('POST', '/auth/localnewreset?name=' + resetUsername).then(data => {
                //ajax('GET', '/auth/localnewmessage')
                 //.then(data => {
                   console.log(data);
-                  message.innerHTML = '<div class="'+data.type+'"><h2>'+ data.message +'</h2></div>';
+                  //message.innerHTML = '<div class="'+data.type+'"><h2>'+ data.message +'</h2></div>';
                   //updateMess(data);
-                  //dispatch(setMess(JSON.parse(data).message));
+                  dispatch(setMess({message: data.message, type: data.type}));
                  //}, error => { console.log(error); });
             }, error => { console.log(error); });
   //});

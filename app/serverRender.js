@@ -50,7 +50,7 @@ export default (req, res) => {
     if (req.url === '/login') return res.redirect(302, '/main');
     Users.findOne({ 'twitter.id': user.id }, (err, response) => {
       if (err) return res.status(500).send(err.message);
-      const initialState = { counter: response.nbrClicks.clicks, clicks: response.nbrClicks.clicks, loggedIn: true, user, data: response.info.data || [], message: '' };
+      const initialState = { counter: response.nbrClicks.clicks, clicks: response.nbrClicks.clicks, loggedIn: true, user, data: response.info.data || [], message: { message: '', type: '' } };
       const store = createStore(reducer, initialState);
       const routes = createRoutes(store);
       return renderHelper(res, req.url, routes, store);
@@ -59,7 +59,7 @@ export default (req, res) => {
     // redirect to login if not logged in
     if (req.url !== '/login') return res.redirect(302, '/login');
     //const initialState = {};
-    const initialState = {message: ''};
+    const initialState = { message: { message: '', type: '' } };
     const store = createStore(reducer, initialState);
     const routes = createRoutes(store);
     return renderHelper(res, req.url, routes, store);

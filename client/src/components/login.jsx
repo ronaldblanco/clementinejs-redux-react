@@ -14,7 +14,7 @@ export default () => (
       <a href="auth/twitter" className="btn">
         LOGIN TWITTER
       </a>
-      <Link className="btn" id="login-btn" to={"/authlocal"}><img src="/public/img/local.png" alt="twitter logo" width="32px" />LOCAL LOGIN</Link>
+      <Link className="btn" id="login-btn" to={"/authlocal"}><img src="img/local.png" alt="twitter logo" width="32px" />LOCAL LOGIN</Link>
     </div>
   </div>
 );

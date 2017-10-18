@@ -8,7 +8,7 @@ module.exports = React.createClass({
 				<div className="" id="message"></div>
 			
 				<div>
-					<img src="/public/img/clementine_150.png" />
+					<img src="img/clementine_150.png" />
 					<br />
 					<p className="clementine-text">Clementine.js</p>
 					<Link className="menu" className="btn" id="login-btn" to={"/createlocal"}>Create Local User</Link>
