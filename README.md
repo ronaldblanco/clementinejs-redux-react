@@ -1,5 +1,15 @@
-# Clementine-React-Redux MERN Stack Boilerplate
+# Clementine-React-Redux-Pnald MERN Stack Boilerplate
 
+This is a version of Clementinejs conbining:<br>
+
+The original [clementinejs-react-redux](https://github.com/Em-Ant/clementinejs-react-redux) version by [@Em-Ant](https://github.com/Em-Ant)<br>
+And The version [Clementinejs-pnald](https://github.com/ronaldblanco/clementinejs) version update by [@ronaldblanco](https://github.com/ronaldblanco)<br>
+
+To Run:<br>
+
+"npm run serve" to run the server<br>
+"npm run build" to build production<br>
+"npm run lint" to test with lint<br>
 
 ## Overview
 

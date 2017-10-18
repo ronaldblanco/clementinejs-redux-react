@@ -1,5 +1,5 @@
 {
-  "name": "clementinejs_react",
+  "name": "clementinejs-react-redux-pnald",
   "version": "1.0.2",
   "description": "A full-stack app boilerplate for the freeCodeCamp Course.",
   "main": "server.js",
