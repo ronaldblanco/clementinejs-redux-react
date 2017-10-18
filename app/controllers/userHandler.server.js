@@ -126,16 +126,16 @@ function UserHandler (emailServer) {
 				}, function(err, message) { /*console.log(err || message);*/functions.logIt(logger, err || message); });//res.redirect('/auth/localnewok');
 				message.message = "The password was reset correctly; an email was send to the user!";
 				message.type = "alert alert-success";
-				res.send({"message":"The password was reset correctly; an email was send to the user!"});
+				res.send({"message":"The password was reset correctly; an email was send to the user!", "type": "alert alert-success"});
 				
 			});
 			
 		} else {
 			message.type = "alert alert-warning";
 			message.message = "The username it is not a valid email account!";
-			res.send({"message":"The username it is not a valid email account!"});
+			res.send({"message":"The username it is not a valid email account!", "type": "alert alert-warning"});
 		}
- 
+ //console.log(message);
 	};
 	
 	this.message = function(req, res){
