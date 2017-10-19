@@ -19,3 +19,8 @@ data/
 
 # logs
 *.log
+
+#From make build_dev
+public/static/bundle.js
+public/static/vendors.js
+public/static/style.css
