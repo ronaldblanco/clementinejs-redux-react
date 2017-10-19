@@ -7,8 +7,11 @@ And The version [Clementinejs-pnald](https://github.com/ronaldblanco/clementinej
 
 To Run:<br>
 
-"npm run serve" to run the server<br>
+"npm run start" to run the server for production<br>
+"npm run production" to run the server for production<br>
+"npm run development" to run the server for development<br>
 "npm run build" to build production<br>
+"npm run build_dev" to build development<br>
 "npm run lint" to test with lint<br>
 
 ## Overview
