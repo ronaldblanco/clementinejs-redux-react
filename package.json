@@ -23,7 +23,9 @@
     "start": "nodemon dist/server.js --exec babel-node",
     "production": "nodemon dist/server.js --exec babel-node",
     "development": "nodemon server.js --exec babel-node ",
+    "postinstall": "make build",
     "build": "make build",
+    "build_dev": "make build_dev",
     "lint": "eslint --ext .js --ext .jsx ./app ./client/src"
   },
   "author": "Emanuele Antonelli <joshua999x@gmail.com> (http://emant.altervista.org/)",
