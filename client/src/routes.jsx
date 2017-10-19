@@ -12,11 +12,9 @@ console.log(ResetLocal);
 
 const App = ({ children }) => (
   <div>
-    <link rel="stylesheet" href="static/w3.min.css"/>
-    <link rel="stylesheet" href="static/bootstrap.min.css"/>
+    
     {children}
-    <script src="static/jquery-2.2.4.min.js"></script>
-    <script src="static/bootstrap.min.js"></script>
+    
   </div>
 );
 

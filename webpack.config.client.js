@@ -21,8 +21,8 @@ module.exports = {
         'NODE_ENV': JSON.stringify('production')
       }
     }),
-    new ExtractTextPlugin('style.css'),
     new webpack.optimize.CommonsChunkPlugin('vendors', 'vendors.js'),
+    new ExtractTextPlugin('style.css'),
     new webpack.optimize.UglifyJsPlugin({
       compress:{
         warnings: true
