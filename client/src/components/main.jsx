@@ -8,7 +8,7 @@ import * as actionCreators from '../actions';
 
 import Li from './Li.jsx';
 
-const Main = ({ click, reset, clicks, user, adddata, deldata, datas, data }) => (
+const Main = ({ click, reset, clicks, user, adddata, deldata, datas }) => (
   <div>
     <header>
       <p>Welcome, <span id="display-name">{user.username}</span>!</p>
@@ -24,29 +24,38 @@ const Main = ({ click, reset, clicks, user, adddata, deldata, datas, data }) => 
     </div>
 
     <div className="container">
-    <div className="w3-row-padding">
-    <div className="w3-third">
-      <p>You have clicked the button <span id="click-nbr">{clicks}</span> times.</p>
-      <br />
-      <div className="btn-container">
-        <button onClick={click} className="btn">CLICK ME!</button>
-        <button onClick={reset} className="btn">RESET</button>
+      <div className="w3-row-padding">
+        <div className="w3-third">
+          <p>You have clicked the button <span id="click-nbr">{clicks}</span> times.</p>
+          <br />
+          <div className="btn-container">
+            <button onClick={click} className="btn">CLICK ME!</button>
+            <button onClick={reset} className="btn">RESET</button>
+          </div>
+        </div>
+        <br />
+        <br />
+        <div className="w3-third">
+          New Data Name:
+          <input type="text" name="name" id="name" className="form-control" placeholder="Name" />
+          <br />
+          <button onClick={adddata} type="submit" className="btn btn-add btn-primary" id="adddata">
+          New Data!</button>
+          <button
+            onClick={deldata}
+            type="submit"
+            className="btn btn-delete btn-danger"
+            id="deldata"
+          >
+            Delete Data!
+          </button>
+        </div>
+        <div className="w3-third">
+          <p>Here are your Data Names:</p>
+          <Li datas={datas} />
+        </div>
       </div>
-      </div>
-      <br/>
-      <br/>
-      <div className="w3-third">
-			New Data Name:<input type="text" name="name" id="name" className="form-control" placeholder="Name"/><br/>
-              <button onClick={adddata} type="submit" className="btn btn-add btn-primary" id ="adddata">New Data!</button>
-              <button onClick={deldata} type="submit" className="btn btn-delete btn-danger" id ="deldata">Delete Data!</button>
-   </div>
-		<div className="w3-third">
-			<p>Here are your Data Names:</p>
-			  <Li datas={datas} />
     </div>
-    
-    </div>
-  </div>
   </div>
 );
 
@@ -59,8 +68,9 @@ Main.propTypes = {
     React.PropTypes.string,
     React.PropTypes.number]).isRequired,
   user: React.PropTypes.object.isRequired,
-  data: React.PropTypes.array.isRequired,
-  massage: React.PropTypes.string
+  data: React.PropTypes.array,
+  datas: React.PropTypes.array.isRequired,
+  massage: React.PropTypes.string,
 };
 
 function mapStateToProps(state) {
@@ -68,7 +78,7 @@ function mapStateToProps(state) {
     user: getUser(state),
     clicks: getClicks(state),
     datas: getDatas(state),
-    message: getMess(state)
+    message: getMess(state),
   };
 }
 

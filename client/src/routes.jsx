@@ -7,14 +7,9 @@ import { ResetLocalContainer as ResetLocal } from './components/localauth/ResetL
 import CreationOkLocal from './components/localauth/CreationOkLocal.jsx';
 import { ProfileContainer as Profile } from './components/profile.jsx';
 
-console.log(CreateLocal);
-console.log(ResetLocal);
-
 const App = ({ children }) => (
   <div>
-    
     {children}
-    
   </div>
 );
 

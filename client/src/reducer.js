@@ -1,4 +1,4 @@
-/*import { combineReducers } from 'redux';
+/* import { combineReducers } from 'redux';
 import clicksReducer from './reducers/clickreducer';
 import datasReducer from './reducers/datareducer';
 
@@ -7,7 +7,7 @@ const reducers = combineReducers({
   datasReducer
 });
 
-export default reducers;*/
+export default reducers; */
 
 function setClicks(state, clicks) {
   return {
@@ -24,34 +24,34 @@ function setLoading(state, what) {
   };
 }
 
-function adddata (state, name){
-    let newState = state;
-    newState.data.push({name: name});
-    return newState;
+function adddata(state, na) {
+  const newState = state;
+  newState.data.push({ name: na });
+  return newState;
 }
 
-function deldata (state, actionIndex){
-    let newState = state;
-    newState.data.splice(actionIndex, 1);
-    /*newState.data = [];
-    state.data.map((obj, index) => {
-          if (index !== actionIndex) {
-            newState.data.push(obj);
-          }
-      });*/
-    return newState;
+function deldata(state, actionIndex) {
+  const newState = state;
+  newState.data.splice(actionIndex, 1);
+  /* newState.data = [];
+  state.data.map((obj, index) => {
+    if (index !== actionIndex) {
+      newState.data.push(obj);
+    }
+  }); */
+  return newState;
 }
 
-function setdatas (state, datas){
-    let newState = state;
-    newState.data = datas;
-    return newState;
+function setdatas(state, datas) {
+  const newState = state;
+  newState.data = datas;
+  return newState;
 }
 
-function setmess (state, mess){
-    let newState = state;
-    newState.message = mess;
-    return newState;
+function setmess(state, mess) {
+  const newState = state;
+  newState.message = mess;
+  return newState;
 }
 
 const initState = { clicks: 0, loggedIn: false, data: [], message: { message: '', type: '' } };
@@ -63,7 +63,7 @@ export default (state = initState, action) => {
     case 'LOADING':
       return setLoading(state, action.what);
     case 'ADD_DATA':
-      return adddata(state, action.name)
+      return adddata(state, action.name);
     case 'DEL_DATA':
       return deldata(state, action.index);
     case 'SET_DATAS':
