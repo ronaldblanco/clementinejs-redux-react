@@ -1,6 +1,9 @@
 
 import ajax from './utils/ajax';
 
+let query = '';
+let resetUsername = '';
+
 function setClicks(nClicks) {
   return { type: 'SET_CLICKS', clicks: nClicks };
 }
@@ -8,13 +11,13 @@ function setClicks(nClicks) {
 export const reset = () => (dispatch) => {
   dispatch({ type: 'LOADING', what: 'clicks' });
   ajax('DELETE', '/api/user/clicks').then(() => {
-   ajax('GET', '/api/user/clicks')
-   .then(data => {
-     const nClicks = data.clicks;
-     dispatch(setClicks(nClicks));
+    ajax('GET', '/api/user/clicks')
+    .then(data => {
+      const nClicks = data.clicks;
+      dispatch(setClicks(nClicks));
      /* eslint-disable no-console */
-   }, error => { console.log(error); });
- }, error => { console.log(error); });
+    }, error => { console.log(error); });
+  }, error => { console.log(error); });
  /* eslint-enable no-console */
 };
 
@@ -30,8 +33,8 @@ export const click = () => (dispatch) => {
   /* eslint-enable no-console */
 };
 
-////////////////////////////////////////////////////////////////////////////
-//DATA CONTROLLER
+// //////////////////////////////////////////////////////////////////////////
+// DATA CONTROLLER
 
 function setDatas(nDatas) {
   return { type: 'SET_DATAS', data: nDatas };
@@ -39,57 +42,45 @@ function setDatas(nDatas) {
 
 export const adddata = () => (dispatch) => {
   dispatch({ type: 'LOADING', what: 'datas' });
-  var query = "?name=" + document.querySelector('#name').value;
-  ajax('POST', '/api/:id/info' + 'add' + query).then(() => {
+  query = `?name=${document.querySelector('#name').value}`;
+  // query = '?name=' + document.querySelector('#name').value;
+  // ajax('POST', '/api/:id/infoadd' + query).then(() => {
+  ajax('POST', `/api/:id/infoadd${query}`).then(() => {
     ajax('GET', '/api/:id/info').then(data => {
       const nDatas = data.data;
-      console.log(nDatas);
       dispatch(setDatas(nDatas));
-    
     }, error => { console.log(error); });
   }, error => { console.log(error); });
-  
 };
 
 export const deldata = () => (dispatch) => {
   dispatch({ type: 'LOADING', what: 'datas' });
-  var query = "?name=" + document.querySelector('input[name = "radioData"]:checked').value;
-  ajax('DELETE', '/api/:id/info' + 'del' + query).then(() => {
-   ajax('GET', '/api/:id/info')
-   .then(data => {
-     const nDatas = data.data;
+  query = `?name=${document.querySelector('input[name = "radioData"]:checked').value}`;
+  // query = '?name=' + document.querySelector('input[name = "radioData"]:checked').value;
+  // ajax('DELETE', '/api/:id/infodel' + query).then(() => {
+  ajax('DELETE', `/api/:id/infodel${query}`).then(() => {
+    ajax('GET', '/api/:id/info')
+    .then(data => {
+      const nDatas = data.data;
       console.log(nDatas);
       dispatch(setDatas(nDatas));
-    
-   }, error => { console.log(error); });
- }, error => { console.log(error); });
- 
+    }, error => { console.log(error); });
+  }, error => { console.log(error); });
 };
 
-//////////////////////////////////////////////////////////////////////////
-//RESET LOCAL
-function setMess(mess) {
-  return { type: 'SET_MESS', mess: mess };
+// ////////////////////////////////////////////////////////////////////////
+// RESET LOCAL
+function setMess(me) {
+  return { type: 'SET_MESS', mess: me };
 }
 
-//var message = null;
-
-export const resetlocal = () => (dispatch) =>{
-  //document.querySelector('#resetaction').addEventListener('click', function(){
-  //console.log('resetLocal');
-    dispatch({ type: 'LOADING', what: 'message' });
-		//var message = document.querySelector('#message');
-            var resetUsername = document.querySelector('#resetusername').value;
-            ajax('POST', '/auth/localnewreset?name=' + resetUsername).then(data => {
-               //ajax('GET', '/auth/localnewmessage')
-                //.then(data => {
-                  console.log(data);
-                  //message.innerHTML = '<div class="'+data.type+'"><h2>'+ data.message +'</h2></div>';
-                  //updateMess(data);
-                  dispatch(setMess({message: data.message, type: data.type}));
-                 //}, error => { console.log(error); });
-            }, error => { console.log(error); });
-  //});
+export const resetlocal = () => (dispatch) => {
+  dispatch({ type: 'LOADING', what: 'message' });
+  resetUsername = document.querySelector('#resetusername').value;
+  // ajax('POST', '/auth/localnewreset?name=' + resetUsername).then(data => {
+  ajax('POST', `/auth/localnewreset?name=${resetUsername}`).then(data => {
+    dispatch(setMess({ message: data.message, type: data.type }));
+  }, error => { console.log(error); });
 };
 
-////////////////////////////////////////////////////////////////////////////////////////
+// //////////////////////////////////////////////////////////////////////////////////////
