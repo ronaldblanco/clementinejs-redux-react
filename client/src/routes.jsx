@@ -1,7 +1,7 @@
 import React from 'react';
 import { MainContainer as Main } from './components/main.jsx';
 import Login from './components/login.jsx';
-import AuthLocal from './components/localauth/AuthLocal.jsx';
+import { AuthLocal } from './components/localauth/AuthLocal.jsx';
 import { CreateLocal } from './components/localauth/CreateLocal.jsx';
 import { ResetLocalContainer as ResetLocal } from './components/localauth/ResetLocal.jsx';
 import { CreationOkLocal } from './components/localauth/CreationOkLocal.jsx';

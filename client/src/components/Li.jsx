@@ -12,8 +12,8 @@ const Li = ({ datas }) => (
 
 Li.propTypes = {
   datas: PropTypes.arrayOf(PropTypes.shape({
-    name: PropTypes.string.isRequired
-  }).isRequired).isRequired
+    name: PropTypes.string.isRequired,
+  }).isRequired).isRequired,
 };
 
 export default Li;
