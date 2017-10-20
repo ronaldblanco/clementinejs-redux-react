@@ -1,4 +1,5 @@
+
 module.exports = {
-    'message':'',
-    'type':''
+  message: '',
+  type: '',
 };

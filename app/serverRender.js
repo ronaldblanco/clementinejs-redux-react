@@ -25,7 +25,9 @@ const renderHelper = (res, location, routes, store) => {
       <html>
         <head>
           <meta charset="UTF-8"/>
-          <!--Always force latest IE rendering engine (even in intranet) & Chrome Frame Remove this if you use the .htaccess-->
+          <!--Always force latest IE rendering engine (even in intranet)
+            & Chrome Frame Remove this if you use the .htaccess
+          -->
           <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
           <meta name="description" content="Clementinejs"/>
           <meta name="author" content="Ronald"/>
@@ -61,7 +63,14 @@ export default (req, res) => {
     if (req.url === '/login') return res.redirect(302, '/main');
     Users.findOne({ 'twitter.id': user.id }, (err, response) => {
       if (err) return res.status(500).send(err.message);
-      const initialState = { counter: response.nbrClicks.clicks, clicks: response.nbrClicks.clicks, loggedIn: true, user, data: response.info.data || [], message: { message: '', type: '' } };
+      const initialState = {
+        counter: response.nbrClicks.clicks,
+        clicks: response.nbrClicks.clicks,
+        loggedIn: true,
+        user,
+        data: response.info.data || [],
+        message: { message: '', type: '' },
+      };
       const store = createStore(reducer, initialState);
       const routes = createRoutes(store);
       return renderHelper(res, req.url, routes, store);
@@ -69,7 +78,7 @@ export default (req, res) => {
   } else {
     // redirect to login if not logged in
     if (req.url !== '/login') return res.redirect(302, '/login');
-    //const initialState = {};
+    // const initialState = {};
     const initialState = { message: { message: '', type: '' } };
     const store = createStore(reducer, initialState);
     const routes = createRoutes(store);

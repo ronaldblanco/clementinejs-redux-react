@@ -49,8 +49,10 @@ export const adddata = () => (dispatch) => {
     ajax('GET', '/api/:id/info').then(data => {
       const nDatas = data.data;
       dispatch(setDatas(nDatas));
+      /* eslint-disable no-console */
     }, error => { console.log(error); });
   }, error => { console.log(error); });
+  /* eslint-enable no-console */
 };
 
 export const deldata = () => (dispatch) => {
@@ -62,10 +64,12 @@ export const deldata = () => (dispatch) => {
     ajax('GET', '/api/:id/info')
     .then(data => {
       const nDatas = data.data;
-      console.log(nDatas);
+      //console.log(nDatas);
       dispatch(setDatas(nDatas));
+      /* eslint-disable no-console */
     }, error => { console.log(error); });
   }, error => { console.log(error); });
+  /* eslint-enable no-console */
 };
 
 // ////////////////////////////////////////////////////////////////////////
@@ -80,7 +84,9 @@ export const resetlocal = () => (dispatch) => {
   // ajax('POST', '/auth/localnewreset?name=' + resetUsername).then(data => {
   ajax('POST', `/auth/localnewreset?name=${resetUsername}`).then(data => {
     dispatch(setMess({ message: data.message, type: data.type }));
+    /* eslint-disable no-console */
   }, error => { console.log(error); });
+  /* eslint-enable no-console */
 };
 
 // //////////////////////////////////////////////////////////////////////////////////////

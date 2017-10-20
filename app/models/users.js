@@ -8,14 +8,14 @@ const User = new Schema({
     username: String,
     photo: String,
     email: String,
-    password: String
+    password: String,
   },
   nbrClicks: {
     clicks: Number,
   },
-	info: {
-      data: Array
-  }
+  info: {
+    data: Array,
+  },
 });
 
 export default mongoose.model('User', User);

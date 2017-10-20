@@ -1,22 +1,19 @@
-var path = process.cwd();
+const path = process.cwd();
 import ClickHandler from '../controllers/clickHandler.server';
 import DataHandler from '../controllers/dataHandler.server.js';
 import UserHandler from '../controllers/userHandler.server.js';
 import serverRender from '../serverRender.js';
 
 export default function (app, passport, passportGitHub, emailServer, passportLocal) {
-  
   function isLoggedIn(req, res, next) {
     if (req.isAuthenticated()) {
       return next();
     }
     return res.json({ status: 'forbidden' });
   }
-  
-  function isNotLoggedIn (req, res, next) {
-		return next();
+  function isNotLoggedIn(req, res, next) {
+    return next();
   }
-
   const clickHandler = new ClickHandler();
   const dataHandler = new DataHandler();
   const userHandler = new UserHandler(emailServer);
@@ -37,7 +34,7 @@ export default function (app, passport, passportGitHub, emailServer, passportLoc
       successRedirect: '/',
       failureRedirect: '/login',
     }));
-    
+
   app.route('/auth/github')
 		.get(passportGitHub.authenticate('github'));
 
@@ -57,15 +54,15 @@ export default function (app, passport, passportGitHub, emailServer, passportLoc
 		.get(isLoggedIn, clickHandler.getClicks)
 		.post(isLoggedIn, clickHandler.addClick)
 		.delete(isLoggedIn, clickHandler.resetClicks);
-		
-	app.route('/api/:id/info')
+
+  app.route('/api/:id/info')
 		.get(isLoggedIn, dataHandler.getDatas);
-		
-	app.route('/api/:id/infoadd')
+
+  app.route('/api/:id/infoadd')
 		.post(isLoggedIn, dataHandler.addData);
-		
-	app.route('/api/:id/infodel')
-  .delete(isLoggedIn, dataHandler.deleteData);
+
+  app.route('/api/:id/infodel')
+    .delete(isLoggedIn, dataHandler.deleteData);
 
   app.route('/*')
     .get(serverRender
@@ -73,38 +70,38 @@ export default function (app, passport, passportGitHub, emailServer, passportLoc
       // res.sendFile(`${path}/public/index.html`);
       // }
     );
-    
-    /////////////////////////////////////////////////////////////////	
-	/*app.route('/authlocal')
+
+    // ///////////////////////////////////////////////////////////////
+	/* app.route('/authlocal')
 		.get(function (req, res) {
 			res.sendFile(path + '/public/loginlocal.html');
-		});*/
-		
-	app.route('/auth/local') 
-		.get(passportLocal.authenticate('local', { 
-			failureRedirect: '/authlocal' }),
-		function(req, res) {
-    		res.redirect('/');
-		})
-		.post(passportLocal.authenticate('local', { 
-			failureRedirect: '/authlocal' }),
-		function(req, res) {
-    		res.redirect('/');
-		});
-		
-	app.route('/auth/localnew')
+		}); */
+
+  app.route('/auth/local')
+		.get(passportLocal.authenticate('local', { failureRedirect: '/authlocal' }),
+    // function (req, res) {res.redirect('/');}
+    (req, res) => res.redirect('/')
+    )
+		.post(passportLocal.authenticate('local', { failureRedirect: '/authlocal' }),
+    // function (req, res) { res.redirect('/');}
+    (req, res) => res.redirect('/')
+    );
+
+  app.route('/auth/localnew')
 		.post(isNotLoggedIn, userHandler.addUser);
-		
-	app.route('/auth/localnewreset')
+
+  app.route('/auth/localnewreset')
 		.post(isNotLoggedIn, userHandler.resetPass);
-		
-	app.route('/auth/localnewmessage')
+
+  app.route('/auth/localnewmessage')
 		.get(isNotLoggedIn, userHandler.message);
-	
-	app.route('/auth/localnewok')
-		.get(function (req, res) {
-			res.sendFile(path + '/public/usercreationOK.html');
-		});
-	/////////////////////////////////////////////////////////////////
-	
+
+  app.route('/auth/localnewok')
+		/* .get(function (req, res) {
+			// res.sendFile(path + '/public/usercreationOK.html');
+      res.sendFile(`${path}/public/usercreationOK.html`);
+		});*/
+		.get((req, res) => res.sendFile(`${path}/public/usercreationOK.html`)
+		);
+	// ///////////////////////////////////////////////////////////////
 }

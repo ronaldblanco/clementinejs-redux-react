@@ -12,7 +12,7 @@ const Input = ({ name, key }) => (
 
 Input.propTypes = {
   name: PropTypes.string.isRequired,
-  key: PropTypes.number.isRequired,
+  key: PropTypes.number,
 };
 
 export default Input;
