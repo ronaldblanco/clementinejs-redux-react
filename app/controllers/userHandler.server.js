@@ -39,8 +39,9 @@ function UserHandler(emailServer) {
     port: emailServer.port,
     ssl: true,
   });
-
+  /* eslint-disable func-names */
   this.addUser = function (req, res) { // Add Local user
+  /* eslint-enable func-names */
     Users
       .findOne({ 'twitter.username': req.body.username }, { _id: false })
         .exec((err, result) => {
@@ -80,8 +81,9 @@ function UserHandler(emailServer) {
           }
         });
   };
-
+  /* eslint-disable func-names */
   this.resetPass = function (req, res) { // Reset Password
+  /* eslint-enable func-names */
     const username = req.originalUrl.toString().split('?name=')[1];
     const newPass = randomize('0', 7);
     const emailR = validateEmail(username);
@@ -119,8 +121,9 @@ function UserHandler(emailServer) {
       });
     }
   };
-
+  /* eslint-disable func-names */
   this.message = function (req, res) {
+  /* eslint-enable func-names */
     res.send(message);
   };
 }
