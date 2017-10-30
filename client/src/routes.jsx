@@ -28,6 +28,7 @@ export const createRoutes = (store) => {
 
   const onEnterUnauth = (nextState, replace) => {
     if (store.getState().loggedIn) replace('/main');
+    // else if (store.getState().local && !store.getState().loggedIn) replace('/creationoklocal');
   };
 
   return {

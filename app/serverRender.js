@@ -77,9 +77,11 @@ export default (req, res) => {
     });
   } else {
     // redirect to login if not logged in
+    const initialState = { message: { message: '', type: '' }, local: false };
     if (req.url !== '/login') return res.redirect(302, '/login');
+    // else if (req.url === '/createlocal') initialState.local = true;
     // const initialState = {};
-    const initialState = { message: { message: '', type: '' } };
+    // const initialState = { message: { message: '', type: '' }, local: false };
     const store = createStore(reducer, initialState);
     const routes = createRoutes(store);
     return renderHelper(res, req.url, routes, store);

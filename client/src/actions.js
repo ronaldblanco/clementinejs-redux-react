@@ -64,7 +64,7 @@ export const deldata = () => (dispatch) => {
     ajax('GET', '/api/:id/info')
     .then(data => {
       const nDatas = data.data;
-      //console.log(nDatas);
+      // console.log(nDatas);
       dispatch(setDatas(nDatas));
       /* eslint-disable no-console */
     }, error => { console.log(error); });
