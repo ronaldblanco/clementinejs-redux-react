@@ -16,7 +16,7 @@ export default function (passport) {
 
   passport.use(new GitHubStrategy({
     clientID: configAuth.githubAuth.clientID,
-		clientSecret: configAuth.githubAuth.clientSecret,
+    clientSecret: configAuth.githubAuth.clientSecret,
     callbackURL: configAuth.githubAuth.callbackURL,
   }, (token, refreshToken, profile, done) => {
     process.nextTick(() => {
