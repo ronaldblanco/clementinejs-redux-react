@@ -30,9 +30,9 @@ const app = express();
 mongoose.connect(process.env.MONGODB_URI ||
   process.env.MONGO_URI || process.env.MONGOLAB_URI);
 
-if (process.env.NODE_ENV === 'development') app.use('/', express.static(`${process.cwd()}/public`));
+/* if (process.env.NODE_ENV === 'development') app.use('/', express.static(`${process.cwd()}/public`));
 else if (process.env.NODE_ENV === 'production') app.use('/', express.static(`${process.cwd()}/dist/public`));
-else app.use('/', express.static(`${process.cwd()}/public`));
+else */ app.use('/', express.static(`${process.cwd()}/dist/public`));
 /////EMAIL CONFIG////////////////////////////////////////////////////////////////////////////
 app.use('/emailjs', express.static(process.cwd() + '/node_modules/emailjs'));
 ////////////////////////////////////////////////////////////////////////////////////

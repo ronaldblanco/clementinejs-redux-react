@@ -7,11 +7,10 @@ And The version [Clementinejs-pnald](https://github.com/ronaldblanco/clementinej
 
 To Run:<br>
 
-"npm run start" to run the server for production<br>
-"npm run production" to run the server for production<br>
-"npm run development" to run the server for development<br>
-"npm run build" to build production<br>
-"npm run build_dev" to build development<br>
+NODE_ENV=production or development<br>
+"npm run start" to run the server<br>
+"npm run build" to build production and development in /dist/public folder<br>
+"npm run build_dev" to build directly to /public folder<br>
 "npm run lint" to test with lint<br>
 
 ## Overview
