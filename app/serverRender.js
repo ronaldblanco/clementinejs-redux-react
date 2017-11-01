@@ -64,12 +64,15 @@ export default (req, res) => {
     Users.findOne({ 'twitter.id': user.id }, (err, response) => {
       if (err) return res.status(500).send(err.message);
       const initialState = {
-        counter: response.nbrClicks.clicks,
-        clicks: response.nbrClicks.clicks,
-        loggedIn: true,
-        user,
-        data: response.info.data || [],
-        message: { message: '', type: '' },
+        mainReducer: {
+          counter: response.nbrClicks.clicks,
+          clicks: response.nbrClicks.clicks,
+          loggedIn: true,
+          user,
+          data: response.info.data || [],
+          message: { message: '', type: '' },
+        }
+        
       };
       const store = createStore(reducer, initialState);
       const routes = createRoutes(store);
@@ -77,7 +80,13 @@ export default (req, res) => {
     });
   } else {
     // redirect to login if not logged in
-    const initialState = { message: { message: '', type: '' }, local: false };
+    const initialState = {
+      mainReducer: {
+        message: { message: '', type: '' },
+        local: false
+      }
+      
+    };
     if (req.url !== '/login') return res.redirect(302, '/login');
     // else if (req.url === '/createlocal') initialState.local = true;
     // const initialState = {};

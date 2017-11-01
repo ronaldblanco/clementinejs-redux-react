@@ -2,10 +2,14 @@ import React from 'react';
 import { MainContainer as Main } from './components/main.jsx';
 import Login from './components/login.jsx';
 import { AuthLocal } from './components/localauth/AuthLocal.jsx';
-import { CreateLocal } from './components/localauth/CreateLocal.jsx';
+// import { CreateLocal } from './components/localauth/CreateLocal.jsx';
+import CreateLocalComponent from './components/localauth/CreateLocal.jsx';
 import { ResetLocalContainer as ResetLocal } from './components/localauth/ResetLocal.jsx';
 import { CreationOkLocal } from './components/localauth/CreationOkLocal.jsx';
 import { ProfileContainer as Profile } from './components/profile.jsx';
+
+// console.log(CreateLocalComponent);
+// console.log(CreateLocalComponent);
 
 const App = ({ children }) => (
   <div>
@@ -41,7 +45,7 @@ export const createRoutes = (store) => {
       { path: 'profile', component: Profile, onEnterAuth },
       { path: 'login', component: Login, onEnterUnauth },
       { path: 'authlocal', component: AuthLocal, onEnterUnauth },
-      { path: 'createlocal', component: CreateLocal, onEnterUnauth },
+      { path: 'createlocal', component: CreateLocalComponent, onEnterUnauth },
       { path: 'resetlocal', component: ResetLocal, onEnterUnauth },
       { path: 'creationoklocal', component: CreationOkLocal, onEnterUnauth },
     ],

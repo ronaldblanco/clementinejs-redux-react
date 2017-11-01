@@ -1,11 +1,12 @@
 let React = require('react');
 let Link = require('react-router').Link;
+import { Field, reduxForm } from 'redux-form';
 
-/* module.exports = React.createClass({
-	render: function() {
-		return (*/
-export const CreateLocal = () => (
-  <div className="container">
+const CreateLocal = (props) => {
+  console.log(props);
+  const { handleSubmit, pristine, reset, submitting } = props;
+  return (
+    <div className="container">
     <div className="" id="message"></div>
     <div>
       <img src="img/clementine_150.png" role="presentation" />
@@ -23,46 +24,50 @@ export const CreateLocal = () => (
       <h5>A Valid Email as your username is necesary for the reset password option!</h5>
     </div>
     <div>
-      <form action="/auth/localnew" method="post">
+  
+      <form action="/auth/localnew" method="post" onSubmit={handleSubmit}>
         <h3>CREATE LOCAL USER</h3>
         <div className="form-group">
           <div>
             <label>Username:</label>
-            <input
-              type="text"
-              name="username"
-              className="form-control"
-              placeholder="Username or Email"
-            />
+              <Field name="username" component="input" type="text" placeholder="Username or Email" />
+            
             <br />
           </div>
           <div>	<label>Display Name:</label>
-            <input
-              type="text"
-              name="display"
-              className="form-control"
-              placeholder="Display Name"
-            />
+            <Field name="display" component="input" type="text" />
+            
             <br />
           </div>
           <div>	<label>Password:</label>
-            <input
-              type="password"
-              name="password"
-              className="form-control"
-              placeholder="Password"
-            />
+            <Field name="password" component="input" type="password" placeholder="Password" />
+            
           </div>
         </div><br />
         <div className="form-group">
           <div>
-            <input type="submit" className="btn btn-primary" value="Submit" />
+            
+            <button type="submit" disabled={pristine || submitting}>Submit</button>
+            <button type="button" disabled={pristine || submitting} onClick={reset}>Clear Values</button>
           </div>
         </div>
       </form>
+    
     </div>
   </div>
-);
-/*		);
-	}
-});*/
+  );
+};
+// console.log(CreateLocal);
+// create new, "configured" function
+const createReduxForm = reduxForm({ form: 'simpleCreateLocal' });
+// console.log(createReduxForm);
+// evaluate it for ContactForm component
+const CreateLocalComponent = createReduxForm( CreateLocal );
+// console.log(CreateLocalComponent);
+export default CreateLocalComponent;
+
+/* export default reduxForm({
+  form: 'simpleCreateLocal'  // a unique identifier for this form
+})(CreateLocal) */
+
+// <input type="submit" className="btn btn-primary" value="Submit" />
