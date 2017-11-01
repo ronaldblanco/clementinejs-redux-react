@@ -4,6 +4,7 @@ import Login from './components/login.jsx';
 import { AuthLocal } from './components/localauth/AuthLocal.jsx';
 // import { CreateLocal } from './components/localauth/CreateLocal.jsx';
 import CreateLocalComponent from './components/localauth/CreateLocal.jsx';
+//import CreateLocalPage from './components/localauth/CreateLocalContainer.jsx';
 import { ResetLocalContainer as ResetLocal } from './components/localauth/ResetLocal.jsx';
 import { CreationOkLocal } from './components/localauth/CreationOkLocal.jsx';
 import { ProfileContainer as Profile } from './components/profile.jsx';

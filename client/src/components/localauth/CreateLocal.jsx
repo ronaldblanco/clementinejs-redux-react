@@ -4,7 +4,7 @@ import { Field, reduxForm } from 'redux-form';
 
 const CreateLocal = (props) => {
   console.log(props);
-  const { handleSubmit, pristine, reset, submitting } = props;
+  const { /*handleSubmit,*/ pristine, reset, submitting } = props;
   return (
     <div className="container">
     <div className="" id="message"></div>
@@ -24,29 +24,24 @@ const CreateLocal = (props) => {
       <h5>A Valid Email as your username is necesary for the reset password option!</h5>
     </div>
     <div>
-  
-      <form action="/auth/localnew" method="post" onSubmit={handleSubmit}>
+      <form action="/auth/localnew" method="post" >
         <h3>CREATE LOCAL USER</h3>
         <div className="form-group">
           <div>
             <label>Username:</label>
               <Field name="username" component="input" type="text" placeholder="Username or Email" />
-            
             <br />
           </div>
           <div>	<label>Display Name:</label>
             <Field name="display" component="input" type="text" />
-            
             <br />
           </div>
           <div>	<label>Password:</label>
             <Field name="password" component="input" type="password" placeholder="Password" />
-            
           </div>
         </div><br />
         <div className="form-group">
           <div>
-            
             <button type="submit" disabled={pristine || submitting}>Submit</button>
             <button type="button" disabled={pristine || submitting} onClick={reset}>Clear Values</button>
           </div>
@@ -57,7 +52,7 @@ const CreateLocal = (props) => {
   </div>
   );
 };
-// console.log(CreateLocal);
+// console.log(CreateLocal);  // onSubmit={handleSubmit}
 // create new, "configured" function
 const createReduxForm = reduxForm({ form: 'simpleCreateLocal' });
 // console.log(createReduxForm);
