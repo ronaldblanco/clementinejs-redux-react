@@ -2,9 +2,16 @@ let React = require('react');
 let Link = require('react-router').Link;
 import { Field, reduxForm } from 'redux-form';
 
+import { connect } from 'react-redux';
+
+/* const submit = (values) => {
+  // print the form values to the console
+  console.log(values);
+}; */
+
 const CreateLocal = (props) => {
   console.log(props);
-  const { /*handleSubmit,*/ pristine, reset, submitting } = props;
+  const { /* handleSubmit, */ pristine, reset, submitting, onSubmit } = props;
   return (
     <div className="container">
     <div className="" id="message"></div>
@@ -24,20 +31,20 @@ const CreateLocal = (props) => {
       <h5>A Valid Email as your username is necesary for the reset password option!</h5>
     </div>
     <div>
-      <form action="/auth/localnew" method="post" >
+      <form action="/auth/localnew" method="post" onSubmit={onSubmit} >
         <h3>CREATE LOCAL USER</h3>
         <div className="form-group">
           <div>
             <label>Username:</label>
-              <Field name="username" component="input" type="text" placeholder="Username or Email" />
+              <Field name="username" component="input" type="text" placeholder="Username or Email" className="form-control" />
             <br />
           </div>
           <div>	<label>Display Name:</label>
-            <Field name="display" component="input" type="text" />
+            <Field name="display" component="input" type="text" placeholder="Display Name" className="form-control" />
             <br />
           </div>
           <div>	<label>Password:</label>
-            <Field name="password" component="input" type="password" placeholder="Password" />
+            <Field name="password" component="input" type="password" placeholder="Password" className="form-control" />
           </div>
         </div><br />
         <div className="form-group">
@@ -52,6 +59,13 @@ const CreateLocal = (props) => {
   </div>
   );
 };
+
+
+/* function mapStateToProps(state) {
+  return {
+    onSubmit: submit,
+  };
+} */
 // console.log(CreateLocal);  // onSubmit={handleSubmit}
 // create new, "configured" function
 const createReduxForm = reduxForm({ form: 'simpleCreateLocal' });
@@ -60,6 +74,7 @@ const createReduxForm = reduxForm({ form: 'simpleCreateLocal' });
 const CreateLocalComponent = createReduxForm( CreateLocal );
 // console.log(CreateLocalComponent);
 export default CreateLocalComponent;
+// export const CreateLocalContainer = connect(mapStateToProps)( CreateLocal );
 
 /* export default reduxForm({
   form: 'simpleCreateLocal'  // a unique identifier for this form
