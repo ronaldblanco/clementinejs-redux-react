@@ -2,18 +2,18 @@ let React = require('react');
 let Link = require('react-router').Link;
 import { Field, reduxForm } from 'redux-form';
 
-/*import { getFormValues_simpleCreateLocal } from '../../reducer';
-import { connect } from 'react-redux';*/
+/* import { getFormValues_simpleCreateLocal } from '../../reducer';
+import { connect } from 'react-redux'; */
 
-const onSubmit = (values) => {
+/* const onSubmit = (values) => {
   console.log(values);
-  window.alert(`You submitted:\n\n${JSON.stringify(values/*, null, 2*/)}`);
-}; 
+  window.alert(`You submitted:\n\n${JSON.stringify(values, null, 2)}`);
+}; */
 
 const CreateLocal = (props) => {
    console.log(props);
   
-  const { /*handleSubmit,*/ pristine, reset, submitting/*, onSubmit*/ } = props;
+  const { /*handleSubmit,*/ pristine, reset, submitting/*, onSubmit */ } = props;
   return (
     <div className="container">
     <div className="" id="message"></div>
@@ -28,12 +28,13 @@ const CreateLocal = (props) => {
         Reset Local Password
       </Link>
       <Link className="menu" to={"/login"}>Return to Login Page</Link>
+      <Link className="menu" id="login-btn" to={"/creationoklocal"}>creationoklocal</Link>
     </div>
     <div className="alert alert-warning">
       <h5>A Valid Email as your username is necesary for the reset password option!</h5>
     </div>
     <div>
-      <form action="/auth/localnew" method="post" onSubmit={ /*props.route.onSubmit*/ onSubmit /*props.handleSubmit*/ } >
+      <form action="/auth/localnew" method="post" onSubmit={ props.route.onSubmit /*onSubmit*/ /*props.handleSubmit*/ /*showResults*/ /*handleSubmit*/ } >
         <h3>CREATE LOCAL USER</h3>
         <div className="form-group">
           <div>

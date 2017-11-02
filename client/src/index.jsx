@@ -17,7 +17,7 @@ const initialState = window.__INITIAL_STATE__;
 const store = createStore(
   reducer,
   initialState,
-  applyMiddleware(thunk) /* + window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__() */
+  applyMiddleware(thunk)  + window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__() 
 );
 
 const routes = createRoutes(store);

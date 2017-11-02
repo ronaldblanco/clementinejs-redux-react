@@ -24,6 +24,15 @@ import { ProfileContainer as Profile } from './components/profile.jsx';
   window.alert(`You submitted:\n\n${JSON.stringify(values, null, 2)}`);
 }; */
 
+const showResults = values =>
+  new Promise(resolve => {
+    ////setTimeout(() => {
+      // simulate server latency
+      window.alert(`You submitted:\n\n${JSON.stringify(values, null, 2)}`);
+      resolve();
+    ////}, 500);
+  });
+
 const App = ({ children }) => (
   <div>
     {children}
@@ -39,13 +48,23 @@ App.propTypes = {
 
 
 export const createRoutes = (store) => {
+
   const onEnterAuth = (nextState, replace) => {
-    if (!store.getState().loggedIn) replace('/login');
+    if (!store.getState().mainReducer.loggedIn) replace('/login');
   };
 
   const onEnterUnauth = (nextState, replace) => {
-    if (store.getState().loggedIn) replace('/main');
-    // else if (store.getState().local && !store.getState().loggedIn) replace('/creationoklocal');
+    if (store.getState().mainReducer.loggedIn) replace('/main');
+  };
+  
+  const onEnterCreateUser = (nextState, replace) => {
+    console.log(store.getState().form);
+    if (store.getState().form.simpleCreateLocal.values) replace('/creationoklocal');
+    else if (!store.getState().form.simpleCreateLocal.values) replace('/createlocal');
+  };
+  
+  const onEnterContinue = (nextState, replace) => {
+    console.log(store.getState().form);
   };
   
   return {
@@ -57,10 +76,10 @@ export const createRoutes = (store) => {
       { path: 'main', component: Main, onEnterAuth },
       { path: 'profile', component: Profile, onEnterAuth },
       { path: 'login', component: Login, onEnterUnauth },
-      { path: 'authlocal', component: AuthLocalComponent, onEnterUnauth },
-      { path: 'createlocal', component: CreateLocalComponent/*, onSubmit: onSubmit*/, onEnterUnauth },
+      { path: 'authlocal', component: AuthLocalComponent, onSubmit: showResults, onEnterUnauth },
+      { path: 'createlocal', component: CreateLocalComponent, onSubmit: showResults, onEnterCreateUser },
       { path: 'resetlocal', component: ResetLocal, onEnterUnauth },
-      { path: 'creationoklocal', component: CreationOkLocal, onEnterUnauth },
+      { path: 'creationoklocal', component: CreationOkLocal, onEnterContinue },
     ],
   };
 };

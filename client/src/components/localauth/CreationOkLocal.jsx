@@ -10,8 +10,8 @@ export const CreationOkLocal = () => (
       <img src="img/clementine_150.png" role="presentation" />
       <br />
       <p className="clementine-text">Clementine.js</p>
-      <Link className="menu" to={"/LocalCreate"}>Create Local User</Link>
-      <Link className="menu" to={"/LocalReset"}>Reset Local Password</Link>
+      <Link className="menu" to={"/createlocal"}>Create Local User</Link>
+      <Link className="menu" to={"/resetlocal"}>Reset Local Password</Link>
       <Link className="menu" to={"/login"}>Return to Login Page</Link>
     </div>
     <div>

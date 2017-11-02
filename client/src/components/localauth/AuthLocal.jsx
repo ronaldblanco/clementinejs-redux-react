@@ -2,10 +2,10 @@ let React = require('react');
 let Link = require('react-router').Link;
 import { Field, reduxForm } from 'redux-form';
 
-const onSubmit = (values) => {
+/* const onSubmit = (values) => {
   console.log(values);
-  window.alert(`You submitted:\n\n${JSON.stringify(values/*, null, 2*/)}`);
-}; 
+  window.alert(`You submitted:\n\n${JSON.stringify(values, null, 2)}`);
+}; */ 
 
 /* module.exports = React.createClass({
 	render: function() {
@@ -31,7 +31,7 @@ const AuthLocal = (props) => {
       <Link className="menu" to={"/login"}>Return to Login Page</Link>
     </div>
     <div>
-      <form action="/auth/local" method="post" onSubmit={ /*props.route.onSubmit*/ onSubmit /*props.handleSubmit*/ } >
+      <form action="/auth/local" method="post" onSubmit={ props.route.onSubmit /*onSubmit*/ /*props.handleSubmit*/ } >
         <h3>LOGIN LOCAL USER</h3>
         <div className="form-group">
           <div>
