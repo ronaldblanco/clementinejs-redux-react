@@ -2,16 +2,18 @@ let React = require('react');
 let Link = require('react-router').Link;
 import { Field, reduxForm } from 'redux-form';
 
-import { connect } from 'react-redux';
+/*import { getFormValues_simpleCreateLocal } from '../../reducer';
+import { connect } from 'react-redux';*/
 
-/* const submit = (values) => {
-  // print the form values to the console
+const onSubmit = (values) => {
   console.log(values);
-}; */
+  window.alert(`You submitted:\n\n${JSON.stringify(values/*, null, 2*/)}`);
+}; 
 
 const CreateLocal = (props) => {
-  console.log(props);
-  const { /* handleSubmit, */ pristine, reset, submitting, onSubmit } = props;
+   console.log(props);
+  
+  const { /*handleSubmit,*/ pristine, reset, submitting/*, onSubmit*/ } = props;
   return (
     <div className="container">
     <div className="" id="message"></div>
@@ -31,7 +33,7 @@ const CreateLocal = (props) => {
       <h5>A Valid Email as your username is necesary for the reset password option!</h5>
     </div>
     <div>
-      <form action="/auth/localnew" method="post" onSubmit={onSubmit} >
+      <form action="/auth/localnew" method="post" onSubmit={ /*props.route.onSubmit*/ onSubmit /*props.handleSubmit*/ } >
         <h3>CREATE LOCAL USER</h3>
         <div className="form-group">
           <div>
@@ -49,11 +51,13 @@ const CreateLocal = (props) => {
         </div><br />
         <div className="form-group">
           <div>
-            <button type="submit" disabled={pristine || submitting}>Submit</button>
-            <button type="button" disabled={pristine || submitting} onClick={reset}>Clear Values</button>
+            <button type="submit" disabled={pristine || submitting} className="btn btn-primary" >Submit</button>
+            <button type="button" disabled={pristine || submitting} onClick={reset} className="btn btn-primary" >Clear Values</button>
           </div>
         </div>
       </form>
+      
+      
     
     </div>
   </div>
@@ -63,10 +67,10 @@ const CreateLocal = (props) => {
 
 /* function mapStateToProps(state) {
   return {
-    onSubmit: submit,
+    onSubmit: onSubmit(getFormValues_simpleCreateLocal(state)),
   };
 } */
-// console.log(CreateLocal);  // onSubmit={handleSubmit}
+// console.log(CreateLocal);  // onSubmit={handleSubmit} // action="/auth/localnew" method="post"
 // create new, "configured" function
 const createReduxForm = reduxForm({ form: 'simpleCreateLocal' });
 // console.log(createReduxForm);
