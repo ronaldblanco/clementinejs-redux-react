@@ -23,7 +23,7 @@ const CreateLocal = (props) => {
         Reset Local Password
       </Link>
       <Link className="menu" to={"/login"}>Return to Login Page</Link>
-      <Link className="menu" id="login-btn" to={"/creationoklocal"}>creationoklocal</Link>
+      <Link className="menu" id="login-btn" to={"/fieldarraysform"}>fieldarraysform</Link>
     </div>
     <div className="alert alert-warning">
       <h5>A Valid Email as your username is necesary for the reset password option!</h5>
@@ -58,7 +58,7 @@ const CreateLocal = (props) => {
 };
 
 const createReduxForm = reduxForm({
-  form: 'simpleCreateLocal',
+  form: 'simpleCreateLocal', // a unique identifier for this form
   validate, // <--- validation function given to redux-form
   warn // <--- warning function given to redux-form
   });
