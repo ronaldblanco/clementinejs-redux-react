@@ -90,3 +90,25 @@ export const resetlocal = () => (dispatch) => {
 };
 
 // //////////////////////////////////////////////////////////////////////////////////////
+// FORM ACTIONS POSIBILITY
+
+const getData = (apiName, args) =>
+    fetch(settings.basePath + getUrl(apiName, args))
+        .then(response =>
+    response.json()
+    ).catch(error => {
+        return error;
+    });
+    
+const submitFormValues = (values) => (dispatch) =>
+        getData("submitApproveForm", values).then(response => {
+            dispatch(formSubmissionError(response))
+        }).catch(error => {
+            throw (error);
+        });
+
+const formSubmissionError = (response) =>
+    ({
+        type: 'FORM_SUBMISSION_ERROR',
+        basicFormResponse: { ...response}
+    });

@@ -1,14 +1,26 @@
 let React = require('react');
 let Link = require('react-router').Link;
 import { Field, reduxForm } from 'redux-form';
+import { connect } from 'react-redux';
 
 import { validate, warn } from './validation';
 import renderField from './validation';
 
+/*const onSubmit = (values, dispatch) => {
+ // dispatch(    // your submit action //      );
+ window.alert(`You submitted:\n\n${JSON.stringify(values, null, 2)}`);
+};*/
+const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
+const onSubmit = (/*async*/ function showResults(values, dispatch) {
+  // dispatch(    // your submit action //      );
+  /*await*/ sleep(500); // simulate server latency
+  window.alert(`You submitted:\n\n${JSON.stringify(values, null, 2)}`);
+});
+
 const AuthLocal = (props) => {
    console.log(props);
   
-  const { /*handleSubmit,*/ pristine, reset, submitting/*, onSubmit*/ } = props;
+  const { handleSubmit, pristine, reset, submitting/*, onSubmit*/ } = props;
   return (
   <div className="container">
     <div className="" id="message"></div>
@@ -25,7 +37,7 @@ const AuthLocal = (props) => {
       <Link className="menu" to={"/login"}>Return to Login Page</Link>
     </div>
     <div>
-      <form action="/auth/local" method="post" onSubmit={ props.route.onSubmit /*onSubmit*/ /*props.handleSubmit*/ } >
+      <form action="/auth/local" method="post" onSubmit={ /*props.route.onSubmit*/ /*onSubmit*/ /*props.handleSubmit*/ handleSubmit } >
         <h3>LOGIN LOCAL USER</h3>
         <div className="form-group">
           <div>
@@ -51,11 +63,12 @@ const AuthLocal = (props) => {
   
   );
 };
-
+// onSubmit={ /*props.route.onSubmit*/ /*onSubmit*/ /*props.handleSubmit*/ handleSubmit }
 const createReduxForm = reduxForm({ 
   form: 'simpleAuthLocal', // a unique identifier for this form
+  onSubmit,
   validate, // <--- validation function given to redux-form
   warn // <--- warning function given to redux-form
   });
 const AuthLocalComponent = createReduxForm( AuthLocal );
-export default AuthLocalComponent;
+export default connect()(AuthLocalComponent);

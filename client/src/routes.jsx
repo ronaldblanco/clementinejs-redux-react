@@ -12,6 +12,8 @@ import { ProfileContainer as Profile } from './components/profile.jsx';
 
 import FieldArraysForm from './components/FieldArraysForm.jsx';
 
+//import showResults from './components/showresults';
+
 /*import {
 //  Code,
 //  Markdown,
@@ -26,14 +28,21 @@ import FieldArraysForm from './components/FieldArraysForm.jsx';
   window.alert(`You submitted:\n\n${JSON.stringify(values, null, 2)}`);
 }; */
 
-const showResults = values =>
+/* const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
+
+const showResults = (async function showResults(values) {
+  await sleep(500); // simulate server latency
+  window.alert(`You submitted:\n\n${JSON.stringify(values, null, 2)}`);
+}); */
+
+/* const showResults = values =>
   new Promise(resolve => {
     ////setTimeout(() => {
       // simulate server latency
       window.alert(`You submitted:\n\n${JSON.stringify(values, null, 2)}`);
       resolve();
     ////}, 500);
-  });
+  }); */
 
 const App = ({ children }) => (
   <div>
@@ -78,12 +87,12 @@ export const createRoutes = (store) => {
       { path: 'main', component: Main, onEnterAuth },
       { path: 'profile', component: Profile, onEnterAuth },
       { path: 'login', component: Login, onEnterUnauth },
-      { path: 'authlocal', component: AuthLocalComponent, onSubmit: showResults, onEnterUnauth },
-      { path: 'createlocal', component: CreateLocalComponent, onSubmit: showResults, onEnterCreateUser },
+      { path: 'authlocal', component: AuthLocalComponent/*, onSubmit: showResults*/, onEnterUnauth },
+      { path: 'createlocal', component: CreateLocalComponent/*, onSubmit: showResults*/, onEnterCreateUser },
       { path: 'resetlocal', component: ResetLocal, onEnterUnauth },
       { path: 'creationoklocal', component: CreationOkLocal, onEnterContinue },
       
-      { path: 'fieldarraysform', component: FieldArraysForm, onSubmit: showResults, onEnterUnauth },
+      { path: 'fieldarraysform', component: FieldArraysForm/*, onSubmit: showResults*/, onEnterUnauth },
     ],
   };
 };
