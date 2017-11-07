@@ -15,7 +15,7 @@ export default function (app, passport, passportGitHub, emailServer, passportLoc
   function isNotLoggedIn(req, res, next) {
     return next();
   }
-  
+
   const clickHandler = new ClickHandler();
   const dataHandler = new DataHandler();
   const userHandler = new UserHandler(emailServer);
@@ -105,8 +105,8 @@ export default function (app, passport, passportGitHub, emailServer, passportLoc
 		});*/
 		.get((req, res) => res.sendFile(`${path}/public/usercreationOK.html`)
 		);
-		
-	app.route('/auth/form')
+
+  app.route('/auth/form')
 		.get(isNotLoggedIn, userHandler.formValues);
 	// ///////////////////////////////////////////////////////////////
 }

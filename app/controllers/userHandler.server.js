@@ -64,9 +64,9 @@ function UserHandler(emailServer) {
             });
           }
         });
-        let message = {};
-        message.message = 'The User was created correctly!';
-        message.type = 'alert alert-success';
+    // let message = {};
+    message.message = 'The User was created correctly!';
+    message.type = 'alert alert-success';
     // res.send({form: form});
     res.send(message);
   };

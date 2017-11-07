@@ -1,6 +1,6 @@
-import React from 'react'
-import { Field, FieldArray, reduxForm } from 'redux-form'
-import validate from './validate'
+import React from 'react';
+import { Field, FieldArray, reduxForm } from 'redux-form';
+import validate from './validate';
 
 const renderField = ({ input, label, type, meta: { touched, error } }) => (
   <div>
@@ -10,7 +10,7 @@ const renderField = ({ input, label, type, meta: { touched, error } }) => (
       {touched && error && <span>{error}</span>}
     </div>
   </div>
-)
+);
 
 const renderHobbies = ({ fields, meta: { error } }) => (
   <ul>
@@ -36,7 +36,7 @@ const renderHobbies = ({ fields, meta: { error } }) => (
     ))}
     {error && <li className="error">{error}</li>}
   </ul>
-)
+);
 
 const renderMembers = ({ fields, meta: { error, submitFailed } }) => (
   <ul>
@@ -70,10 +70,10 @@ const renderMembers = ({ fields, meta: { error, submitFailed } }) => (
       </li>
     ))}
   </ul>
-)
+);
 
 const FieldArraysForm = props => {
-  const { /*handleSubmit,*/ pristine, reset, submitting } = props
+  const { /*handleSubmit,*/ pristine, reset, submitting } = props;
   return (
     <form onSubmit={/*handleSubmit*/props.route.onSubmit}>
       <Field
@@ -92,10 +92,10 @@ const FieldArraysForm = props => {
         </button>
       </div>
     </form>
-  )
-}
+  );
+};
 
 export default reduxForm({
   form: 'fieldArrays', // a unique identifier for this form
   validate
-})(FieldArraysForm)
+})(FieldArraysForm);

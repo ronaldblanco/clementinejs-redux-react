@@ -15,7 +15,7 @@ import { onSubmit } from '../../actions';
 // export const CreationOkLocal = () => (
 const CreateOkLocal = (props) => {
   console.log(props);
-  const { handleSubmit, pristine, reset, submitting/* , onSubmit */ } = props;
+  const { /* handleSubmit,*/ pristine, reset, submitting/* , onSubmit */ } = props;
   return (
     <div className="container" >
       <div>
@@ -84,6 +84,13 @@ const CreateOkLocal = (props) => {
 /*		);
 	}
 });*/
+
+CreateOkLocal.propTypes = {
+  handleSubmit: React.PropTypes.function,
+  pristine: React.PropTypes.function,
+  reset: React.PropTypes.function,
+  submitting: React.PropTypes.function,
+};
 
 const createReduxForm = reduxForm({
   form: 'simpleCreateOkLocal', // a unique identifier for this form

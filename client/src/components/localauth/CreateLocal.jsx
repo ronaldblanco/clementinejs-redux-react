@@ -30,7 +30,7 @@ const onSubmit = (function showResults(values, dispatch) {
 
 const CreateLocal = (props) => {
   console.log(props);
-  const { handleSubmit, pristine, reset, submitting/* , onSubmit */ } = props;
+  const { /* handleSubmit,*/ pristine, reset, submitting/* , onSubmit */ } = props;
   return (
     <div className="container">
       <div id="message"></div>
@@ -111,11 +111,14 @@ const CreateLocal = (props) => {
   );
 };
 
-/* CreateLocal.propTypes = {
-  message: React.PropTypes.object,
+CreateLocal.propTypes = {
+  handleSubmit: React.PropTypes.function,
+  pristine: React.PropTypes.function,
+  reset: React.PropTypes.function,
+  submitting: React.PropTypes.function,
 };
 
-function mapStateToProps(state) {
+/* function mapStateToProps(state) {
   return {
     message: getMess(state),
   };

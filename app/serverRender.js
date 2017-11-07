@@ -72,8 +72,8 @@ export default (req, res) => {
           user,
           data: response.info.data || [],
           message: { message: '', type: '' },
-        }
-        
+        },
+
       };
       const store = createStore(reducer, initialState);
       const routes = createRoutes(store);
@@ -86,8 +86,8 @@ export default (req, res) => {
         message: { message: '', type: '' },
         local: false,
         newUser: {},
-      }
-      
+      },
+
     };
     if (req.url !== '/login' && req.url !== '/creationoklocal') return res.redirect(302, '/login');
     // else if (req.url === '/createlocal') initialState.local = true;

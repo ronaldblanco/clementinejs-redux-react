@@ -92,14 +92,21 @@ export const resetlocal = () => (dispatch) => {
 // //////////////////////////////////////////////////////////////////////////////////////
 // FORM ACTIONS POSIBILITY
 
-export const onSubmit = (values, dispatch/*, getState*/) => {
- dispatch( {type: 'NEW_USER', user: values} );
- // ajax('GET', `/auth/form?username=${values.username}?display=${values.display}?password=${values.password}`).then(data => {
- ajax('POST', `/auth/localnew`).then(data => {
+export const onSubmit = (values, dispatch/* , getState */) => {
+  dispatch({ type: 'NEW_USER', user: values });
+  /* ajax(
+  'GET',
+  `/auth/form?username=${values.username}?display=${values.display}?password=${values.password}`
+  )
+  .then(data => { */
+  ajax('POST', '/auth/localnew').then(data => {
+    console.log(data);
     // dispatch(setMess({ message: data.message, type: data.type }));
     /* eslint-disable no-console */
   }, error => { console.log(error); });
   /* eslint-enable no-console */
- // window.location.replace(`/auth/form?username=${values.username}?display=${values.display}?password=${values.password}`);
+ /* window.location.replace(
+ `/auth/form?username=${values.username}?display=${values.display}?password=${values.password}`
+ );*/
  // window.alert(`You submitted:\n\n${JSON.stringify(values, null, 2)}`);
 };
