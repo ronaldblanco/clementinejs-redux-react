@@ -1,6 +1,6 @@
 let React = require('react');
 
-export const validate = (values/*, registeredFields*/) => {
+export const validate = (values/* , registeredFields */) => {
   const errors = {};
   if (!values.username) {
     errors.username = 'Required';
@@ -35,11 +35,12 @@ export const warn = values => {
   return warnings;
 };
 
+/* eslint-disable react/prop-types */
 const renderField = ({
   input,
   label,
   type,
-  meta: { touched, error, warning }
+  meta: { touched, error, warning },
 }) => (
   <div>
     <label>{label}</label>
@@ -51,5 +52,5 @@ const renderField = ({
     </div>
   </div>
 );
-
+/* eslint-enable react/prop-types */
 export default renderField;

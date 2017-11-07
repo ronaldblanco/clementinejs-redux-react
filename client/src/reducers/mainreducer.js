@@ -45,7 +45,14 @@ function newuser(state, user) {
   return newState;
 }
 
-const initState = { clicks: 0, loggedIn: false, data: [], message: { message: '', type: '' }, newUser: {}, local: false };
+const initState = {
+  clicks: 0,
+  loggedIn: false,
+  data: [],
+  message: { message: '', type: '' },
+  newUser: {},
+  local: false,
+};
 
 export default (state = initState, action) => {
   switch (action.type) {

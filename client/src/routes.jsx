@@ -13,14 +13,14 @@ import { ProfileContainer as Profile } from './components/profile.jsx';
 
 import FieldArraysForm from './components/FieldArraysForm.jsx';
 
-//import showResults from './components/showresults';
+// import showResults from './components/showresults';
 
-/*import {
+/* import {
 //  Code,
 //  Markdown,
   Values,
 //  generateExampleBreadcrumbs
-} from 'redux-form-website-template'*/
+} from 'redux-form-website-template' */
 
 // console.log(CreateLocalComponent);
 // console.log(CreateLocalComponent);
@@ -60,7 +60,6 @@ App.propTypes = {
 
 
 export const createRoutes = (store) => {
-
   const onEnterAuth = (nextState, replace) => {
     if (!store.getState().mainReducer.loggedIn) replace('/login');
   };
@@ -68,17 +67,21 @@ export const createRoutes = (store) => {
   const onEnterUnauth = (nextState, replace) => {
     if (store.getState().mainReducer.loggedIn) replace('/main');
   };
-  
+
   const onEnterCreateUser = (nextState, replace) => {
-    console.log(store.getState().form);
+    /* eslint-disable no-console */
+    console.log(store.getState());
+    /* eslint-enable no-console */
     if (store.getState().form.simpleCreateLocal.values) replace('/creationoklocal');
     else if (!store.getState().form.simpleCreateLocal.values) replace('/createlocal');
   };
-  
-  const onEnterContinue = (nextState, replace) => {
-    console.log(store.getState().form);
+
+  const onEnterContinue = (/* nextState , replace */) => {
+    /* eslint-disable no-console */
+    console.log(store.getState());
+    /* eslint-enable no-console */
   };
-  
+
   return {
     path: '/',
     component: App,
@@ -88,12 +91,11 @@ export const createRoutes = (store) => {
       { path: 'main', component: Main, onEnterAuth },
       { path: 'profile', component: Profile, onEnterAuth },
       { path: 'login', component: Login, onEnterUnauth },
-      { path: 'authlocal', component: AuthLocalComponent/*, onSubmit: showResults*/, onEnterUnauth },
-      { path: 'createlocal', component: CreateLocalComponent/*, onSubmit: showResults*/, onEnterCreateUser },
+      { path: 'authlocal', component: AuthLocalComponent, onEnterUnauth },
+      { path: 'createlocal', component: CreateLocalComponent, onEnterCreateUser },
       { path: 'resetlocal', component: ResetLocal, onEnterUnauth },
       { path: 'creationoklocal', component: CreateLocalOkComponent, onEnterContinue },
-      
-      { path: 'fieldarraysform', component: FieldArraysForm/*, onSubmit: showResults*/, onEnterUnauth },
+      { path: 'fieldarraysform', component: FieldArraysForm, onEnterUnauth },
     ],
   };
 };
