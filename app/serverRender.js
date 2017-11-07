@@ -57,6 +57,7 @@ const renderHelper = (res, location, routes, store) => {
 };
 
 export default (req, res) => {
+  console.log(req.originalUrl);
   if (req.isAuthenticated()) {
     const user = req.user.twitter;
     // redirect to main if logged in
@@ -83,11 +84,12 @@ export default (req, res) => {
     const initialState = {
       mainReducer: {
         message: { message: '', type: '' },
-        local: false
+        local: false,
+        newUser: {},
       }
       
     };
-    if (req.url !== '/login') return res.redirect(302, '/login');
+    if (req.url !== '/login' && req.url !== '/creationoklocal') return res.redirect(302, '/login');
     // else if (req.url === '/createlocal') initialState.local = true;
     // const initialState = {};
     // const initialState = { message: { message: '', type: '' }, local: false };

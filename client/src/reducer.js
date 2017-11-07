@@ -77,5 +77,8 @@ export const getLoggedIn = state => state.mainReducer.loggedIn;
 export const getDatas = state => state.mainReducer.data || [];
 export const getMess = state => state.mainReducer.message || { message: '', type: '' };
 
-export const getFormValues_simpleCreateLocal = state => state.form.simpleCreateLocal.values || {};
-export const getFormValues_simpleAuthLocal = state => state.form.simpleAuthLocal.values || {};
+/* export const getFormValues_simpleCreateLocal = state => state.form.simpleCreateLocal.values || {};
+export const getFormValues_simpleAuthLocal = state => state.form.simpleAuthLocal.values || {}; */
+
+// export const getNewUser = state => state.mainReducer.newUser || {};
+

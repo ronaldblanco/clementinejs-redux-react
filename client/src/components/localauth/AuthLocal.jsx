@@ -6,16 +6,18 @@ import { connect } from 'react-redux';
 import { validate, warn } from './validation';
 import renderField from './validation';
 
+import { onSubmit } from "../../actions";
+
 /*const onSubmit = (values, dispatch) => {
  // dispatch(    // your submit action //      );
  window.alert(`You submitted:\n\n${JSON.stringify(values, null, 2)}`);
 };*/
-const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
-const onSubmit = (/*async*/ function showResults(values, dispatch) {
+/* const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
+const onSubmit = (function showResults(values, dispatch) {
   // dispatch(    // your submit action //      );
-  /*await*/ sleep(500); // simulate server latency
+  sleep(500); // simulate server latency
   window.alert(`You submitted:\n\n${JSON.stringify(values, null, 2)}`);
-});
+}); */
 
 const AuthLocal = (props) => {
    console.log(props);
@@ -37,7 +39,7 @@ const AuthLocal = (props) => {
       <Link className="menu" to={"/login"}>Return to Login Page</Link>
     </div>
     <div>
-      <form action="/auth/local" method="post" onSubmit={ /*props.route.onSubmit*/ /*onSubmit*/ /*props.handleSubmit*/ handleSubmit } >
+      <form action="/auth/local" method="post" >
         <h3>LOGIN LOCAL USER</h3>
         <div className="form-group">
           <div>

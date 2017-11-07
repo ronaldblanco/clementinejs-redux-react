@@ -38,7 +38,14 @@ function setmess(state, mess) {
   return newState;
 }
 
-const initState = { clicks: 0, loggedIn: false, data: [], message: { message: '', type: '' } };
+function newuser(state, user) {
+  const newState = state;
+  newState.newUser = user;
+  newState.local = true;
+  return newState;
+}
+
+const initState = { clicks: 0, loggedIn: false, data: [], message: { message: '', type: '' }, newUser: {}, local: false };
 
 export default (state = initState, action) => {
   switch (action.type) {
@@ -54,6 +61,8 @@ export default (state = initState, action) => {
       return setdatas(state, action.data);
     case 'SET_MESS':
       return setmess(state, action.mess);
+    case 'NEW_USER':
+      return newuser(state, action.user);
     default:
       return state;
   }

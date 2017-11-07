@@ -7,7 +7,8 @@ import AuthLocalComponent from './components/localauth/AuthLocal.jsx';
 import CreateLocalComponent from './components/localauth/CreateLocal.jsx';
 // import CreateLocalContainer from './components/localauth/CreateLocal.jsx';
 import { ResetLocalContainer as ResetLocal } from './components/localauth/ResetLocal.jsx';
-import { CreationOkLocal } from './components/localauth/CreationOkLocal.jsx';
+// import { CreationOkLocal } from './components/localauth/CreationOkLocal.jsx';
+import CreateLocalOkComponent from './components/localauth/CreationOkLocal.jsx';
 import { ProfileContainer as Profile } from './components/profile.jsx';
 
 import FieldArraysForm from './components/FieldArraysForm.jsx';
@@ -90,7 +91,7 @@ export const createRoutes = (store) => {
       { path: 'authlocal', component: AuthLocalComponent/*, onSubmit: showResults*/, onEnterUnauth },
       { path: 'createlocal', component: CreateLocalComponent/*, onSubmit: showResults*/, onEnterCreateUser },
       { path: 'resetlocal', component: ResetLocal, onEnterUnauth },
-      { path: 'creationoklocal', component: CreationOkLocal, onEnterContinue },
+      { path: 'creationoklocal', component: CreateLocalOkComponent, onEnterContinue },
       
       { path: 'fieldarraysform', component: FieldArraysForm/*, onSubmit: showResults*/, onEnterUnauth },
     ],

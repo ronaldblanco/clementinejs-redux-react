@@ -39,8 +39,40 @@ function UserHandler(emailServer) {
     port: emailServer.port,
     ssl: true,
   });
+  this.formValues = (req, res) => {
+    const form = {};
+    form.username = req.originalUrl.toString().split('?username=')[1].split('?display=')[0];
+    form.display = req.originalUrl.toString().split('?display=')[1].split('?password=')[0];
+    form.password = req.originalUrl.toString().split('?password=')[1];
+    console.log(form);
+    Users
+      .findOne({ 'twitter.username': req.body.username }, { _id: false })
+        .exec((err, result) => {
+          if (err) { throw err; }
+          if (result === null) {
+            const newUser = new Users();
+            newUser.twitter.username = form.username;
+            const emailU = validateEmail(form.username);
+            if (emailU !== false) { newUser.twitter.email = emailU; }
+            newUser.twitter.password = md5Hex(form.password);
+            newUser.twitter.id = randomize('0', 7);
+            newUser.twitter.displayName = form.display;
+            newUser.save((erru) => {
+              if (erru) {
+                throw erru;
+              }
+            });
+          }
+        });
+        let message = {};
+        message.message = 'The User was created correctly!';
+        message.type = 'alert alert-success';
+    // res.send({form: form});
+    res.send(message);
+  };
   /* eslint-disable func-names */
-  this.addUser = function (req, res) { // Add Local user
+  this.addUser = (req, res) => { // Add Local user
+  // console.log(newUser);
   /* eslint-enable func-names */
     Users
       .findOne({ 'twitter.username': req.body.username }, { _id: false })
@@ -82,7 +114,7 @@ function UserHandler(emailServer) {
         });
   };
   /* eslint-disable func-names */
-  this.resetPass = function (req, res) { // Reset Password
+  this.resetPass = (req, res) => { // Reset Password
   /* eslint-enable func-names */
     const username = req.originalUrl.toString().split('?name=')[1];
     const newPass = randomize('0', 7);
@@ -122,7 +154,7 @@ function UserHandler(emailServer) {
     }
   };
   /* eslint-disable func-names */
-  this.message = function (req, res) {
+  this.message = (req, res) => {
   /* eslint-enable func-names */
     res.send(message);
   };

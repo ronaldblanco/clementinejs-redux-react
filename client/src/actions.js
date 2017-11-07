@@ -92,23 +92,14 @@ export const resetlocal = () => (dispatch) => {
 // //////////////////////////////////////////////////////////////////////////////////////
 // FORM ACTIONS POSIBILITY
 
-const getData = (apiName, args) =>
-    fetch(settings.basePath + getUrl(apiName, args))
-        .then(response =>
-    response.json()
-    ).catch(error => {
-        return error;
-    });
-    
-const submitFormValues = (values) => (dispatch) =>
-        getData("submitApproveForm", values).then(response => {
-            dispatch(formSubmissionError(response))
-        }).catch(error => {
-            throw (error);
-        });
-
-const formSubmissionError = (response) =>
-    ({
-        type: 'FORM_SUBMISSION_ERROR',
-        basicFormResponse: { ...response}
-    });
+export const onSubmit = (values, dispatch/*, getState*/) => {
+ dispatch( {type: 'NEW_USER', user: values} );
+ // ajax('GET', `/auth/form?username=${values.username}?display=${values.display}?password=${values.password}`).then(data => {
+ ajax('POST', `/auth/localnew`).then(data => {
+    // dispatch(setMess({ message: data.message, type: data.type }));
+    /* eslint-disable no-console */
+  }, error => { console.log(error); });
+  /* eslint-enable no-console */
+ // window.location.replace(`/auth/form?username=${values.username}?display=${values.display}?password=${values.password}`);
+ // window.alert(`You submitted:\n\n${JSON.stringify(values, null, 2)}`);
+};

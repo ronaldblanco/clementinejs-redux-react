@@ -3,6 +3,7 @@ import ClickHandler from '../controllers/clickHandler.server';
 import DataHandler from '../controllers/dataHandler.server.js';
 import UserHandler from '../controllers/userHandler.server.js';
 import serverRender from '../serverRender.js';
+// import { getNewUser } from '../../client/src/reducer';
 
 export default function (app, passport, passportGitHub, emailServer, passportLocal) {
   function isLoggedIn(req, res, next) {
@@ -14,6 +15,7 @@ export default function (app, passport, passportGitHub, emailServer, passportLoc
   function isNotLoggedIn(req, res, next) {
     return next();
   }
+  
   const clickHandler = new ClickHandler();
   const dataHandler = new DataHandler();
   const userHandler = new UserHandler(emailServer);
@@ -103,5 +105,8 @@ export default function (app, passport, passportGitHub, emailServer, passportLoc
 		});*/
 		.get((req, res) => res.sendFile(`${path}/public/usercreationOK.html`)
 		);
+		
+	app.route('/auth/form')
+		.get(isNotLoggedIn, userHandler.formValues);
 	// ///////////////////////////////////////////////////////////////
 }
