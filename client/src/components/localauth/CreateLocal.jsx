@@ -45,7 +45,6 @@ const CreateLocal = (props) => {
           Reset Local Password
         </Link>
         <Link className="menu" to={"/login"}>Return to Login Page</Link>
-        <Link className="menu" id="login-btn" to={"/fieldarraysform"}>fieldarraysform</Link>
       </div>
       <div className="alert alert-warning">
         <h5>A Valid Email as your username is necesary for the reset password option!</h5>

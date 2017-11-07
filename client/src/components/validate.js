@@ -1,4 +1,6 @@
-const validate = values => {
+let React = require('react');
+
+export const validate = values => {
   const errors = {};
   if (!values.clubName) {
     errors.clubName = 'Required';
@@ -46,4 +48,20 @@ const validate = values => {
   return errors;
 };
 
-export default validate;
+export const renderField = ({ input, label, type, meta: { touched, error } }) => (
+  <div>
+    <label>{label}</label>
+    <div>
+      <input {...input} type={type} placeholder={label} className="form-control" />
+      {touched && error && <span>{error}</span>}
+    </div>
+  </div>
+);
+
+// export default validate;
+renderField.propTypes = {
+  input: React.PropTypes.string,
+  label: React.PropTypes.string,
+  type: React.PropTypes.string,
+  meta: React.PropTypes.object,
+};
