@@ -3,8 +3,8 @@ let Link = require('react-router').Link;
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 
-import { validate, warn } from './validation';
-import renderField from './validation';
+import { validate, warn, renderField } from './validation';
+// import renderField from './validation';
 
 import { onSubmit } from '../../actions';
 
@@ -92,9 +92,9 @@ const AuthLocal = (props) => {
 
 AuthLocal.propTypes = {
   handleSubmit: React.PropTypes.function,
-  pristine: React.PropTypes.function,
+  pristine: React.PropTypes.boolean,
   reset: React.PropTypes.function,
-  submitting: React.PropTypes.function,
+  submitting: React.PropTypes.boolean,
 };
 
 // onSubmit={ /*props.route.onSubmit*/ /*onSubmit*/ /*props.handleSubmit*/ handleSubmit }

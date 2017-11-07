@@ -4,8 +4,8 @@ import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 // import { getMess } from '../../reducer';
 
-import { validate, warn } from './validation';
-import renderField from './validation';
+import { validate, warn, renderField } from './validation';
+// import renderField from './validation';
 
 import { onSubmit } from '../../actions';
 
@@ -113,9 +113,9 @@ const CreateLocal = (props) => {
 
 CreateLocal.propTypes = {
   handleSubmit: React.PropTypes.function,
-  pristine: React.PropTypes.function,
+  pristine: React.PropTypes.boolean,
   reset: React.PropTypes.function,
-  submitting: React.PropTypes.function,
+  submitting: React.PropTypes.boolean,
 };
 
 /* function mapStateToProps(state) {

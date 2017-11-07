@@ -4,8 +4,8 @@ let Link = require('react-router').Link;
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 
-import { validate, warn } from './validation';
-import renderField from './validation';
+import { validate, warn, renderField } from './validation';
+// import renderField from './validation';
 
 import { onSubmit } from '../../actions';
 
@@ -22,8 +22,22 @@ const CreateOkLocal = (props) => {
         <img src="img/clementine_150.png" role="presentation" />
         <br />
         <p className="clementine-text">Clementine.js</p>
-        <Link className="menu" className="btn" to={"/createlocal"}>Create Local User</Link>
-        <Link className="menu" className="btn" to={"/resetlocal"}>Reset Local Password</Link>
+        <Link
+          className="menu"
+          className="btn"
+          id="login-btn"
+          to={"/createlocal"}
+        >
+          Create Local User
+        </Link>
+        <Link
+          className="menu"
+          className="btn"
+          id="login-btn"
+          to={"/resetlocal"}
+        >
+          Reset Local Password
+        </Link>
         <Link className="menu" to={"/login"}>Return to Login Page</Link>
       </div>
       <div>
@@ -87,9 +101,9 @@ const CreateOkLocal = (props) => {
 
 CreateOkLocal.propTypes = {
   handleSubmit: React.PropTypes.function,
-  pristine: React.PropTypes.function,
+  pristine: React.PropTypes.boolean,
   reset: React.PropTypes.function,
-  submitting: React.PropTypes.function,
+  submitting: React.PropTypes.boolean,
 };
 
 const createReduxForm = reduxForm({

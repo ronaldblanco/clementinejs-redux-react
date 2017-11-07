@@ -36,7 +36,7 @@ export const warn = values => {
 };
 
 /* eslint-disable react/prop-types */
-const renderField = ({
+export const renderField = ({
   input,
   label,
   type,
@@ -53,4 +53,4 @@ const renderField = ({
   </div>
 );
 /* eslint-enable react/prop-types */
-export default renderField;
+// export default renderField;
