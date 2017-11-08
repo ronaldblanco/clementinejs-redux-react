@@ -91,6 +91,43 @@ export const resetlocal = () => (dispatch) => {
 
 // //////////////////////////////////////////////////////////////////////////////////////
 // FORM ACTIONS POSIBILITY
+import axios from 'axios';
+
+export const adminOnSubmit = (values, dispatch, props) => {
+  window.alert(`You submitted:\n\n${JSON.stringify(values, null, 2)}`);
+  //ajax('POST', '/admin/setusers', JSON.stringify(values)).then(data => {
+    //console.log(data);
+    // dispatch(setMess({ message: data.message, type: data.type }));
+    /* eslint-disable no-console */
+  //}, error => { console.log(error); });
+  /* eslint-enable no-console */
+  //  onSubmit={handleSubmit}
+  // Send a POST request
+axios({
+  method: 'post',
+  url: '/admin/setusers',
+  data: {
+    firstName: 'Fred',
+    lastName: 'Flintstone'
+  }
+}).then(function (response) {
+    console.log(response);
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
+
+  /*axios.post('/admin/setusers', {
+    firstName: 'Fred',
+    lastName: 'Flintstone'
+  })
+  .then(function (response) {
+    console.log(response);
+  })
+  .catch(function (error) {
+    console.log(error);
+  });*/
+};
 
 export const onSubmit = (values, dispatch/* , getState */) => {
   dispatch({ type: 'NEW_USER', user: values });

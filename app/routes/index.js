@@ -2,6 +2,7 @@ const path = process.cwd();
 import ClickHandler from '../controllers/clickHandler.server';
 import DataHandler from '../controllers/dataHandler.server.js';
 import UserHandler from '../controllers/userHandler.server.js';
+import AdminHandler from '../controllers/adminHandler.server.js';
 import serverRender from '../serverRender.js';
 // import { getNewUser } from '../../client/src/reducer';
 
@@ -19,6 +20,7 @@ export default function (app, passport, passportGitHub, emailServer, passportLoc
   const clickHandler = new ClickHandler();
   const dataHandler = new DataHandler();
   const userHandler = new UserHandler(emailServer);
+  const adminHandler = new AdminHandler(emailServer);
 
   app.route('/api/user')
     .get((req, res) => {
@@ -65,6 +67,15 @@ export default function (app, passport, passportGitHub, emailServer, passportLoc
 
   app.route('/api/:id/infodel')
     .delete(isLoggedIn, dataHandler.deleteData);
+    
+  app.route('/admin/getusers')
+		.get(isNotLoggedIn, adminHandler.getAllUsers);
+		
+	app.route('/admin/setusers')
+		.post(isNotLoggedIn, adminHandler.setAllUsers);
+		
+	app.route('/form/redux') // Only for Redux forms, to have {} as response!
+		.post((req, res) => res.send({}));
 
   app.route('/*')
     .get(serverRender
@@ -106,7 +117,5 @@ export default function (app, passport, passportGitHub, emailServer, passportLoc
 		.get((req, res) => res.sendFile(`${path}/public/usercreationOK.html`)
 		);
 
-  app.route('/auth/form')
-		.get(isNotLoggedIn, userHandler.formValues);
 	// ///////////////////////////////////////////////////////////////
 }

@@ -89,7 +89,7 @@ export default (req, res) => {
       },
 
     };
-    if (req.url !== '/login' && req.url !== '/creationoklocal') return res.redirect(302, '/login');
+    if (req.url !== '/login' && req.url !== '/creationoklocal' && req.url !== '/admin/getusers') return res.redirect(302, '/login');
     // else if (req.url === '/createlocal') initialState.local = true;
     // const initialState = {};
     // const initialState = { message: { message: '', type: '' }, local: false };

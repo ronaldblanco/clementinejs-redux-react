@@ -5,9 +5,13 @@ import { validate, renderField } from './adminvalidate';
 import { connect } from 'react-redux';
 let Link = require('react-router').Link;
 
-const onSubmit = (values) => {
+import { adminOnSubmit } from '../actions';
+
+/* const onSubmit = (values) => {
   window.alert(`You submitted:\n\n${JSON.stringify(values, null, 2)}`);
-};
+  //  onSubmit={handleSubmit}
+   action="/admin/setusers" method="post"
+}; */
 
 const renderDatas = ({ fields, meta: { error } }) => (
   <ul>
@@ -102,7 +106,7 @@ const AdminForm = props => {
         </Link>
         <Link className="menu" to={"/login"}>Return to Login Page</Link>
       </div>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} >
       <div className="form-group">
           
           <FieldArray name="users" component={renderUsers} />
@@ -145,7 +149,7 @@ AdminForm.propTypes = {
 
 const createReduxForm = reduxForm({
   form: 'fieldArrays', // a unique identifier for this form
-  onSubmit,
+  onSubmit: adminOnSubmit,
   validate, // <--- validation function given to redux-form
 });
 const AdminFormComponent = createReduxForm(AdminForm);
