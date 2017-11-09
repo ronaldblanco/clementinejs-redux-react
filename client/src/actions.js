@@ -91,19 +91,19 @@ export const resetlocal = () => (dispatch) => {
 
 // //////////////////////////////////////////////////////////////////////////////////////
 // FORM ACTIONS POSIBILITY
-import axios from 'axios';
+// import axios from 'axios';
 
-export const adminOnSubmit = (values, dispatch, props) => {
-  window.alert(`You submitted:\n\n${JSON.stringify(values, null, 2)}`);
+export const adminOnSubmit = (values, dispatch, props, state) => {
+  // window.alert(`You submitted:\n\n${JSON.stringify(values, null, 2)}`);
   //ajax('POST', '/admin/setusers', JSON.stringify(values)).then(data => {
     //console.log(data);
-    // dispatch(setMess({ message: data.message, type: data.type }));
+    dispatch({ type: 'ADMIN_MA', users: values });
     /* eslint-disable no-console */
   //}, error => { console.log(error); });
   /* eslint-enable no-console */
   //  onSubmit={handleSubmit}
   // Send a POST request
-axios({
+/* axios({
   method: 'post',
   url: '/admin/setusers',
   data: {
@@ -115,7 +115,7 @@ axios({
   })
   .catch(function (error) {
     console.log(error);
-  });
+  }); */
 
   /*axios.post('/admin/setusers', {
     firstName: 'Fred',

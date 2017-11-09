@@ -74,7 +74,7 @@ export const renderField = ({ input, label, type, meta: { touched, error } }) =>
 
 // export default validate;
 renderField.propTypes = {
-  input: React.PropTypes.string,
+  input: React.PropTypes.object,
   label: React.PropTypes.string,
   type: React.PropTypes.string,
   meta: React.PropTypes.object,

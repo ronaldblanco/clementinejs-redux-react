@@ -81,21 +81,28 @@ export default (req, res) => {
     });
   } else {
     // redirect to login if not logged in
-    const initialState = {
-      mainReducer: {
-        message: { message: '', type: '' },
-        local: false,
-        newUser: {},
-      },
-
-    };
-    if (req.url !== '/login' && req.url !== '/creationoklocal' && req.url !== '/admin/getusers') return res.redirect(302, '/login');
-    // else if (req.url === '/createlocal') initialState.local = true;
-    // const initialState = {};
-    // const initialState = { message: { message: '', type: '' }, local: false };
-    const store = createStore(reducer, initialState);
-    const routes = createRoutes(store);
-    return renderHelper(res, req.url, routes, store);
+    Users
+      .find({}, {})
+      .exec((err, result) => {
+        if (err) { throw err; }
+        const users = [];
+        // const form = [];
+        result.forEach((user) => {
+            users.push({username: user.twitter.username, display: user.twitter.displayName, password:user.twitter.password, clicks: user.nbrClicks.clicks, datas: user.info.data});
+        });
+            const initialState = {
+              mainReducer: {
+                message: { message: '', type: '' },
+                local: false,
+                newUser: {},
+                adminForm: {users: users},
+              },
+            };
+            if (req.url !== '/login' && req.url !== '/creationoklocal' && req.url !== '/admin/getusers') return res.redirect(302, '/login');
+            const store = createStore(reducer, initialState);
+            const routes = createRoutes(store);
+            return renderHelper(res, req.url, routes, store);
+      });
   }
   return null;
 };

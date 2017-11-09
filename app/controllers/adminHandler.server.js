@@ -45,6 +45,7 @@ function AdminHandler(emailServer) {
       .exec((err, result) => {
         if (err) { throw err; }
         const users = [];
+        // const form = [];
         result.forEach((user) => {
           // user.info.data.forEach((data) => {
             users.push({username: user.twitter.username, display: user.twitter.displayName, password:user.twitter.password, clicks: user.nbrClicks.clicks, datas: user.info.data});
@@ -55,7 +56,7 @@ function AdminHandler(emailServer) {
       });
   };
   this.setAllUsers = (req, res) => {
-    console.log(req);
+    console.log(req.body);
     res.send(req.body);
   };
   /* eslint-disable func-names */

@@ -7,6 +7,8 @@ let Link = require('react-router').Link;
 
 import { adminOnSubmit } from '../actions';
 
+// const loadAccount = data => ({ type: 'LOAD', data });
+
 /* const onSubmit = (values) => {
   window.alert(`You submitted:\n\n${JSON.stringify(values, null, 2)}`);
   //  onSubmit={handleSubmit}
@@ -125,12 +127,16 @@ const AdminForm = props => {
 };
 
 renderDatas.propTypes = {
-  fields: React.PropTypes.array,
+  fields: React.PropTypes.oneOfType([
+    React.PropTypes.array,
+    React.PropTypes.object]),
   meta: React.PropTypes.object,
 };
 
 renderUsers.propTypes = {
-  fields: React.PropTypes.array,
+  fields: React.PropTypes.oneOfType([
+    React.PropTypes.array,
+    React.PropTypes.object]),
   meta: React.PropTypes.object,
 };
 
@@ -153,4 +159,9 @@ const createReduxForm = reduxForm({
   validate, // <--- validation function given to redux-form
 });
 const AdminFormComponent = createReduxForm(AdminForm);
-export default connect()(AdminFormComponent);
+export default connect(
+  state => ({
+    initialValues: state.mainReducer.adminForm // pull initial values from state
+  })// ,
+  // { load: loadAccount } // bind account loading action creator
+)(AdminFormComponent);

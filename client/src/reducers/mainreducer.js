@@ -45,6 +45,13 @@ function newuser(state, user) {
   return newState;
 }
 
+function adminForm(state, users) {
+  const newState = state;
+  newState.adminForm = users;
+  // newState.local = true;
+  return newState;
+}
+
 const initState = {
   clicks: 0,
   loggedIn: false,
@@ -52,6 +59,7 @@ const initState = {
   message: { message: '', type: '' },
   newUser: {},
   local: false,
+  adminForm: {users: []},
 };
 
 export default (state = initState, action) => {
@@ -70,6 +78,8 @@ export default (state = initState, action) => {
       return setmess(state, action.mess);
     case 'NEW_USER':
       return newuser(state, action.user);
+    case 'ADMIN_MA':
+      return adminForm(state, action.users);
     default:
       return state;
   }

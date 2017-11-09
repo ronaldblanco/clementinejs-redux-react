@@ -45,11 +45,14 @@ var emailServer = {
 };
 ////////////////////////////////////////////////////////////////////////////////////
 
-const configHotReloading =
+if (process.env.NODE_ENV === 'development') {
+  // functions.execute('make build');
+  
+  const configHotReloading =
   process.env.NODE_ENV === 'development' && !process.env.DISABLE_WEBPACK
-  ? require('./app/config/hotReload') : null;
-
-if (configHotReloading) configHotReloading(app);
+    ? require('./app/config/hotReload') : null;
+  if (configHotReloading) configHotReloading(app);
+}
 
 //////////////////////////////////////////////
 app.use(require('cookie-parser')());
@@ -65,19 +68,19 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-//////////////////////////
+// ////////////////////////
 if (process.env.NODE_ENV === 'development'){
-    //Gulp build execution
-    //functions.execute('gulp build');
-    /////////////////////////////////////////////
-    //CHECK FOLDER LOG AND CREATE IT////////////////////////////////////
+    // Gulp build execution
+    // functions.execute('make build');
+    // ///////////////////////////////////////////
+    // CHECK FOLDER LOG AND CREATE IT////////////////////////////////////
     functions.ensureExists(__dirname + '/log', '0744', function(err) {
         if (err) console.error(err);
         else console.log('Folder Log was created or existed');
     });
-    //////////////////////////////////////////////////
+    // ////////////////////////////////////////////////
 
-    //LOGGER//////////////////////////////////////////
+    // LOGGER//////////////////////////////////////////
     var logger = new (winston.Logger)({
         transports: [
         functions.transport
