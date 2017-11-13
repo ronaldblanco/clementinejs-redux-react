@@ -111,10 +111,18 @@ const CreateLocal = (props) => {
 };
 
 CreateLocal.propTypes = {
-  handleSubmit: React.PropTypes.function,
-  pristine: React.PropTypes.boolean,
-  reset: React.PropTypes.function,
-  submitting: React.PropTypes.boolean,
+  handleSubmit: React.PropTypes.oneOfType([
+    React.PropTypes.function,
+    React.PropTypes.object]),
+  pristine: React.PropTypes.oneOfType([
+    React.PropTypes.function,
+    React.PropTypes.boolean]),
+  reset: React.PropTypes.oneOfType([
+    React.PropTypes.function,
+    React.PropTypes.object]),
+  submitting: React.PropTypes.oneOfType([
+    React.PropTypes.function,
+    React.PropTypes.boolean]),
 };
 
 /* function mapStateToProps(state) {

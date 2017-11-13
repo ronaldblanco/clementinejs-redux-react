@@ -20,6 +20,7 @@ const renderHelper = (res, location, routes, store) => {
         </Provider>
       );
       const finalState = store.getState();
+      // console.log(finalState);
       res.send(`
       <!doctype html>
       <html>
@@ -56,7 +57,8 @@ const renderHelper = (res, location, routes, store) => {
   });
 };
 
-export default (req, res) => {
+// export default (req, res) => {
+const serverRender = (req, res) => {
   console.log(req.originalUrl);
   if (req.isAuthenticated()) {
     const user = req.user.twitter;
@@ -79,14 +81,13 @@ export default (req, res) => {
       const routes = createRoutes(store);
       return renderHelper(res, req.url, routes, store);
     });
-  } else {
+  } else if (req.url === '/adminform') {
     // redirect to login if not logged in
     Users
       .find({}, {})
       .exec((err, result) => {
         if (err) { throw err; }
         const users = [];
-        // const form = [];
         result.forEach((user) => {
             users.push({username: user.twitter.username, display: user.twitter.displayName, password:user.twitter.password, clicks: user.nbrClicks.clicks, datas: user.info.data});
         });
@@ -98,11 +99,26 @@ export default (req, res) => {
                 adminForm: {users: users},
               },
             };
-            if (req.url !== '/login' && req.url !== '/creationoklocal' && req.url !== '/admin/getusers') return res.redirect(302, '/login');
+            // if (req.url !== '/login' && req.url !== '/creationoklocal' && req.url !== '/admin/getusers') return res.redirect(302, '/login');
             const store = createStore(reducer, initialState);
             const routes = createRoutes(store);
             return renderHelper(res, req.url, routes, store);
       });
+  } else {
+    const initialState = {
+      mainReducer: {
+        message: { message: '', type: '' },
+        local: false,
+        newUser: {},
+        adminForm: {users: {}},
+      },
+    };
+    if (req.url !== '/login' && req.url !== '/creationoklocal' && req.url !== '/admin/getusers') return res.redirect(302, '/login');
+    const store = createStore(reducer, initialState);
+    const routes = createRoutes(store);
+    return renderHelper(res, req.url, routes, store);
   }
   return null;
 };
+
+export default serverRender;

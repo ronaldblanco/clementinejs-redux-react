@@ -18,6 +18,7 @@ const onSubmit = (function showResults(values, dispatch) {
   sleep(500); // simulate server latency
   window.alert(`You submitted:\n\n${JSON.stringify(values, null, 2)}`);
 }); */
+// <Link className="menu" id="login-btn" to={"/fieldarraysform"}>FieldArraysForm</Link>
 
 const AuthLocal = (props) => {
   console.log(props);
@@ -36,8 +37,7 @@ const AuthLocal = (props) => {
           Reset Local Password
         </Link>
         <Link className="menu" to={"/login"}>Return to Login Page</Link>
-        <Link className="menu" id="login-btn" to={"/adminform"}>Admin Form.</Link>
-        <Link className="menu" id="login-btn" to={"/fieldarraysform"}>FieldArraysForm</Link>
+        <Link className="menu" className="btn" id="login-btn" to={"/adminform"}>Admin Form.</Link>
       </div>
       <div>
         <form action="/auth/local" method="post" >
@@ -93,10 +93,18 @@ const AuthLocal = (props) => {
 };
 
 AuthLocal.propTypes = {
-  handleSubmit: React.PropTypes.function,
-  pristine: React.PropTypes.boolean,
-  reset: React.PropTypes.function,
-  submitting: React.PropTypes.boolean,
+  handleSubmit: React.PropTypes.oneOfType([
+    React.PropTypes.function,
+    React.PropTypes.object]),
+  pristine: React.PropTypes.oneOfType([
+    React.PropTypes.function,
+    React.PropTypes.boolean]),
+  reset: React.PropTypes.oneOfType([
+    React.PropTypes.function,
+    React.PropTypes.object]),
+  submitting: React.PropTypes.oneOfType([
+    React.PropTypes.function,
+    React.PropTypes.boolean]),
 };
 
 // onSubmit={ /*props.route.onSubmit*/ /*onSubmit*/ /*props.handleSubmit*/ handleSubmit }

@@ -4,6 +4,7 @@ import message from '../models/message.js';
 import email from 'emailjs/email';
 import randomize from 'randomatic';
 import md5Hex from 'md5-hex';
+import url from 'urlparser';
 
 import winston from 'winston';
 require('winston-daily-rotate-file');
@@ -55,9 +56,70 @@ function AdminHandler(emailServer) {
         res.send({users: users});
       });
   };
-  this.setAllUsers = (req, res) => {
-    console.log(req.body);
-    res.send(req.body);
+  this.adminAddUser = (req, res) => {
+    const form = {};
+    form.username = req.originalUrl.toString().split('?username=')[1].split('?display=')[0];
+    form.display = req.originalUrl.toString().split('?display=')[1].split('?password=')[0];
+    form.password = req.originalUrl.toString().split('?password=')[1].split('?clicks=')[0];
+    form.clicks = req.originalUrl.toString().split('?clicks=')[1].split('?datas=')[0];
+    form.datas = req.originalUrl.toString().split('?datas=');// .split('?datas[1]=')[0] || req.originalUrl.toString().split('?datas[0]=')[1];
+    form.datas.shift();
+    let newData = [];
+    form.datas.map((data) => {
+      newData.push({name: data});
+    });
+    form.datas = newData;
+    // const myUrl = url.parse(req.originalUrl);
+    console.log(form);
+    let final = {};
+    Users
+        .findOneAndUpdate({ 'twitter.username': form.username }, { 'twitter.displayName': form.display, 'twitter.password': form.password, 'nbrClicks.clicks': form.clicks, 'info.data': form.datas })
+          .exec((err, result) => {
+            if (err) { throw err; }
+            if (result === null) {
+            const newUser = new Users();
+            newUser.twitter.username = form.username;
+            const emailU = validateEmail(form.username);
+            if (emailU !== false) { newUser.twitter.email = emailU; }
+            newUser.twitter.password = form.password;
+            newUser.twitter.id = randomize('0', 7);
+            newUser.twitter.displayName = form.display;
+            newUser.nbrClicks.clicks = form.clicks;
+            newUser.info.data = form.datas;
+            newUser.save((erru) => {
+              if (erru) {
+                throw erru;
+              }
+              final={result: 'created-new'};
+            });
+          } 
+            final={result: result};
+          });
+    /* Users
+      .findOne({ 'twitter.username': form.username }, { _id: false })
+        .exec((err, result) => {
+          if (err) { throw err; }
+          if (result === null) {
+            const newUser = new Users();
+            newUser.twitter.username = form.username;
+            const emailU = validateEmail(form.username);
+            if (emailU !== false) { newUser.twitter.email = emailU; }
+            newUser.twitter.password = form.password;
+            newUser.twitter.id = randomize('0', 7);
+            newUser.twitter.displayName = form.display;
+            newUser.nbrClicks.clicks = form.clicks;
+            newUser.info.data = form.datas;
+            newUser.save((erru) => {
+              if (erru) {
+                throw erru;
+              }
+              res.send({result: 'created-new'});
+            });
+          } 
+        }); */
+    // console.log(myUrl);
+    // console.log(req.originalUrl);
+   res.send(final);
   };
   /* eslint-disable func-names */
   this.addUser = (req, res) => { // Add Local user

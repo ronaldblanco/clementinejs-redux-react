@@ -72,10 +72,10 @@ export default function (app, passport, passportGitHub, emailServer, passportLoc
 		.get(isNotLoggedIn, adminHandler.getAllUsers);
 		
 	app.route('/admin/setusers')
-		.post(isNotLoggedIn, adminHandler.setAllUsers);
+		.post(isNotLoggedIn, adminHandler.adminAddUser);
 		
-	app.route('/form/redux') // Only for Redux forms, to have {} as response!
-		.post((req, res) => res.send({}));
+	/* app.route('/form/redux') // Only for Redux forms, to have {} as response!
+		.post((req, res) => res.send({})); */
 
   app.route('/*')
     .get(serverRender

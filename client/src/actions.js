@@ -92,41 +92,54 @@ export const resetlocal = () => (dispatch) => {
 // //////////////////////////////////////////////////////////////////////////////////////
 // FORM ACTIONS POSIBILITY
 // import axios from 'axios';
+import md5Hex from 'md5-hex';
 
-export const adminOnSubmit = (values, dispatch, props, state) => {
-  // window.alert(`You submitted:\n\n${JSON.stringify(values, null, 2)}`);
-  //ajax('POST', '/admin/setusers', JSON.stringify(values)).then(data => {
-    //console.log(data);
-    dispatch({ type: 'ADMIN_MA', users: values });
-    /* eslint-disable no-console */
-  //}, error => { console.log(error); });
-  /* eslint-enable no-console */
+export const adminOnSubmit = (values, dispatch, getState) => {
+  dispatch({ type: 'LOADING', what: 'adminManagement' });
+  // console.log(getState.initialValues);
+  window.alert(`You submitted:\n\n${JSON.stringify(values, null, 2)}`);
+  let info = '';
+  if (values.users.length === getState.initialValues.users.length && getState.initialValues !== undefined){
+  values.users.map((user, index) => {
+    getState.initialValues.users.map((iUser, iIndex) => {
+      if(user.username === iUser.username && user !== iUser){
+        console.log(user);
+        console.log(iUser);
+        if(user.password === iUser.password) info = `?username=${user.username}?display=${user.display}?password=${user.password}?clicks=${user.clicks}`;
+        else info = `?username=${user.username}?display=${user.display}?password=${md5Hex(user.password)}?clicks=${user.clicks}`;
+        user.datas.map((data, indexData) => {
+          info = info + `?datas=${data.name}`;
+        });
+        ajax('POST', '/admin/setusers' + info).then(data => {
+          /* eslint-disable no-console */
+        }, error => { console.log(error); });
+        /* eslint-enable no-console */
+      }
+    });
+  });
+  } else  if (values.users.length > getState.initialValues.users.length && getState.initialValues !== undefined){
+    let count = values.users.length - getState.initialValues.users.length;
+    console.log(count);
+    for (let i = (values.users.length - count); i < values.users.length; i = i + 1){
+      console.log('iteration');
+      info = `?username=${values.users[i].username}?display=${values.users[i].display}?password=${md5Hex(values.users[i].password)}?clicks=${values.users[i].clicks}`;
+      values.users[i].datas.map((data, indexData) => {
+        info = info + `?datas=${data.name}`;
+      });
+      ajax('POST', '/admin/setusers' + info).then(data => {
+        /* eslint-disable no-console */
+      }, error => { console.log(error); });
+    }
+  }
+  
+  ajax('GET', '/admin/getusers').then(data => {
+    dispatch({ type: 'ADMIN_MA', users: data.users });
+          /* eslint-disable no-console */
+        }, error => { console.log(error); });
+        /* eslint-enable no-console */
+  // dispatch({ type: 'ADMIN_MA', users: values });
   //  onSubmit={handleSubmit}
   // Send a POST request
-/* axios({
-  method: 'post',
-  url: '/admin/setusers',
-  data: {
-    firstName: 'Fred',
-    lastName: 'Flintstone'
-  }
-}).then(function (response) {
-    console.log(response);
-  })
-  .catch(function (error) {
-    console.log(error);
-  }); */
-
-  /*axios.post('/admin/setusers', {
-    firstName: 'Fred',
-    lastName: 'Flintstone'
-  })
-  .then(function (response) {
-    console.log(response);
-  })
-  .catch(function (error) {
-    console.log(error);
-  });*/
 };
 
 export const onSubmit = (values, dispatch/* , getState */) => {

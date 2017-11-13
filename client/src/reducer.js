@@ -77,4 +77,4 @@ export const getLoggedIn = state => state.mainReducer.loggedIn;
 export const getDatas = state => state.mainReducer.data || [];
 export const getMess = state => state.mainReducer.message || { message: '', type: '' };
 
-// export const getNewUser = state => state.mainReducer.newUser || {};
+export const getAdmin = state => state.mainReducer.adminForm || { users: [] };
