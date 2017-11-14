@@ -37,7 +37,6 @@ const AuthLocal = (props) => {
           Reset Local Password
         </Link>
         <Link className="menu" to={"/login"}>Return to Login Page</Link>
-        <Link className="menu" className="btn" id="login-btn" to={"/adminform"}>Admin Form.</Link>
       </div>
       <div>
         <form action="/auth/local" method="post" >

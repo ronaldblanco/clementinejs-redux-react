@@ -33,13 +33,13 @@ function validateEmail(emailV) {
 // ///////////////////////////////////////////////////
 
 function AdminHandler(emailServer) {
-  const server = email.server.connect({
+  /* const server = email.server.connect({
     user: emailServer.user,
     password: emailServer.password,
     host: emailServer.host,
     port: emailServer.port,
     ssl: true,
-  });
+  }); */
   this.getAllUsers = (req, res) => {
     Users
       .find({}, {})
@@ -49,7 +49,7 @@ function AdminHandler(emailServer) {
         // const form = [];
         result.forEach((user) => {
           // user.info.data.forEach((data) => {
-            users.push({username: user.twitter.username, display: user.twitter.displayName, password:user.twitter.password, clicks: user.nbrClicks.clicks, datas: user.info.data});
+            users.push({username: user.twitter.username, display: user.twitter.displayName, email: user.twitter.email, password:user.twitter.password, clicks: user.nbrClicks.clicks, datas: user.info.data});
           // });
         });
         console.log(users);
@@ -59,7 +59,8 @@ function AdminHandler(emailServer) {
   this.adminAddUser = (req, res) => {
     const form = {};
     form.username = req.originalUrl.toString().split('?username=')[1].split('?display=')[0];
-    form.display = req.originalUrl.toString().split('?display=')[1].split('?password=')[0];
+    form.display = req.originalUrl.toString().split('?display=')[1].split('?email=')[0];
+    form.email = req.originalUrl.toString().split('?email=')[1].split('?password=')[0];
     form.password = req.originalUrl.toString().split('?password=')[1].split('?clicks=')[0];
     form.clicks = req.originalUrl.toString().split('?clicks=')[1].split('?datas=')[0];
     form.datas = req.originalUrl.toString().split('?datas=');// .split('?datas[1]=')[0] || req.originalUrl.toString().split('?datas[0]=')[1];
@@ -69,17 +70,16 @@ function AdminHandler(emailServer) {
       newData.push({name: data});
     });
     form.datas = newData;
-    // const myUrl = url.parse(req.originalUrl);
-    console.log(form);
+    // console.log(form);
     let final = {};
     Users
-        .findOneAndUpdate({ 'twitter.username': form.username }, { 'twitter.displayName': form.display, 'twitter.password': form.password, 'nbrClicks.clicks': form.clicks, 'info.data': form.datas })
+        .findOneAndUpdate({ 'twitter.username': form.username }, { 'twitter.displayName': form.display, 'twitter.email': form.email, 'twitter.password': form.password, 'nbrClicks.clicks': form.clicks, 'info.data': form.datas })
           .exec((err, result) => {
             if (err) { throw err; }
             if (result === null) {
             const newUser = new Users();
             newUser.twitter.username = form.username;
-            const emailU = validateEmail(form.username);
+            const emailU = validateEmail(form.email);
             if (emailU !== false) { newUser.twitter.email = emailU; }
             newUser.twitter.password = form.password;
             newUser.twitter.id = randomize('0', 7);
@@ -95,119 +95,7 @@ function AdminHandler(emailServer) {
           } 
             final={result: result};
           });
-    /* Users
-      .findOne({ 'twitter.username': form.username }, { _id: false })
-        .exec((err, result) => {
-          if (err) { throw err; }
-          if (result === null) {
-            const newUser = new Users();
-            newUser.twitter.username = form.username;
-            const emailU = validateEmail(form.username);
-            if (emailU !== false) { newUser.twitter.email = emailU; }
-            newUser.twitter.password = form.password;
-            newUser.twitter.id = randomize('0', 7);
-            newUser.twitter.displayName = form.display;
-            newUser.nbrClicks.clicks = form.clicks;
-            newUser.info.data = form.datas;
-            newUser.save((erru) => {
-              if (erru) {
-                throw erru;
-              }
-              res.send({result: 'created-new'});
-            });
-          } 
-        }); */
-    // console.log(myUrl);
-    // console.log(req.originalUrl);
    res.send(final);
-  };
-  /* eslint-disable func-names */
-  this.addUser = (req, res) => { // Add Local user
-  // console.log(newUser);
-  /* eslint-enable func-names */
-    Users
-      .findOne({ 'twitter.username': req.body.username }, { _id: false })
-        .exec((err, result) => {
-          if (err) { throw err; }
-          if (result === null) {
-            const newUser = new Users();
-            newUser.twitter.username = req.body.username;
-            const emailU = validateEmail(req.body.username);
-            if (emailU !== false) { newUser.twitter.email = emailU; }
-            newUser.twitter.password = md5Hex(req.body.password);
-            newUser.twitter.id = randomize('0', 7);
-            newUser.twitter.displayName = req.body.display;
-            newUser.save((erru) => {
-              if (erru) {
-                throw erru;
-              }
-						// ///////////Email send!!////////////////////
-              if (emailU !== false) {
-                // console.log(emailU);
-                server.send({
-                  text: 'Welcome to Clementine Pnald version!',
-                  from: `Admin <${emailServer.user}>`,
-                  to: `New User <${emailU}>`,
-                  // cc: 'else <else@your-email.com>',
-                  subject: 'Welcome Email!',
-                }, (errm, messagem) => functions.logIt(logger, errm || messagem));
-              }
-						// //////////////////////////////
-              message.message = 'The User was created correctly!';
-              message.type = 'alert alert-success';
-              res.redirect('/creationoklocal');
-            });
-          } else {
-            message.message = 'The User already exist in the database!';
-            message.type = 'alert alert-info';
-            res.redirect('/creationoklocal');
-          }
-        });
-  };
-  /* eslint-disable func-names */
-  this.resetPass = (req, res) => { // Reset Password
-  /* eslint-enable func-names */
-    const username = req.originalUrl.toString().split('?name=')[1];
-    const newPass = randomize('0', 7);
-    const emailR = validateEmail(username);
-    if (emailR !== false) {
-      Users
-        .findOneAndUpdate({ 'twitter.username': username }, { 'twitter.password': md5Hex(newPass) })
-          .exec((err, result) => {
-            if (err) { throw err; }
-            if (result !== undefined && result !== null) {
-              // send the message and get a callback with an error
-              // or details of the message that was sent
-              // console.log(server);
-              server.send({
-                text: `Your new password is: ${newPass}`,
-                from: `Admin <${emailServer.user}>`,
-                // to: 'New User <' + username + '>',
-                to: `New User <${username}>`,
-                // cc: 'else <else@your-email.com>',
-                subject: 'Your password was reset!',
-              }, (errm, messagem) => functions.logIt(logger, errm || messagem));
-              message.message = 'The password was reset correctly; an email was send to the user!';
-              message.type = 'alert alert-success';
-              res.send({
-                message: 'The password was reset correctly; an email was send to the user!',
-                type: 'alert alert-success',
-              });
-            }
-          });
-    } else {
-      message.type = 'alert alert-warning';
-      message.message = 'The username it is not a valid email account!';
-      res.send({
-        message: 'The username it is not a valid email account!',
-        type: 'alert alert-warning',
-      });
-    }
-  };
-  /* eslint-disable func-names */
-  this.message = (req, res) => {
-  /* eslint-enable func-names */
-    res.send(message);
   };
 }
 

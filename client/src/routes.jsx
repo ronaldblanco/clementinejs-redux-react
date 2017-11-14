@@ -11,7 +11,7 @@ import { ResetLocalContainer as ResetLocal } from './components/localauth/ResetL
 import CreateLocalOkComponent from './components/localauth/CreationOkLocal.jsx';
 import { ProfileContainer as Profile } from './components/profile.jsx';
 
-import FieldArraysFormComponent from './components/FieldArraysForm.jsx';
+// import FieldArraysFormComponent from './components/FieldArraysForm.jsx';
 import AdminFormComponent from './components/AdminForm.jsx';
 
 // import showResults from './components/showresults';
@@ -96,7 +96,7 @@ export const createRoutes = (store) => {
       { path: 'createlocal', component: CreateLocalComponent, onEnterCreateUser },
       { path: 'resetlocal', component: ResetLocal, onEnterUnauth },
       { path: 'creationoklocal', component: CreateLocalOkComponent, onEnterContinue },
-      { path: 'fieldarraysform', component: FieldArraysFormComponent, onEnterUnauth },
+      // { path: 'fieldarraysform', component: FieldArraysFormComponent, onEnterUnauth },
       { path: 'adminform', component: AdminFormComponent, onEnterUnauth },
     ],
   };

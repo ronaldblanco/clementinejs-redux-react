@@ -75,7 +75,6 @@ const serverRender = (req, res) => {
           data: response.info.data || [],
           message: { message: '', type: '' },
         },
-
       };
       const store = createStore(reducer, initialState);
       const routes = createRoutes(store);
@@ -89,14 +88,14 @@ const serverRender = (req, res) => {
         if (err) { throw err; }
         const users = [];
         result.forEach((user) => {
-            users.push({username: user.twitter.username, display: user.twitter.displayName, password:user.twitter.password, clicks: user.nbrClicks.clicks, datas: user.info.data});
+            users.push({username: user.twitter.username, display: user.twitter.displayName, email: user.twitter.email, password:user.twitter.password, clicks: user.nbrClicks.clicks, datas: user.info.data});
         });
             const initialState = {
               mainReducer: {
                 message: { message: '', type: '' },
                 local: false,
                 newUser: {},
-                adminForm: {users: users},
+                adminForm: {users: users || []},
               },
             };
             // if (req.url !== '/login' && req.url !== '/creationoklocal' && req.url !== '/admin/getusers') return res.redirect(302, '/login');

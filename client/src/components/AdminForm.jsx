@@ -5,8 +5,7 @@ import { validate, renderField } from './adminvalidate';
 import { connect } from 'react-redux';
 let Link = require('react-router').Link;
 
-import { adminOnSubmit } from '../actions';
-
+import { adminOnSubmit, loadInit } from '../actions';
 // const loadAccount = data => ({ type: 'LOAD', data });
 
 /* const onSubmit = (values) => {
@@ -72,6 +71,12 @@ const renderUsers = ({ fields, meta: { error, submitFailed } }) => (
             label="Display Name"
           />
           <Field
+            name={`${user}.email`}
+            type="text"
+            component={renderField}
+            label="Email"
+          />
+          <Field
             name={`${user}.password`}
             type="password"
             component={renderField}
@@ -90,27 +95,24 @@ const renderUsers = ({ fields, meta: { error, submitFailed } }) => (
 );
 
 const AdminForm = props => {
-  const { handleSubmit, pristine, reset, submitting } = props;
+  const { handleSubmit, pristine, reset, submitting, load } = props;
   return (
     <div className="container">
       <div>
         <img src="img/clementine_150.png" role="presentation" />
         <br />
         <p className="clementine-text">Clementine.js</p>
-        <Link className="menu" className="btn" id="login-btn" to={"/authlocal"}>
-          Login Local User
-        </Link>
-        <Link className="menu" className="btn" id="login-btn" to={"/createlocal"}>
-          Create Local User
-        </Link>
-        <Link className="menu" className="btn" id="login-btn" to={"/resetlocal"}>
-          Reset Local Password
-        </Link>
         <Link className="menu" to={"/login"}>Return to Login Page</Link>
+      </div>
+      <br/>
+      <h3>APP ADMINISTRATION!</h3>
+      <div>
+        <button className="btn" type="button" onClick={() => load}>
+          Load Initial Data
+        </button>
       </div>
       <form onSubmit={handleSubmit} >
       <div className="form-group">
-          
           <FieldArray name="users" component={renderUsers} />
         </div>
         <div>
@@ -169,7 +171,7 @@ const createReduxForm = reduxForm({
 const AdminFormComponent = createReduxForm(AdminForm);
 export default connect(
   state => ({
-    initialValues: state.mainReducer.adminForm // pull initial values from state
-  })// ,
-  // { load: loadAccount } // bind account loading action creator
+    initialValues: state.mainReducer.adminForm || {users: [{}]}, // pull initial values from state
+  }),
+  { load: loadInit } // bind account loading action creator
 )(AdminFormComponent);

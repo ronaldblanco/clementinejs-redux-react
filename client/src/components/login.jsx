@@ -23,6 +23,9 @@ export default () => (
       <Link className="btn" id="login-btn" to={"/authlocal"}>
         <img src="img/local.png" alt="twitter logo" width="32px" />LOCAL LOGIN
       </Link>
+      <Link className="btn" id="login-btn" to={"/adminform"}>
+        <img src="img/admin.png" alt="admin logo" width="32px" height="32px" />ADMINISTRATION
+      </Link>
     </div>
   </div>
 );

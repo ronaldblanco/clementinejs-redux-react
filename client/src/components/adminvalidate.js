@@ -25,6 +25,10 @@ export const validate = values => {
         userErrors.display = 'Required';
         usersArrayErrors[userIndex] = userErrors;
       }
+      if (!user || !user.email) {
+        userErrors.email = 'Required';
+        usersArrayErrors[userIndex] = userErrors;
+      }
       if (!user || !user.password) {
         userErrors.password = 'Required';
         usersArrayErrors[userIndex] = userErrors;
