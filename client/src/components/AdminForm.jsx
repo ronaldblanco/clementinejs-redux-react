@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 let Link = require('react-router').Link;
 
 import { adminOnSubmit, loadInit } from '../actions';
+import { getAdmin } from '../reducer';
 // const loadAccount = data => ({ type: 'LOAD', data });
 
 /* const onSubmit = (values) => {
@@ -95,7 +96,7 @@ const renderUsers = ({ fields, meta: { error, submitFailed } }) => (
 );
 
 const AdminForm = props => {
-  const { handleSubmit, pristine, reset, submitting, load } = props;
+  const { handleSubmit, pristine, reset, submitting, load/* , values */} = props;
   return (
     <div className="container">
       <div>
@@ -106,11 +107,6 @@ const AdminForm = props => {
       </div>
       <br/>
       <h3>APP ADMINISTRATION!</h3>
-      <div>
-        <button className="btn" type="button" onClick={() => load}>
-          Load Initial Data
-        </button>
-      </div>
       <form onSubmit={handleSubmit} >
         <div className="form-group">
           <FieldArray name="users" component={renderUsers} />
@@ -156,13 +152,16 @@ AdminForm.propTypes = {
     React.PropTypes.function,
     React.PropTypes.boolean]),
   load: React.PropTypes.function,
+  values: React.PropTypes.object,
+  initialValues: React.PropTypes.object,
 };
 
-/* export default reduxForm({
-  form: 'fieldArrays', // a unique identifier for this form
-  onSubmit: onSubmit,
-  validate,
-})(FieldArraysForm); */
+function mapStateToProps(state) {
+  return {
+    values: getAdmin(state),
+    initialValues: getAdmin(state),// state.mainReducer.adminForm,
+  };
+}
 
 const createReduxForm = reduxForm({
   form: 'fieldArrays', // a unique identifier for this form
@@ -170,9 +169,6 @@ const createReduxForm = reduxForm({
   validate, // <--- validation function given to redux-form
 });
 const AdminFormComponent = createReduxForm(AdminForm);
-export default connect(
-  state => ({
-    initialValues: state.mainReducer.adminForm || { users: [{ username: '', display: '', email: '', password: '', clicks: 0, datas: [{ name: '' }] }] }, // pull initial values from state
-  }),
+export default connect(mapStateToProps,
   { load: loadInit } // bind account loading action creator
 )(AdminFormComponent);

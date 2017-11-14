@@ -1,10 +1,10 @@
 
 import Users from '../models/users.js';
-import message from '../models/message.js';
-import email from 'emailjs/email';
+// import message from '../models/message.js';
+// import email from 'emailjs/email';
 import randomize from 'randomatic';
-import md5Hex from 'md5-hex';
-import url from 'urlparser';
+// import md5Hex from 'md5-hex';
+// import url from 'urlparser';
 
 import winston from 'winston';
 require('winston-daily-rotate-file');
@@ -33,13 +33,6 @@ function validateEmail(emailV) {
 // ///////////////////////////////////////////////////
 
 function AdminHandler(emailServer) {
-  /* const server = email.server.connect({
-    user: emailServer.user,
-    password: emailServer.password,
-    host: emailServer.host,
-    port: emailServer.port,
-    ssl: true,
-  }); */
   this.getAllUsers = (req, res) => {
     Users
       .find({}, {})
@@ -52,7 +45,7 @@ function AdminHandler(emailServer) {
             users.push({username: user.twitter.username, display: user.twitter.displayName, email: user.twitter.email, password:user.twitter.password, clicks: user.nbrClicks.clicks, datas: user.info.data});
           // });
         });
-        console.log(users);
+        // console.log(users);
         res.send({users: users});
       });
   };
@@ -70,7 +63,7 @@ function AdminHandler(emailServer) {
       newData.push({name: data});
     });
     form.datas = newData;
-    // console.log(form);
+    console.log(form.username);
     let final = {};
     Users
         .findOneAndUpdate({ 'twitter.username': form.username }, { 'twitter.displayName': form.display, 'twitter.email': form.email, 'twitter.password': form.password, 'nbrClicks.clicks': form.clicks, 'info.data': form.datas })
