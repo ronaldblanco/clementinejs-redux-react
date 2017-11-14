@@ -7,7 +7,10 @@ import { createRoutes } from '../client/src/routes.jsx';
 import reducer from '../client/src/reducer';
 import Users from './models/users';
 
-const renderHelper = (res, location, routes, store) => {
+import production from './views/production'
+import development from './views/development'
+
+const renderHelper = (res, location, routes, store, appEnv) => {
   match({ routes, location }, (error, redirectLocation, renderProps) => {
     if (error) {
       res.status(500).send(error.message);
@@ -21,7 +24,10 @@ const renderHelper = (res, location, routes, store) => {
       );
       const finalState = store.getState();
       // console.log(finalState);
-      res.send(`
+      let finalSend;
+      if (appEnv.env === 'development') finalSend = development(html, finalState);
+      else if (appEnv.env === 'production') finalSend = production(html, finalState);
+      res.send(finalSend/*`
       <!doctype html>
       <html>
         <head>
@@ -50,7 +56,7 @@ const renderHelper = (res, location, routes, store) => {
           <script src="/static/bootstrap.min.js"></script>
         </body>
       </html>
-      `);
+      `*/);
     } else {
       res.status(404).send('Not found');
     }
@@ -80,7 +86,7 @@ const ServerRender = (appEnv) => (req, res, next) => {
       };
       const store = createStore(reducer, initialState);
       const routes = createRoutes(store);
-      return renderHelper(res, req.url, routes, store);
+      return renderHelper(res, req.url, routes, store, appEnv);
     });
   } else if (req.url === '/adminform' || appEnv.admin === 'TRUE') {
     // redirect to login if not logged in
@@ -104,7 +110,7 @@ const ServerRender = (appEnv) => (req, res, next) => {
             // if (req.url !== '/login' && req.url !== '/creationoklocal' && req.url !== '/admin/getusers') return res.redirect(302, '/login');
             const store = createStore(reducer, initialState);
             const routes = createRoutes(store);
-            return renderHelper(res, req.url, routes, store);
+            return renderHelper(res, req.url, routes, store, appEnv);
       });
   } else {
     const initialState = {
@@ -119,7 +125,7 @@ const ServerRender = (appEnv) => (req, res, next) => {
     if (req.url !== '/login' && req.url !== '/creationoklocal') return res.redirect(302, '/login');
     const store = createStore(reducer, initialState);
     const routes = createRoutes(store);
-    return renderHelper(res, req.url, routes, store);
+    return renderHelper(res, req.url, routes, store, appEnv);
   }
   return null;
 };
