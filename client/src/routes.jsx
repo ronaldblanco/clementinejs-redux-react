@@ -1,6 +1,7 @@
 import React from 'react';
 import { MainContainer as Main } from './components/main.jsx';
-import Login from './components/login.jsx';
+// import Login from './components/login.jsx';
+import { LoginContainer } from './components/login.jsx';
 // import { AuthLocal } from './components/localauth/AuthLocal.jsx';
 import AuthLocalComponent from './components/localauth/AuthLocal.jsx';
 // import { CreateLocal } from './components/localauth/CreateLocal.jsx';
@@ -91,7 +92,7 @@ export const createRoutes = (store) => {
     childRoutes: [
       { path: 'main', component: Main, onEnterAuth },
       { path: 'profile', component: Profile, onEnterAuth },
-      { path: 'login', component: Login, onEnterUnauth },
+      { path: 'login', component: LoginContainer, onEnterUnauth },
       { path: 'authlocal', component: AuthLocalComponent, onEnterUnauth },
       { path: 'createlocal', component: CreateLocalComponent, onEnterCreateUser },
       { path: 'resetlocal', component: ResetLocal, onEnterUnauth },

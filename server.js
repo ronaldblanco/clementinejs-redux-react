@@ -99,7 +99,9 @@ app.use(functions.cacheIt);
 app.use(compression({filter: functions.shouldCompress}));
 /////////////////////////////////////////////////
 
-routes(app, passport, passportGitHub, emailServer, passportLocal);
+let appEnv = { env: process.env.NODE_ENV, admin: process.env.ADMIN };
+
+routes(app, passport, passportGitHub, emailServer, passportLocal, appEnv);
 
 const port = process.env.PORT || 8080;
 app.listen(port, error => {

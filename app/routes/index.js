@@ -3,10 +3,10 @@ import ClickHandler from '../controllers/clickHandler.server';
 import DataHandler from '../controllers/dataHandler.server.js';
 import UserHandler from '../controllers/userHandler.server.js';
 import AdminHandler from '../controllers/adminHandler.server.js';
-import serverRender from '../serverRender.js';
+import ServerRender from '../serverRender.js';
 // import { getNewUser } from '../../client/src/reducer';
 
-export default function (app, passport, passportGitHub, emailServer, passportLocal) {
+export default function (app, passport, passportGitHub, emailServer, passportLocal, appEnv) {
   function isLoggedIn(req, res, next) {
     if (req.isAuthenticated()) {
       return next();
@@ -21,6 +21,7 @@ export default function (app, passport, passportGitHub, emailServer, passportLoc
   const dataHandler = new DataHandler();
   const userHandler = new UserHandler(emailServer);
   const adminHandler = new AdminHandler(emailServer);
+  const serverRender = new ServerRender(appEnv);
 
   app.route('/api/user')
     .get((req, res) => {

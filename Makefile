@@ -20,7 +20,7 @@ build: clean webpack
 	
 webpack_dev:
 	@echo "Packing Develoment..."
-	@webpack -p --config ./webpack.config.dev.js && cp -R ./public ./dist
+	@webpack -p --config ./webpack.config.client.development.js && cp -R ./public ./dist
 	@NODE_ENV=production webpack -p --config ./webpack.config.server.js
 	
 build_dev: webpack_dev

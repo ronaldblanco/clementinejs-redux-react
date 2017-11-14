@@ -78,3 +78,4 @@ export const getDatas = state => state.mainReducer.data || [];
 export const getMess = state => state.mainReducer.message || { message: '', type: '' };
 
 export const getAdmin = state => state.mainReducer.adminForm || { users: [] };
+export const getEnv = state => state.mainReducer.env || '';

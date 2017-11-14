@@ -58,8 +58,9 @@ const renderHelper = (res, location, routes, store) => {
 };
 
 // export default (req, res) => {
-const serverRender = (req, res) => {
+const ServerRender = (appEnv) => (req, res, next) => {
   console.log(req.originalUrl);
+  // console.log(appEnv);
   if (req.isAuthenticated()) {
     const user = req.user.twitter;
     // redirect to main if logged in
@@ -74,13 +75,14 @@ const serverRender = (req, res) => {
           user,
           data: response.info.data || [],
           message: { message: '', type: '' },
+          env: appEnv.admin,
         },
       };
       const store = createStore(reducer, initialState);
       const routes = createRoutes(store);
       return renderHelper(res, req.url, routes, store);
     });
-  } else if (req.url === '/adminform') {
+  } else if (req.url === '/adminform' || appEnv.admin === 'TRUE') {
     // redirect to login if not logged in
     Users
       .find({}, {})
@@ -96,6 +98,7 @@ const serverRender = (req, res) => {
                 local: false,
                 newUser: {},
                 adminForm: {users: users || []},
+                env: appEnv.admin,
               },
             };
             // if (req.url !== '/login' && req.url !== '/creationoklocal' && req.url !== '/admin/getusers') return res.redirect(302, '/login');
@@ -110,9 +113,10 @@ const serverRender = (req, res) => {
         local: false,
         newUser: {},
         adminForm: {users: {}},
+        env: appEnv.admin,
       },
     };
-    if (req.url !== '/login' && req.url !== '/creationoklocal' && req.url !== '/admin/getusers') return res.redirect(302, '/login');
+    if (req.url !== '/login' && req.url !== '/creationoklocal') return res.redirect(302, '/login');
     const store = createStore(reducer, initialState);
     const routes = createRoutes(store);
     return renderHelper(res, req.url, routes, store);
@@ -120,4 +124,4 @@ const serverRender = (req, res) => {
   return null;
 };
 
-export default serverRender;
+export default ServerRender;

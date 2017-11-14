@@ -171,7 +171,7 @@ const createReduxForm = reduxForm({
 const AdminFormComponent = createReduxForm(AdminForm);
 export default connect(
   state => ({
-    initialValues: state.mainReducer.adminForm || {users: [{}]}, // pull initial values from state
+    initialValues: state.mainReducer.adminForm || { users: [{username:'', display:'', email:'', password:'', clicks:0, datas:[{name:''}]}] }, // pull initial values from state
   }),
   { load: loadInit } // bind account loading action creator
 )(AdminFormComponent);
