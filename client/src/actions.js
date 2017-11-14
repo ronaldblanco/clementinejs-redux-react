@@ -99,39 +99,41 @@ export const adminOnSubmit = (values, dispatch, getState) => {
   // console.log(getState.initialValues);
   // window.alert(`You submitted:\n\n${JSON.stringify(values, null, 2)}`);
   let info = '';
-  if (values.users.length === getState.initialValues.users.length && getState.initialValues !== undefined){
-  values.users.map((user, index) => {
-    getState.initialValues.users.map((iUser, iIndex) => {
-      if(user.username === iUser.username && user !== iUser){
-        console.log(user);
-        console.log(iUser);
-        if(user.password === iUser.password) info = `?username=${user.username}?display=${user.display}?email=${user.email}?password=${user.password}?clicks=${user.clicks}`;
-        else info = `?username=${user.username}?display=${user.display}?email=${user.email}?password=${md5Hex(user.password)}?clicks=${user.clicks}`;
-        user.datas.map((data, indexData) => {
-          info = info + `?datas=${data.name}`;
-        });
-        ajax('POST', '/admin/setusers' + info).then(data => {
+  if (values.users.length === getState.initialValues.users.length && getState.initialValues !== undefined) {
+    values.users.map((user/* , index */) => {
+      getState.initialValues.users.map((iUser/* , iIndex */) => {
+        if (user.username === iUser.username && user !== iUser) {
+          console.log(user);
+          console.log(iUser);
+          if (user.password === iUser.password) info = `?username=${user.username}?display=${user.display}?email=${user.email}?password=${user.password}?clicks=${user.clicks}`;
+          else info = `?username=${user.username}?display=${user.display}?email=${user.email}?password=${md5Hex(user.password)}?clicks=${user.clicks}`;
+          user.datas.map((data/* , indexData */) => {
+            info = `${info}?datas=${data.name}`;
+          });
+          ajax('POST', `/admin/setusers${info}`).then(data => {
           /* eslint-disable no-console */
-        }, error => { console.log(error); });
+          }, error => { console.log(error); });
         /* eslint-enable no-console */
-      }
+        }
+      });
     });
-  });
   } else  if (values.users.length > getState.initialValues.users.length && getState.initialValues !== undefined){
     let count = values.users.length - getState.initialValues.users.length;
     console.log(count);
-    for (let i = (values.users.length - count); i < values.users.length; i = i + 1){
+    for (let i = (values.users.length - count); i < values.users.length; i = i + 1) {
       console.log('iteration');
       info = `?username=${values.users[i].username}?display=${values.users[i].display}?email=${values.users[i].email}?password=${md5Hex(values.users[i].password)}?clicks=${values.users[i].clicks}`;
-      values.users[i].datas.map((data, indexData) => {
-        info = info + `?datas=${data.name}`;
+      values.users[i].datas.map((data/* , indexData */) => {
+        info = `${info}?datas=${data.name}`;
       });
-      ajax('POST', '/admin/setusers' + info).then(data => {
+      ajax('POST', `/admin/setusers${info}`).then(data => {
         /* eslint-disable no-console */
+        console.log(data);
       }, error => { console.log(error); });
+      /* eslint-enable no-console */
     }
   }
-  
+
   ajax('GET', '/admin/getusers').then(data => {
     dispatch({ type: 'ADMIN_MA', users: data.users });
           /* eslint-disable no-console */

@@ -52,9 +52,7 @@ export const validate = values => {
           if (!userErrors.datas) {
             userErrors.datas = [];
           }
-          
           userErrors.datas._error = 'No more than five datas or names allowed';
-          
           usersArrayErrors[userIndex] = userErrors;
         }
       }

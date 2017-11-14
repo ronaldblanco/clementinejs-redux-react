@@ -7,7 +7,7 @@ module.exports = {
     app: path.join(__dirname,'client','src','index.jsx'),
     vendors: [
       'react', 'redux', 'react-redux', 'react-router',
-      'react-dom', 'redux-thunk'
+      'react-dom', 'redux-thunk', 'redux-form'
     ]
   },
   output: {

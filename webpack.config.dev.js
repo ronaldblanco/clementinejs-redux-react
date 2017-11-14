@@ -11,7 +11,7 @@ module.exports = {
     ],
     vendors: [
       'react', 'redux', 'react-redux', 'react-router',
-      'react-dom', 'redux-thunk'
+      'react-dom', 'redux-thunk', 'redux-form'
     ]
   },
   output: {

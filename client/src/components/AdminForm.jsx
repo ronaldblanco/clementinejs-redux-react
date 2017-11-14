@@ -64,31 +64,31 @@ const renderUsers = ({ fields, meta: { error, submitFailed } }) => (
           component={renderField}
           label="User Name"
         />
-          <Field
-            name={`${user}.display`}
-            type="text"
-            component={renderField}
-            label="Display Name"
-          />
-          <Field
-            name={`${user}.email`}
-            type="text"
-            component={renderField}
-            label="Email"
-          />
-          <Field
-            name={`${user}.password`}
-            type="password"
-            component={renderField}
-            label="Password"
-          />
-          <Field
-            name={`${user}.clicks`}
-            type="text"
-            component={renderField}
-            label="Clicks"
-          />
-          <FieldArray name={`${user}.datas`} component={renderDatas} />
+        <Field
+          name={`${user}.display`}
+          type="text"
+          component={renderField}
+          label="Display Name"
+        />
+        <Field
+          name={`${user}.email`}
+          type="text"
+          component={renderField}
+          label="Email"
+        />
+        <Field
+          name={`${user}.password`}
+          type="password"
+          component={renderField}
+          label="Password"
+        />
+        <Field
+          name={`${user}.clicks`}
+          type="text"
+          component={renderField}
+          label="Clicks"
+        />
+        <FieldArray name={`${user}.datas`} component={renderDatas} />
       </li>
     ))}
   </ul>
@@ -112,7 +112,7 @@ const AdminForm = props => {
         </button>
       </div>
       <form onSubmit={handleSubmit} >
-      <div className="form-group">
+        <div className="form-group">
           <FieldArray name="users" component={renderUsers} />
         </div>
         <div>
@@ -155,6 +155,7 @@ AdminForm.propTypes = {
   submitting: React.PropTypes.oneOfType([
     React.PropTypes.function,
     React.PropTypes.boolean]),
+  load: React.PropTypes.function,
 };
 
 /* export default reduxForm({
@@ -171,7 +172,7 @@ const createReduxForm = reduxForm({
 const AdminFormComponent = createReduxForm(AdminForm);
 export default connect(
   state => ({
-    initialValues: state.mainReducer.adminForm || { users: [{username:'', display:'', email:'', password:'', clicks:0, datas:[{name:''}]}] }, // pull initial values from state
+    initialValues: state.mainReducer.adminForm || { users: [{ username: '', display: '', email: '', password: '', clicks: 0, datas: [{ name: '' }] }] }, // pull initial values from state
   }),
   { load: loadInit } // bind account loading action creator
 )(AdminFormComponent);

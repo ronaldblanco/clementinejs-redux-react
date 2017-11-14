@@ -59,7 +59,7 @@ const initState = {
   message: { message: '', type: '' },
   newUser: {},
   local: false,
-  adminForm: {users: []},
+  adminForm: { users: [] },
 };
 
 export default (state = initState, action) => {

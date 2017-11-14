@@ -4,11 +4,12 @@ let Link = require('react-router').Link;
 import { getEnv } from '../reducer';
 import { connect } from 'react-redux';
 
-function showOrHide(env){
-  if (env === 'TRUE' || env === 'true') return <Link className="btn" id="login-btn" to={"/adminform"}>
-        <img src="img/admin.png" alt="admin logo" width="32px" height="32px" />ADMINISTRATION
-      </Link>;
-  else return <p></p>;
+function showOrHide(env) {
+  if (env === 'TRUE' || env === 'true') {
+    return (<Link className="btn" id="login-btn" to={"/adminform"}>
+      <img src="img/admin.png" alt="admin logo" width="32px" height="32px" />ADMINISTRATION
+    </Link>);
+  } else return (<p></p>);
 }
 
 const Login = ({ env }) => (
