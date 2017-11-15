@@ -1,6 +1,6 @@
-
+/* eslint-disable arrow-body-style */
 export default (html, finalState) => {
-return `
+  return `
       <!doctype html>
       <html>
         <head>
@@ -31,3 +31,4 @@ return `
       </html>
       `;
 };
+/* eslint-enable arrow-body-style */

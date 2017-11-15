@@ -68,13 +68,13 @@ export default function (app, passport, passportGitHub, emailServer, passportLoc
 
   app.route('/api/:id/infodel')
     .delete(isLoggedIn, dataHandler.deleteData);
-    
+
   app.route('/admin/getusers')
 		.get(isNotLoggedIn, adminHandler.getAllUsers);
-		
-	app.route('/admin/setusers')
+
+  app.route('/admin/setusers')
 		.post(isNotLoggedIn, adminHandler.adminAddUser);
-		
+
 	/* app.route('/form/redux') // Only for Redux forms, to have {} as response!
 		.post((req, res) => res.send({})); */
 

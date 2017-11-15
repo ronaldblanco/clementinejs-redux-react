@@ -96,7 +96,7 @@ const renderUsers = ({ fields, meta: { error, submitFailed } }) => (
 );
 
 const AdminForm = props => {
-  const { handleSubmit, pristine, reset, submitting, load/* , values */} = props;
+  const { handleSubmit, pristine, reset, submitting/* , load , values */} = props;
   return (
     <div className="container">
       <div>
@@ -105,8 +105,8 @@ const AdminForm = props => {
         <p className="clementine-text">Clementine.js</p>
         <Link className="menu" to={"/login"}>Return to Login Page</Link>
       </div>
-      <br/>
-      <h3>APP ADMINISTRATION!</h3>
+      <br />
+      <center><h3>APP ADMINISTRATION!</h3></center>
       <form onSubmit={handleSubmit} >
         <div className="form-group">
           <FieldArray name="users" component={renderUsers} />
@@ -159,7 +159,7 @@ AdminForm.propTypes = {
 function mapStateToProps(state) {
   return {
     values: getAdmin(state),
-    initialValues: getAdmin(state),// state.mainReducer.adminForm,
+    initialValues: getAdmin(state), // state.mainReducer.adminForm,
   };
 }
 
