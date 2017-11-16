@@ -96,34 +96,25 @@ export const resetlocal = () => (dispatch) => {
 
 export const adminOnSubmit = (values, dispatch, getState) => {
   dispatch({ type: 'LOADING', what: 'adminManagement' });
-  // console.log(getState.initialValues);
+  console.log(getState.initialValues);
+  console.log(values);
   // window.alert(`You submitted:\n\n${JSON.stringify(values, null, 2)}`);
   let info = '';
-  if (
-    values.users.length === getState.initialValues.users.length &&
-    getState.initialValues !== undefined
-  ) {
-    values.users.map((user/* , index */) => {
-      getState.initialValues.users.map((iUser/* , iIndex */) => {
+  if (values.users.length === getState.initialValues.users.length && getState.initialValues !== undefined) {
+    console.log('Updating...');
+    values.users.map((user, index) => {
+      getState.initialValues.users.map((iUser, iIndex) => {
         if (user.username === iUser.username && user !== iUser) {
           console.log(user.username);
           // console.log(iUser);
           if (user.password === iUser.password) {
-            info = `?username=${user.username}
-            ?display=${user.display}
-            ?email=${user.email}
-            ?password=${user.password}
-            ?clicks=${user.clicks}`;
+            info = `?username=${user.username}?display=${user.display}?email=${user.email}?password=${user.password}?clicks=${user.clicks}`;
           } else {
-            info = `?username=${user.username}
-            ?display=${user.display}
-            ?email=${user.email}
-            ?password=${md5Hex(user.password)}
-            ?clicks=${user.clicks}`;
+            info = `?username=${user.username}?display=${user.display}?email=${user.email}?password=${md5Hex(user.password)}?clicks=${user.clicks}`;
           }
-          user.datas.map((data/* , indexData */) => {
+          user.datas.map((data, indexData) => {
             info = `${info}?datas=${data.name}`;
-            return info;
+            // return info;
           });
           ajax('POST', `/admin/setusers${info}`).then(data => {
           /* eslint-disable no-console */
@@ -131,29 +122,44 @@ export const adminOnSubmit = (values, dispatch, getState) => {
           }, error => { console.log(error); });
         /* eslint-enable no-console */
         }
-        return 0;
+        // return 0;
       });
-      return 0;
+      // return 0;
     });
-  } else if (
-    values.users.length > getState.initialValues.users.length &&
-    getState.initialValues !== undefined
-  ) {
+  } else if (values.users.length > getState.initialValues.users.length && getState.initialValues !== undefined) {
+    console.log('Creating...');
     const count = values.users.length - getState.initialValues.users.length;
     // console.log(count);
     /* eslint-disable no-loop-func */
     for (let i = (values.users.length - count); i < values.users.length; i = i + 1) {
       console.log(values.users[i].username);
-      info = `?username=${values.users[i].username}
-        ?display=${values.users[i].display}
-        ?email=${values.users[i].email}
-        ?password=${md5Hex(values.users[i].password)}
-        ?clicks=${values.users[i].clicks}`;
-      values.users[i].datas.map((data/* , indexData */) => {
+      info = `?username=${values.users[i].username}?display=${values.users[i].display}?email=${values.users[i].email}?password=${md5Hex(values.users[i].password)}?clicks=${values.users[i].clicks}`;
+      values.users[i].datas.map((data, indexData) => {
         info = `${info}?datas=${data.name}`;
-        return info;
+        // return info;
       });
       ajax('POST', `/admin/setusers${info}`).then(data => {
+        /* eslint-disable no-console */
+        console.log(data);
+      }, error => { console.log(error); });
+      /* eslint-enable no-console */
+    }
+    /* eslint-enable no-loop-func */
+  } else if (values.users.length < getState.initialValues.users.length && getState.initialValues !== undefined) {
+    console.log('Deleting...');
+    let toDelete = getState.initialValues.users;
+    // getState.initialValues.users.map((user, index) => {
+      values.users.map((userV, indexV) => {
+        toDelete.map((userD, indexD) => {
+          if (userV.username === userD.username) toDelete.splice(indexD, 1);
+        });
+      });
+    // });
+    console.log(toDelete);
+    /* eslint-disable no-loop-func */
+    for (let i = 0; i < toDelete.length; i = i + 1) {
+      console.log(toDelete[i].username);
+      ajax('POST', `/admin/delusers?username=${toDelete[i].username}`).then(data => {
         /* eslint-disable no-console */
         console.log(data);
       }, error => { console.log(error); });

@@ -52,7 +52,9 @@ export const validate = values => {
           if (!userErrors.datas) {
             userErrors.datas = [];
           }
+          /* eslint-disable no-underscore-dangle */
           userErrors.datas._error = 'No more than five datas or names allowed';
+          /* eslint-enable no-underscore-dangle */
           usersArrayErrors[userIndex] = userErrors;
         }
       }

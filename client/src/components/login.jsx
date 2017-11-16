@@ -4,13 +4,17 @@ let Link = require('react-router').Link;
 import { getEnv } from '../reducer';
 import { connect } from 'react-redux';
 
+/* eslint-disable no-else-return */
 function showOrHide(env) {
   if (env === 'TRUE' || env === 'true') {
     return (<Link className="btn" id="login-btn" to={"/adminform"}>
       <img src="img/admin.png" alt="admin logo" width="32px" height="32px" />ADMINISTRATION
     </Link>);
-  } else return (<p></p>);
+  } else {
+    return (<p></p>);
+  }
 }
+/* eslint-enable no-else-return */
 
 const Login = ({ env }) => (
   <div className="container">

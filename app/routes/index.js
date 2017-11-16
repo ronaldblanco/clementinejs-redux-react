@@ -20,7 +20,7 @@ export default function (app, passport, passportGitHub, emailServer, passportLoc
   const clickHandler = new ClickHandler();
   const dataHandler = new DataHandler();
   const userHandler = new UserHandler(emailServer);
-  const adminHandler = new AdminHandler(emailServer);
+  const adminHandler = new AdminHandler();
   const serverRender = new ServerRender(appEnv);
 
   app.route('/api/user')
@@ -75,8 +75,8 @@ export default function (app, passport, passportGitHub, emailServer, passportLoc
   app.route('/admin/setusers')
 		.post(isNotLoggedIn, adminHandler.adminAddUser);
 
-	/* app.route('/form/redux') // Only for Redux forms, to have {} as response!
-		.post((req, res) => res.send({})); */
+	app.route('/admin/delusers')
+		.post(isNotLoggedIn, adminHandler.adminDelUser);
 
   app.route('/*')
     .get(serverRender

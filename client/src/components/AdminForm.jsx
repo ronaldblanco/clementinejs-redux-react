@@ -7,13 +7,6 @@ let Link = require('react-router').Link;
 
 import { adminOnSubmit, loadInit } from '../actions';
 import { getAdmin } from '../reducer';
-// const loadAccount = data => ({ type: 'LOAD', data });
-
-/* const onSubmit = (values) => {
-  window.alert(`You submitted:\n\n${JSON.stringify(values, null, 2)}`);
-  //  onSubmit={handleSubmit}
-   action="/admin/setusers" method="post"
-}; */
 
 const renderDatas = ({ fields, meta: { error } }) => (
   <ul>
@@ -96,7 +89,7 @@ const renderUsers = ({ fields, meta: { error, submitFailed } }) => (
 );
 
 const AdminForm = props => {
-  const { handleSubmit, pristine, reset, submitting/* , load , values */} = props;
+  const { handleSubmit, pristine, reset, submitting/* , load , values */ } = props;
   return (
     <div className="container">
       <div>
@@ -105,7 +98,9 @@ const AdminForm = props => {
         <p className="clementine-text">Clementine.js</p>
         <Link className="menu" to={"/login"}>Return to Login Page</Link>
       </div>
-      <br />
+      <div className="alert alert-warning">
+        <h2>Only one type of change can be done at the same time! UPDATE, ADITION or DELETION</h2>
+      </div>
       <center><h3>APP ADMINISTRATION!</h3></center>
       <form onSubmit={handleSubmit} >
         <div className="form-group">
@@ -158,7 +153,7 @@ AdminForm.propTypes = {
 
 function mapStateToProps(state) {
   return {
-    values: getAdmin(state),
+    // values: getAdmin(state),
     initialValues: getAdmin(state), // state.mainReducer.adminForm,
   };
 }
@@ -169,6 +164,6 @@ const createReduxForm = reduxForm({
   validate, // <--- validation function given to redux-form
 });
 const AdminFormComponent = createReduxForm(AdminForm);
-export default connect(mapStateToProps,
-  { load: loadInit } // bind account loading action creator
+export default connect(mapStateToProps/* ,
+  { load: loadInit } */// bind account loading action creator
 )(AdminFormComponent);

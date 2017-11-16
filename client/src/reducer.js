@@ -77,5 +77,7 @@ export const getLoggedIn = state => state.mainReducer.loggedIn;
 export const getDatas = state => state.mainReducer.data || [];
 export const getMess = state => state.mainReducer.message || { message: '', type: '' };
 
+/* eslint-disable max-len */
 export const getAdmin = state => state.mainReducer.adminForm || { users: [{ username: '', display: '', email: '', password: '', clicks: 0, datas: [{ name: '' }] }] };
+/* eslint-enable max-len */
 export const getEnv = state => state.mainReducer.env || '';
