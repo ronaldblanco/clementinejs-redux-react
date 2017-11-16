@@ -99,7 +99,7 @@ const AdminForm = props => {
         <Link className="menu" to={"/login"}>Return to Login Page</Link>
       </div>
       <div className="alert alert-warning">
-        <h2>Only one type of change can be done at the same time! UPDATE, ADITION or DELETION</h2>
+        Only one type of change can be done at the same time! UPDATE, ADITION or DELETION
       </div>
       <center><h3>APP ADMINISTRATION!</h3></center>
       <form onSubmit={handleSubmit} >
