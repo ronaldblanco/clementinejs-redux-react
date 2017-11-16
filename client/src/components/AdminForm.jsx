@@ -5,7 +5,7 @@ import { validate, renderField } from './adminvalidate';
 import { connect } from 'react-redux';
 let Link = require('react-router').Link;
 
-import { adminOnSubmit, loadInit } from '../actions';
+import { adminOnSubmit/* , loadInit */ } from '../actions';
 import { getAdmin } from '../reducer';
 
 const renderDatas = ({ fields, meta: { error } }) => (

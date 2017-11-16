@@ -75,8 +75,10 @@ function AdminHandler() {
     form.datas = newData;
     console.log(form);
     let final = {};
+    /* eslint-disable max-len */
     Users
         .findOneAndUpdate({ 'twitter.username': form.username }, { 'twitter.displayName': form.display, 'twitter.email': form.email, 'twitter.password': form.password, 'nbrClicks.clicks': form.clicks, 'info.data': form.datas })
+          /* eslint-enable max-len */
           .exec((err, result) => {
             if (err) { throw err; }
             if (result === null) {
@@ -111,8 +113,8 @@ function AdminHandler() {
         .findOne({ 'twitter.username': form.username }, {})
           .remove().exec((err, result) => {
             if (err) { throw err; }
-            if (result === null) {
-            }
+            /* if (result === null) {
+            } */
             /* eslint-disable object-shorthand */
             final = { result: result };
             /* eslint-enable object-shorthand */

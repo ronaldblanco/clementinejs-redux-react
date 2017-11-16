@@ -75,7 +75,7 @@ export default function (app, passport, passportGitHub, emailServer, passportLoc
   app.route('/admin/setusers')
 		.post(isNotLoggedIn, adminHandler.adminAddUser);
 
-	app.route('/admin/delusers')
+  app.route('/admin/delusers')
 		.post(isNotLoggedIn, adminHandler.adminDelUser);
 
   app.route('/*')

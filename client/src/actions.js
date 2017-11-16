@@ -94,6 +94,9 @@ export const resetlocal = () => (dispatch) => {
 // FORM ACTIONS POSIBILITY
 // import axios from 'axios';
 
+/* eslint-disable max-len */
+/* eslint-disable array-callback-return */
+/* eslint-disable no-unused-vars */
 export const adminOnSubmit = (values, dispatch, getState) => {
   dispatch({ type: 'LOADING', what: 'adminManagement' });
   console.log(getState.initialValues);
@@ -147,13 +150,13 @@ export const adminOnSubmit = (values, dispatch, getState) => {
     /* eslint-enable no-loop-func */
   } else if (values.users.length < getState.initialValues.users.length && getState.initialValues !== undefined) {
     console.log('Deleting...');
-    let toDelete = getState.initialValues.users;
+    const toDelete = getState.initialValues.users;
     // getState.initialValues.users.map((user, index) => {
-      values.users.map((userV, indexV) => {
-        toDelete.map((userD, indexD) => {
-          if (userV.username === userD.username) toDelete.splice(indexD, 1);
-        });
+    values.users.map((userV, indexV) => {
+      toDelete.map((userD, indexD) => {
+        if (userV.username === userD.username) toDelete.splice(indexD, 1);
       });
+    });
     // });
     console.log(toDelete);
     /* eslint-disable no-loop-func */
@@ -175,6 +178,9 @@ export const adminOnSubmit = (values, dispatch, getState) => {
   window.alert('The Operation was Correctly!');
   window.location.replace('/login');
 };
+/* eslint-enable max-len */
+/* eslint-enable array-callback-return */
+/* eslint-enable no-unused-vars */
 
 export const loadInit = (values, dispatch) => {
   dispatch({ type: 'LOADING', what: 'adminManagementInit' });
