@@ -3,19 +3,12 @@ let Link = require('react-router').Link;
 
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
-
 import { validate, warn, renderField } from './validation';
-// import renderField from './validation';
-
 import { onSubmit } from '../../actions';
 
-/* module.exports = React.createClass({
-	render: function() {
-		return (*/
-// export const CreationOkLocal = () => (
 const CreateOkLocal = (props) => {
-  console.log(props);
-  const { /* handleSubmit,*/ pristine, reset, submitting/* , onSubmit */ } = props;
+  // console.log(props);
+  const { pristine, reset, submitting } = props;
   return (
     <div className="container" >
       <div>
@@ -94,10 +87,6 @@ const CreateOkLocal = (props) => {
     </div>
     );
 };
-//			);
-/*		);
-	}
-});*/
 
 CreateOkLocal.propTypes = {
   handleSubmit: React.PropTypes.oneOfType([
@@ -121,4 +110,4 @@ const createReduxForm = reduxForm({
   warn, // <--- warning function given to redux-form
 });
 const CreateLocalOkComponent = createReduxForm(CreateOkLocal);
-export default connect(/*mapStateToProps*/)(CreateLocalOkComponent);
+export default connect()(CreateLocalOkComponent);

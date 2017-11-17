@@ -95,7 +95,7 @@ export const adminOnSubmit = (values, dispatch, getState) => {
   dispatch({ type: 'LOADING', what: 'adminManagement' });
   let info = '';
   if (values.users.length === getState.initialValues.users.length && getState.initialValues !== undefined) {
-    console.log('Updating...');
+    // console.log('Updating...');
     values.users.map((user, index) => {
       getState.initialValues.users.map((iUser, iIndex) => {
         if (user.username === iUser.username && user !== iUser) {
@@ -121,12 +121,12 @@ export const adminOnSubmit = (values, dispatch, getState) => {
       // return 0;
     });
   } else if (values.users.length > getState.initialValues.users.length && getState.initialValues !== undefined) {
-    console.log('Creating...');
+    // console.log('Creating...');
     const count = values.users.length - getState.initialValues.users.length;
     // console.log(count);
     /* eslint-disable no-loop-func */
     for (let i = (values.users.length - count); i < values.users.length; i = i + 1) {
-      console.log(values.users[i].username);
+      // console.log(values.users[i].username);
       info = `?username=${values.users[i].username}?display=${values.users[i].display}?email=${values.users[i].email}?password=${md5Hex(values.users[i].password)}?clicks=${values.users[i].clicks}`;
       values.users[i].datas.map((data, indexData) => {
         info = `${info}?datas=${data.name}`;
@@ -139,17 +139,17 @@ export const adminOnSubmit = (values, dispatch, getState) => {
     }
     /* eslint-enable no-loop-func */
   } else if (values.users.length < getState.initialValues.users.length && getState.initialValues !== undefined) {
-    console.log('Deleting...');
+    // console.log('Deleting...');
     const toDelete = getState.initialValues.users;
     values.users.map((userV, indexV) => {
       toDelete.map((userD, indexD) => {
         if (userV.username === userD.username) toDelete.splice(indexD, 1);
       });
     });
-    console.log(toDelete);
+    // console.log(toDelete);
     /* eslint-disable no-loop-func */
     for (let i = 0; i < toDelete.length; i = i + 1) {
-      console.log(toDelete[i].username);
+      // console.log(toDelete[i].username);
       ajax('POST', `/admin/delusers?username=${toDelete[i].username}`).then(data => {
         /* eslint-disable no-console */
         console.log(data);
@@ -163,8 +163,10 @@ export const adminOnSubmit = (values, dispatch, getState) => {
           /* eslint-disable no-console */
   }, error => { console.log(error); });
         /* eslint-enable no-console */
+  /* eslint-disable no-alert */
   window.alert('The Operation was Correctly!');
   window.location.replace('/login');
+  /* eslint-enable no-alert */
 };
 /* eslint-enable max-len */
 /* eslint-enable array-callback-return */
@@ -177,5 +179,5 @@ export const loadInit = (values, dispatch) => {
           /* eslint-disable no-console */
   }, error => { console.log(error); });
         /* eslint-enable no-console */
-  window.alert('The initial Load was Correctly!');
+  // window.alert('The initial Load was Correctly!');
 };

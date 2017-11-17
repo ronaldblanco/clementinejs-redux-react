@@ -2,35 +2,13 @@ let React = require('react');
 let Link = require('react-router').Link;
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
-// import { getMess } from '../../reducer';
-
 import { validate, warn, renderField } from './validation';
-// import renderField from './validation';
 
 import { onSubmit } from '../../actions';
 
-/* const onSubmit = (values, dispatch, getState) => {
- dispatch( {type: 'NEW_USER', user: values} );
- window.location.replace(
-   `/auth/form?username=${values.username}?display=${values.display}?password=${values.password}`
- );
- // window.alert(`You submitted:\n\n${JSON.stringify(values, null, 2)}`);
-}; */
-
-/* const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
-const onSubmit = (function showResults(values, dispatch) {
-  // console.log(dispatch);
-  // dispatch(    // your submit action //      );
-  sleep(500); // simulate server latency
-  window.alert(`You submitted:\n\n${JSON.stringify(values, null, 2)}`);
-  // dispatch(submitFormValues(values));
-  // window.location.replace("/auth/localnew");
-}); */
-
-
 const CreateLocal = (props) => {
-  console.log(props);
-  const { /* handleSubmit,*/ pristine, reset, submitting/* , onSubmit */ } = props;
+  // console.log(props);
+  const { pristine, reset, submitting } = props;
   return (
     <div className="container">
       <div id="message"></div>
@@ -125,12 +103,6 @@ CreateLocal.propTypes = {
     React.PropTypes.boolean]),
 };
 
-/* function mapStateToProps(state) {
-  return {
-    message: getMess(state),
-  };
-} */
-
 const createReduxForm = reduxForm({
   form: 'simpleCreateLocal', // a unique identifier for this form
   onSubmit,
@@ -139,4 +111,3 @@ const createReduxForm = reduxForm({
 });
 const CreateLocalComponent = createReduxForm(CreateLocal);
 export default connect(/*mapStateToProps*/)(CreateLocalComponent);
-// action="/auth/localnew" method="post" //onSubmit={ handleSubmit }

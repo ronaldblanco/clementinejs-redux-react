@@ -3,10 +3,7 @@ import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import { getMess } from '../../reducer';
 import * as actionCreators from '../../actions';
-// console.log(actionCreators);
-/* const ResetLocal = React.createClass({
-	render: function(message, resetlocal) {
-		return ( */
+
 const ResetLocal = ({ message, resetlocal }) => (
   <div className="container">
     <div>
@@ -48,9 +45,6 @@ const ResetLocal = ({ message, resetlocal }) => (
     </div>
   </div>
 		);
-/*		);
-	}
-}); */
 
 ResetLocal.propTypes = {
   message: React.PropTypes.object,

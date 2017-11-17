@@ -2,27 +2,12 @@ let React = require('react');
 let Link = require('react-router').Link;
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
-
 import { validate, warn, renderField } from './validation';
-// import renderField from './validation';
-
 import { onSubmit } from '../../actions';
 
-/* const onSubmit = (values, dispatch) => {
- // dispatch(    // your submit action //      );
- window.alert(`You submitted:\n\n${JSON.stringify(values, null, 2)}`);
-}; */
-/* const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
-const onSubmit = (function showResults(values, dispatch) {
-  // dispatch(    // your submit action //      );
-  sleep(500); // simulate server latency
-  window.alert(`You submitted:\n\n${JSON.stringify(values, null, 2)}`);
-}); */
-// <Link className="menu" id="login-btn" to={"/fieldarraysform"}>FieldArraysForm</Link>
-
 const AuthLocal = (props) => {
-  console.log(props);
-  const { /* handleSubmit, */ pristine, reset, submitting/* , onSubmit */ } = props;
+  // console.log(props);
+  const { pristine, reset, submitting } = props;
   return (
     <div className="container">
       <div className="" id="message"></div>
@@ -106,7 +91,6 @@ AuthLocal.propTypes = {
     React.PropTypes.boolean]),
 };
 
-// onSubmit={ /*props.route.onSubmit*/ /*onSubmit*/ /*props.handleSubmit*/ handleSubmit }
 const createReduxForm = reduxForm({
   form: 'simpleAuthLocal', // a unique identifier for this form
   onSubmit,

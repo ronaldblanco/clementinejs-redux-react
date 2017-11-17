@@ -44,7 +44,7 @@ function UserHandler(emailServer) {
     form.username = req.originalUrl.toString().split('?username=')[1].split('?display=')[0];
     form.display = req.originalUrl.toString().split('?display=')[1].split('?password=')[0];
     form.password = req.originalUrl.toString().split('?password=')[1];
-    console.log(form);
+    // console.log(form);
     Users
       .findOne({ 'twitter.username': req.body.username }, { _id: false })
         .exec((err, result) => {

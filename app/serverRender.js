@@ -33,8 +33,10 @@ const renderHelper = (res, location, routes, store, appEnv) => {
   });
 };
 
+/* eslint-disable object-shorthand */
 const ServerRender = (appEnv) => (req, res) => {
-  console.log(req.originalUrl);
+  // eslint-disable-next-line no-console
+  // console.log(req.originalUrl);
   if (req.isAuthenticated()) {
     const user = req.user.twitter;
     // redirect to main if logged in
@@ -106,5 +108,6 @@ const ServerRender = (appEnv) => (req, res) => {
   }
   return null;
 };
+/* eslint-enable object-shorthand */
 
 export default ServerRender;

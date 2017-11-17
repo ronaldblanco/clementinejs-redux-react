@@ -5,6 +5,7 @@ import { getEnv, getEnvAll } from '../reducer';
 import { connect } from 'react-redux';
 
 /* eslint-disable no-else-return */
+/* eslint-disable consistent-return */
 function showOrHide(env) {
   if (env === 'TRUE' || env === 'true') {
     return (
@@ -12,8 +13,6 @@ function showOrHide(env) {
         <img src="img/admin.png" alt="admin logo" width="32px" height="32px" />ADMINISTRATION
       </Link>
     );
-  } else {
-    // return (<p></p>);
   }
 }
 function showOrHideGithub(appEnv) {
@@ -26,8 +25,6 @@ function showOrHideGithub(appEnv) {
         </div>
       </a>
     );
-  } else {
-    // return (<p></p>);
   }
 }
 function showOrHideTwitter(appEnv) {
@@ -40,11 +37,10 @@ function showOrHideTwitter(appEnv) {
         </div>
       </a>
     );
-  } else {
-    // return (<p></p>);
   }
 }
 /* eslint-enable no-else-return */
+/* eslint-enable consistent-return */
 
 const Login = ({ env, appEnv }) => (
   <div className="container">
@@ -52,12 +48,12 @@ const Login = ({ env, appEnv }) => (
       <img alt="logo" src="img/clementine_150.png" />
       <br />
       <p className="clementine-text">Clementine-React-Redux</p>
-      { showOrHideGithub(appEnv) }
-      { showOrHideTwitter(appEnv) }
+      {showOrHideGithub(appEnv)}
+      {showOrHideTwitter(appEnv)}
       <Link className="btn" id="login-btn" to={"/authlocal"}>
         <img src="img/local.png" alt="twitter logo" width="32px" />LOCAL LOGIN
       </Link>
-      { showOrHide(env) }
+      {showOrHide(env)}
     </div>
   </div>
 );

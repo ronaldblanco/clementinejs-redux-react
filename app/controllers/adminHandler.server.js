@@ -87,7 +87,7 @@ function AdminHandler() {
   this.adminDelUser = (req, res) => {
     const form = {};
     form.username = req.originalUrl.toString().split('?username=')[1];
-    console.log(form);
+    // console.log(form);
     let final = {};
     Users
         .findOne({ 'twitter.username': form.username }, {})
