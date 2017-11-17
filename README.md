@@ -8,12 +8,17 @@ And The version [Clementinejs-pnald](https://github.com/ronaldblanco/clementinej
 To Run:<br>
 
 NODE_ENV=production or development<br>
-ADMIN=TRUE //To access Administration of the APP<br>
-"npm run start" to run the server in production<br>
-"npm run development" to run the server in development<br>
+ADMIN=TRUE To access Administration Panel of the APP<br>
+If GITHUB_KEY it is not set github authentication will be ignored<br>
+If TWITTER_CONSUMER_KEY it is not set twitter authentication will be ignored<br>
+"npm run start" to run the server in production (with good practices for production)<br>
+"npm run development" to run the server in development (AutoWatch and AutoBuild)<br>
 "npm run build" to build production and development in /dist/public folder<br>
-"npm run build_dev" to build directly to /dist/public folder no compresed<br>
-"npm run lint" to test with lint<br>
+"npm run build_dev" to build directly to /dist/public folder (not compresed for best check)<br>
+"npm run lint" to test with lint (eslint corrected)<br>
+
+Clementinejs FCC Pnald using:<br>
+redux, react, react-redux, react-router, react-dom, redux-thunk and redux-form<br>
 
 ## Overview
 

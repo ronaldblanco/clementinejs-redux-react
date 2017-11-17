@@ -50,6 +50,7 @@ const ServerRender = (appEnv) => (req, res) => {
           data: response.info.data || [],
           message: { message: '', type: '' },
           env: appEnv.admin,
+          appEnv: appEnv,
         },
       };
       const store = createStore(reducer, initialState);
@@ -80,6 +81,7 @@ const ServerRender = (appEnv) => (req, res) => {
             newUser: {},
             adminForm: { users: users || [] },
             env: appEnv.admin,
+            appEnv: appEnv,
           },
         };
         const store = createStore(reducer, initialState);
@@ -94,6 +96,7 @@ const ServerRender = (appEnv) => (req, res) => {
         newUser: {},
         adminForm: { users: {} },
         env: appEnv.admin,
+        appEnv: appEnv,
       },
     };
     if (req.url !== '/login' && req.url !== '/creationoklocal') return res.redirect(302, '/login');

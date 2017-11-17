@@ -21,9 +21,13 @@ if (env) env.load();
 console.log(process.env.NODE_ENV);
 
 import passportConfig from './app/config/passport';
-passportConfig(passport);
+if(process.env.TWITTER_CONSUMER_KEY){
+  passportConfig(passport);
+}
 import passportConfigGitHub from './app/config/passport-github';
-passportConfigGitHub(passportGitHub);
+if(process.env.GITHUB_KEY){
+  passportConfigGitHub(passportGitHub);
+}
 import passportConfigLocal from './app/config/passport-local';
 passportConfigLocal(passportLocal);
 
@@ -108,7 +112,12 @@ app.use(functions.cacheIt);
 app.use(compression({filter: functions.shouldCompress}));
 /////////////////////////////////////////////////
 
-let appEnv = { env: process.env.NODE_ENV, admin: process.env.ADMIN };
+let appEnv = {
+  env: process.env.NODE_ENV,
+  admin: process.env.ADMIN,
+  twitter: process.env.TWITTER_CONSUMER_KEY,
+  github: process.env.GITHUB_KEY
+};
 
 routes(app, passport, passportGitHub, emailServer, passportLocal, appEnv);
 
