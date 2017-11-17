@@ -1,3 +1,4 @@
+
 let React = require('react');
 
 export const validate = values => {
@@ -29,12 +30,20 @@ export const validate = values => {
         userErrors.email = 'Required';
         usersArrayErrors[userIndex] = userErrors;
       }
+      if (user && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(user.email)){
+        userErrors.email = 'This is not a valid email!';
+        usersArrayErrors[userIndex] = userErrors;
+      }
       if (!user || !user.password) {
         userErrors.password = 'Required';
         usersArrayErrors[userIndex] = userErrors;
       }
       if (!user || !user.clicks) {
         userErrors.clicks = 'Required';
+        usersArrayErrors[userIndex] = userErrors;
+      }
+      if (user && !/^[0-9]{1,4}$/i.test(user.clicks)) {
+        userErrors.clicks = 'This Value it is not a valid number (4 digits Max.)!';
         usersArrayErrors[userIndex] = userErrors;
       }
       if (user && user.datas && user.datas.length) {
