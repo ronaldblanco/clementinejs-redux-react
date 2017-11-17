@@ -23,7 +23,6 @@ const renderHelper = (res, location, routes, store, appEnv) => {
         </Provider>
       );
       const finalState = store.getState();
-      // console.log(finalState);
       let finalSend;
       if (appEnv.env === 'development') finalSend = development(html, finalState);
       else if (appEnv.env === 'production') finalSend = production(html, finalState);
@@ -34,10 +33,8 @@ const renderHelper = (res, location, routes, store, appEnv) => {
   });
 };
 
-// export default (req, res) => {
 const ServerRender = (appEnv) => (req, res) => {
   console.log(req.originalUrl);
-  // console.log(appEnv);
   if (req.isAuthenticated()) {
     const user = req.user.twitter;
     // redirect to main if logged in

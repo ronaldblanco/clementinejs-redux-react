@@ -8,14 +8,12 @@ function DataHandler() {
       .findOne({ 'twitter.id': req.user.twitter.id }/* , { '_id': false } */)
       .exec((err, result) => {
         if (err) { throw err; }
-        // console.log(result.info);
         res.json(result.info);
       });
   };
 
   this.addData = (req, res) => {
     const myUrl = url.parse(req.originalUrl);
-    // console.log(myUrl);
     const newData = { name: unescape(myUrl.query.params.name) };
     Users
       .findOneAndUpdate({ 'twitter.id': req.user.twitter.id }, { $push: { 'info.data': newData } })
@@ -47,7 +45,6 @@ function DataHandler() {
             final.push(data);
           });
         });
-        // console.log(final);
         res.send(final);
       });
   };

@@ -6,6 +6,8 @@ import passport from 'passport';
 import passportGitHub from 'passport';
 import passportLocal from 'passport';
 import session from 'express-session';
+import cookieSession from'cookie-session';
+import helmet from 'helmet';
 
 import winston from 'winston';
 require('winston-daily-rotate-file');
@@ -45,41 +47,31 @@ var emailServer = {
 };
 ////////////////////////////////////////////////////////////////////////////////////
 
-if (process.env.NODE_ENV === 'development') {
-  functions.execute('make webpack_min');
+/* if (process.env.NODE_ENV === 'development') {
+  // functions.execute('make webpack_min');
   
-  /* const configHotReloading =
+  const configHotReloading =
   process.env.NODE_ENV === 'development' && !process.env.DISABLE_WEBPACK
     ? require('./app/config/hotReload') : null;
-  if (configHotReloading) configHotReloading(app); */
-}
-
-//////////////////////////////////////////////
-app.use(require('cookie-parser')());
-app.use(require('body-parser').urlencoded({ extended: true }));
-//////////////////////////////////////////////
-
-app.use(session({
-  secret: process.env.SECRET_SESSION || 'secretClementine',
-  resave: false,
-  saveUninitialized: true,
-}));
-
-app.use(passport.initialize());
-app.use(passport.session());
+  if (configHotReloading) configHotReloading(app);
+} */
 
 // ////////////////////////
 if (process.env.NODE_ENV === 'development'){
-    // Gulp build execution
-    // functions.execute('make build');
+    // HotReload build execution
+    functions.execute('make webpack_min');
     // ///////////////////////////////////////////
+    app.use(session({
+      secret: process.env.SECRET_SESSION || 'secretClementine',
+      resave: false,
+      saveUninitialized: true,
+    }));
     // CHECK FOLDER LOG AND CREATE IT////////////////////////////////////
     functions.ensureExists(__dirname + '/log', '0744', function(err) {
         if (err) console.error(err);
         else console.log('Folder Log was created or existed');
     });
     // ////////////////////////////////////////////////
-
     // LOGGER//////////////////////////////////////////
     var logger = new (winston.Logger)({
         transports: [
@@ -87,13 +79,30 @@ if (process.env.NODE_ENV === 'development'){
         ]
     });
     functions.logIt(logger,'//////////////////STARTING LOGGER INFO////////////////////////');
-/////////////////////////////////////////////////
+// ///////////////////////////////////////////////
 }
-/////////////////////////
+if (process.env.NODE_ENV === 'production'){
+  app.set('trust proxy', 1); // trust first proxy
+  app.use(cookieSession({
+    name: 'session',
+    keys: ['key1', 'key2']
+  }));
+  
+  app.use(helmet());
+}
+// ///////////////////////
 
-//Forzing Cache of static/////////////////////////
+//////////////////////////////////////////////
+app.use(require('cookie-parser')());
+app.use(require('body-parser').urlencoded({ extended: true }));
+//////////////////////////////////////////////
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+// Forzing Cache of static/////////////////////////
 app.use(functions.cacheIt);
-/////////////////////////////////////////////////
+// ///////////////////////////////////////////////
 
 //COMPRESSION////////////////////////////////////
 app.use(compression({filter: functions.shouldCompress}));

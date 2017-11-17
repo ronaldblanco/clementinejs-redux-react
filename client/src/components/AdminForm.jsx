@@ -153,8 +153,7 @@ AdminForm.propTypes = {
 
 function mapStateToProps(state) {
   return {
-    // values: getAdmin(state),
-    initialValues: getAdmin(state), // state.mainReducer.adminForm,
+    initialValues: getAdmin(state),
   };
 }
 
@@ -164,6 +163,4 @@ const createReduxForm = reduxForm({
   validate, // <--- validation function given to redux-form
 });
 const AdminFormComponent = createReduxForm(AdminForm);
-export default connect(mapStateToProps/* ,
-  { load: loadInit } */// bind account loading action creator
-)(AdminFormComponent);
+export default connect(mapStateToProps)(AdminFormComponent);

@@ -44,8 +44,6 @@ function setDatas(nDatas) {
 export const adddata = () => (dispatch) => {
   dispatch({ type: 'LOADING', what: 'datas' });
   query = `?name=${document.querySelector('#name').value}`;
-  // query = '?name=' + document.querySelector('#name').value;
-  // ajax('POST', '/api/:id/infoadd' + query).then(() => {
   ajax('POST', `/api/:id/infoadd${query}`).then(() => {
     ajax('GET', '/api/:id/info').then(data => {
       const nDatas = data.data;
@@ -59,13 +57,10 @@ export const adddata = () => (dispatch) => {
 export const deldata = () => (dispatch) => {
   dispatch({ type: 'LOADING', what: 'datas' });
   query = `?name=${document.querySelector('input[name = "radioData"]:checked').value}`;
-  // query = '?name=' + document.querySelector('input[name = "radioData"]:checked').value;
-  // ajax('DELETE', '/api/:id/infodel' + query).then(() => {
   ajax('DELETE', `/api/:id/infodel${query}`).then(() => {
     ajax('GET', '/api/:id/info')
     .then(data => {
       const nDatas = data.data;
-      // console.log(nDatas);
       dispatch(setDatas(nDatas));
       /* eslint-disable no-console */
     }, error => { console.log(error); });
@@ -82,7 +77,6 @@ function setMess(me) {
 export const resetlocal = () => (dispatch) => {
   dispatch({ type: 'LOADING', what: 'message' });
   resetUsername = document.querySelector('#resetusername').value;
-  // ajax('POST', '/auth/localnewreset?name=' + resetUsername).then(data => {
   ajax('POST', `/auth/localnewreset?name=${resetUsername}`).then(data => {
     dispatch(setMess({ message: data.message, type: data.type }));
     /* eslint-disable no-console */
@@ -99,16 +93,13 @@ export const resetlocal = () => (dispatch) => {
 /* eslint-disable no-unused-vars */
 export const adminOnSubmit = (values, dispatch, getState) => {
   dispatch({ type: 'LOADING', what: 'adminManagement' });
-  console.log(getState.initialValues);
-  console.log(values);
-  // window.alert(`You submitted:\n\n${JSON.stringify(values, null, 2)}`);
   let info = '';
   if (values.users.length === getState.initialValues.users.length && getState.initialValues !== undefined) {
     console.log('Updating...');
     values.users.map((user, index) => {
       getState.initialValues.users.map((iUser, iIndex) => {
         if (user.username === iUser.username && user !== iUser) {
-          console.log(user.username);
+          // console.log(user.username);
           // console.log(iUser);
           if (user.password === iUser.password) {
             info = `?username=${user.username}?display=${user.display}?email=${user.email}?password=${user.password}?clicks=${user.clicks}`;
@@ -121,7 +112,7 @@ export const adminOnSubmit = (values, dispatch, getState) => {
           });
           ajax('POST', `/admin/setusers${info}`).then(data => {
           /* eslint-disable no-console */
-            console.log(data);
+            // console.log(data);
           }, error => { console.log(error); });
         /* eslint-enable no-console */
         }
@@ -139,7 +130,6 @@ export const adminOnSubmit = (values, dispatch, getState) => {
       info = `?username=${values.users[i].username}?display=${values.users[i].display}?email=${values.users[i].email}?password=${md5Hex(values.users[i].password)}?clicks=${values.users[i].clicks}`;
       values.users[i].datas.map((data, indexData) => {
         info = `${info}?datas=${data.name}`;
-        // return info;
       });
       ajax('POST', `/admin/setusers${info}`).then(data => {
         /* eslint-disable no-console */
@@ -151,13 +141,11 @@ export const adminOnSubmit = (values, dispatch, getState) => {
   } else if (values.users.length < getState.initialValues.users.length && getState.initialValues !== undefined) {
     console.log('Deleting...');
     const toDelete = getState.initialValues.users;
-    // getState.initialValues.users.map((user, index) => {
     values.users.map((userV, indexV) => {
       toDelete.map((userD, indexD) => {
         if (userV.username === userD.username) toDelete.splice(indexD, 1);
       });
     });
-    // });
     console.log(toDelete);
     /* eslint-disable no-loop-func */
     for (let i = 0; i < toDelete.length; i = i + 1) {

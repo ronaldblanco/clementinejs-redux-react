@@ -4,7 +4,6 @@ import DataHandler from '../controllers/dataHandler.server.js';
 import UserHandler from '../controllers/userHandler.server.js';
 import AdminHandler from '../controllers/adminHandler.server.js';
 import ServerRender from '../serverRender.js';
-// import { getNewUser } from '../../client/src/reducer';
 
 export default function (app, passport, passportGitHub, emailServer, passportLocal, appEnv) {
   function isLoggedIn(req, res, next) {
@@ -79,25 +78,14 @@ export default function (app, passport, passportGitHub, emailServer, passportLoc
 		.post(isNotLoggedIn, adminHandler.adminDelUser);
 
   app.route('/*')
-    .get(serverRender
-      // (req, res) => {
-      // res.sendFile(`${path}/public/index.html`);
-      // }
-    );
+    .get(serverRender);
 
     // ///////////////////////////////////////////////////////////////
-	/* app.route('/authlocal')
-		.get(function (req, res) {
-			res.sendFile(path + '/public/loginlocal.html');
-		}); */
-
   app.route('/auth/local')
 		.get(passportLocal.authenticate('local', { failureRedirect: '/authlocal' }),
-    // function (req, res) {res.redirect('/');}
     (req, res) => res.redirect('/')
     )
 		.post(passportLocal.authenticate('local', { failureRedirect: '/authlocal' }),
-    // function (req, res) { res.redirect('/');}
     (req, res) => res.redirect('/')
     );
 
@@ -111,10 +99,6 @@ export default function (app, passport, passportGitHub, emailServer, passportLoc
 		.get(isNotLoggedIn, userHandler.message);
 
   app.route('/auth/localnewok')
-		/* .get(function (req, res) {
-			// res.sendFile(path + '/public/usercreationOK.html');
-      res.sendFile(`${path}/public/usercreationOK.html`);
-		});*/
 		.get((req, res) => res.sendFile(`${path}/public/usercreationOK.html`)
 		);
 

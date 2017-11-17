@@ -1,23 +1,6 @@
 
 import Users from '../models/users.js';
-// import message from '../models/message.js';
-// import email from 'emailjs/email';
 import randomize from 'randomatic';
-// import md5Hex from 'md5-hex';
-// import url from 'urlparser';
-
-// import winston from 'winston';
-// require('winston-daily-rotate-file');
-// import functions from '../common/functions.server.js';
-
-// LOGGER//////////////////////////////////////////
-/* const logger = new (winston.Logger)({
-  transports: [
-    functions.transport,
-  ],
-}); */
-// functions.logIt(logger,'//////////////////STARTING LOGGER INFO////////////////////////');
-// ///////////////////////////////////////////////
 
 // Helper to validate email based on regex
 /* eslint-disable max-len */
@@ -39,9 +22,7 @@ function AdminHandler() {
       .exec((err, result) => {
         if (err) { throw err; }
         const users = [];
-        // const form = [];
         result.forEach((user) => {
-          // user.info.data.forEach((data) => {
           users.push({
             username: user.twitter.username,
             display: user.twitter.displayName,
@@ -50,9 +31,7 @@ function AdminHandler() {
             clicks: user.nbrClicks.clicks,
             datas: user.info.data,
           });
-          // });
         });
-        // console.log(users);
         /* eslint-disable object-shorthand */
         res.send({ users: users });
         /* eslint-enable object-shorthand */
@@ -60,8 +39,9 @@ function AdminHandler() {
   };
   this.adminAddUser = (req, res) => {
     const form = {};
-    form.username = req.originalUrl.toString().split('?username=')[1].split('?display=')[0];
-    form.display = req.originalUrl.toString().split('?display=')[1].split('?email=')[0];
+    // eslint-disable-next-line max-len
+    form.username = unescape(req.originalUrl.toString().split('?username=')[1].split('?display=')[0]);
+    form.display = unescape(req.originalUrl.toString().split('?display=')[1].split('?email=')[0]);
     form.email = req.originalUrl.toString().split('?email=')[1].split('?password=')[0];
     form.password = req.originalUrl.toString().split('?password=')[1].split('?clicks=')[0];
     form.clicks = req.originalUrl.toString().split('?clicks=')[1].split('?datas=')[0];
@@ -73,7 +53,7 @@ function AdminHandler() {
       return 0;
     });
     form.datas = newData;
-    console.log(form);
+//    console.log(form);
     let final = {};
     /* eslint-disable max-len */
     Users
@@ -113,8 +93,6 @@ function AdminHandler() {
         .findOne({ 'twitter.username': form.username }, {})
           .remove().exec((err, result) => {
             if (err) { throw err; }
-            /* if (result === null) {
-            } */
             /* eslint-disable object-shorthand */
             final = { result: result };
             /* eslint-enable object-shorthand */
