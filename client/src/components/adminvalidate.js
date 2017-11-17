@@ -56,7 +56,7 @@ export const validate = values => {
           userErrors.datas._error = 'No more than five datas or names allowed';
           /* eslint-enable no-underscore-dangle */
           usersArrayErrors[userIndex] = userErrors;
-        }
+        }//
       }
     });
     if (usersArrayErrors.length) {

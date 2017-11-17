@@ -13,6 +13,10 @@ webpack:
 	cp -R ./public ./dist
 	@webpack -p --config ./webpack.config.client.js
 	@NODE_ENV=production webpack -p --config ./webpack.config.server.js
+	
+webpack_min:
+	@echo "Packing for Production and Development..."
+	@webpack -p --config ./webpack.config.client.development.min.js
 
 build: clean webpack
 	@cp package.json ./dist

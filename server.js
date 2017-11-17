@@ -46,12 +46,12 @@ var emailServer = {
 ////////////////////////////////////////////////////////////////////////////////////
 
 if (process.env.NODE_ENV === 'development') {
-  // functions.execute('make build');
+  functions.execute('make webpack_min');
   
-  const configHotReloading =
+  /* const configHotReloading =
   process.env.NODE_ENV === 'development' && !process.env.DISABLE_WEBPACK
     ? require('./app/config/hotReload') : null;
-  if (configHotReloading) configHotReloading(app);
+  if (configHotReloading) configHotReloading(app); */
 }
 
 //////////////////////////////////////////////

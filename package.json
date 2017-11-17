@@ -20,9 +20,9 @@
     "webpack"
   ],
   "scripts": {
-    "start": "nodemon dist/server.js --exec babel-node",
-    "production": "nodemon dist/server.js --exec babel-node",
-    "development": "nodemon server.js --exec babel-node ",
+    "start": "nodemon dist/server.js --exec babel-node -e txt",
+    "production": "nodemon dist/server.js --exec babel-node -e txt",
+    "development": "nodemon server.js --exec babel-node --ignore 'dist/**/*.*' -e js,jsx,json",
     "postinstall": "make build",
     "build": "make build",
     "build_dev": "make build_dev",
@@ -31,7 +31,6 @@
   "author": "Emanuele Antonelli <joshua999x@gmail.com> (http://emant.altervista.org/)",
   "license": "MIT",
   "dependencies": {
-    "axios": "^0.17.0",
     "babel-polyfill": "^6.9.1",
     "body-parser": "^1.18.2",
     "compression": "^1.7.1",
