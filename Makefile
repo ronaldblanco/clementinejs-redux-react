@@ -2,6 +2,7 @@
 clean:
 	@echo "Building production and development.\n\nCleaning previous bundles..."
 	@rm -rf ./dist/app ./dist/public ./dist/*.json ./dist/*.log ./dist/*.js
+	@rm -r ./dist
 
 webpack_ORG:
 	@echo "Packing..."
@@ -10,7 +11,8 @@ webpack_ORG:
 	
 webpack:
 	@echo "Packing for Production and Development..."
-	cp -R ./public ./dist
+	mkdir ./dist
+	cp -R ./public ./dist/public
 	@webpack -p --config ./webpack.config.client.js
 	@NODE_ENV=production webpack -p --config ./webpack.config.server.js
 	
@@ -24,10 +26,11 @@ build: clean webpack
 	
 webpack_dev:
 	@echo "Packing Develoment..."
-	cp -R ./public ./dist
+	mkdir ./dist
+	cp -R ./public ./dist/public
 	@webpack -p --config ./webpack.config.client.development.js
 	@NODE_ENV=production webpack -p --config ./webpack.config.server.js
 	
-build_dev: webpack_dev
+build_dev: clean webpack_dev
 	@cp package.json ./dist
 	@echo "Done !"
