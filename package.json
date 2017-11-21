@@ -8,9 +8,9 @@
   "main": "server.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Em-Ant/clementinejs-react-redux"
+    "url": "git+https://github.com/ronaldblanco/clementinejs-redux-react"
   },
-  "bugs": "https://github.com/Em-Ant/clementinejs-react-redux/issues",
+  "bugs": "https://github.com/ronaldblanco/clementinejs-redux-react/issues",
   "keywords": [
     "MongoDB",
     "Mongoose",
@@ -20,7 +20,10 @@
     "javascript",
     "React",
     "boilerplate",
-    "webpack"
+    "webpack",
+    "Redux",
+    "react-redux",
+    "redux-form"
   ],
   "scripts": {
     "start": "nodemon dist/server.js --exec babel-node -e txt",
@@ -31,7 +34,7 @@
     "build_dev": "make build_dev",
     "lint": "eslint --ext .js --ext .jsx ./app ./client/src"
   },
-  "author": "Emanuele Antonelli <joshua999x@gmail.com> (http://emant.altervista.org/)",
+  "author": "Ronald Blanco <pnald.blanco@gmail.com> (https://github.com/ronaldblanco)",
   "license": "MIT",
   "dependencies": {
     "babel-polyfill": "^6.9.1",
