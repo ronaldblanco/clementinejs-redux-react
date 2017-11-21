@@ -25,7 +25,7 @@ export default (html, finalState) => {
           <br><br><center><p>Created by Ronald Blanco using clementine.js.</p></center>
           <script src="/static/vendors.js"></script>
           <script src="/static/bundle.js"></script>
-          <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+          <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
           <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
         </body>
       </html>
