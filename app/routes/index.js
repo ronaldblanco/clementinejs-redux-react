@@ -18,7 +18,7 @@ export default function (app, passport, passportGitHub, emailServer, passportLoc
 
   const clickHandler = new ClickHandler();
   const dataHandler = new DataHandler();
-  const userHandler = new UserHandler(emailServer);
+  const userHandler = new UserHandler(emailServer, appEnv.env);
   const adminHandler = new AdminHandler();
   const serverRender = new ServerRender(appEnv);
 

@@ -15,6 +15,11 @@ const logger = new (winston.Logger)({
     functions.transport,
   ],
 });
+function logIf(erra, messagea, env) {
+  if (env === 'development') {
+    functions.logIt(logger, erra || messagea);
+  }
+}
 // functions.logIt(logger,'//////////////////STARTING LOGGER INFO////////////////////////');
 // ///////////////////////////////////////////////
 
@@ -31,7 +36,7 @@ function validateEmail(emailV) {
 }
 // ///////////////////////////////////////////////////
 
-function UserHandler(emailServer) {
+function UserHandler(emailServer, env) {
   const server = email.server.connect({
     user: emailServer.user,
     password: emailServer.password,
@@ -99,7 +104,7 @@ function UserHandler(emailServer) {
                   to: `New User <${emailU}>`,
                   // cc: 'else <else@your-email.com>',
                   subject: 'Welcome Email!',
-                }, (errm, messagem) => functions.logIt(logger, errm || messagem));
+                }, (errm, messagem) => logIf(errm, messagem, env));
               }
 						// //////////////////////////////
               message.message = 'The User was created correctly!';
@@ -135,7 +140,7 @@ function UserHandler(emailServer) {
                 to: `New User <${username}>`,
                 // cc: 'else <else@your-email.com>',
                 subject: 'Your password was reset!',
-              }, (errm, messagem) => functions.logIt(logger, errm || messagem));
+              }, (errm, messagem) => logIf(errm, messagem, env));
               message.message = 'The password was reset correctly; an email was send to the user!';
               message.type = 'alert alert-success';
               res.send({
