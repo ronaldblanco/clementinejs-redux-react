@@ -24,8 +24,8 @@ const renderHelper = (res, location, routes, store, appEnv) => {
       );
       const finalState = store.getState();
       let finalSend;
-      if (appEnv.env === 'development') finalSend = development(html, finalState);
-      else if (appEnv.env === 'production') finalSend = production(html, finalState);
+      if (appEnv.env === 'development') finalSend = development(html, finalState, appEnv.socket);
+      else if (appEnv.env === 'production') finalSend = production(html, finalState, appEnv.socket);
       res.send(finalSend);
     } else {
       res.status(404).send('Not found');

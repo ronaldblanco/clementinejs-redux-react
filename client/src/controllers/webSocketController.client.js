@@ -26,11 +26,6 @@ client.on('stats', function(data) {
     if(act === true) {
         count.innerHTML = 'Connected Clients: <kbd>'+connected+'</kbd>';
         lastope.innerHTML = 'Last data operation: <kbd>' + data.data.ope + '</kbd> <kbd>'+name+'</kbd>';
-        /*function updateChart(){
-            console.log('WEBSOCKETCLIENT->'+data.data);
-            //configFromServer = data.data;
-            console.log('Got data from server!');
-        }*/
         document.getElementById('adddata').addEventListener('click', function() {
         	var name = document.querySelector('#name').value;
             window.setTimeout(function(){socket.emit('event', { message: 'I did add a name to the array!', name: name, ope: 'add' });},1000);
