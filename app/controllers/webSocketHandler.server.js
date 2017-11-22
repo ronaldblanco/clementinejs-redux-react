@@ -16,7 +16,7 @@ module.exports.respond = function(endpoint, socket, act, config, numClients){
             //io.emit('broadcast', config.name + ' was Add by a Client!');
         } 
         else if(data.message == 'I did remove a name to the array!'){
-            config.name = data.name.split('=')[1];
+            config.name = data.name;
             config.ope = data.ope;
             io.emit('stats', { numClients: numClients, data: config }); 
             //io.emit('broadcast', config.name + ' was remove by a Client!');

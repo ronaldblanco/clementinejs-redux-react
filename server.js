@@ -14,6 +14,11 @@ require('winston-daily-rotate-file');
 import compression from 'compression';
 import functions from'./app/common/functions.server.js';
 
+// For Socket////////////////
+import webSocketHandler from './app/controllers/webSocketHandler.server.js';
+import config from './app/models/socketData.js';
+// ////////////////////
+
 // const env = require('dotenv');
 const env = process.env.NODE_ENV !== 'production' ? require('dotenv') : null;
 if (env) env.load();
@@ -130,25 +135,13 @@ routes(app, passport, passportGitHub, emailServer, passportLocal, appEnv);
 
 const port = process.env.PORT || 8080;
 
-if (process.env.SOCKET === 'TRUE'){
+if (process.env.SOCKET === 'TRUE' && process.env.SOCKET !== undefined){
     //Uncomment to used the Websocket Controller
     //using: socket.io http and model config.js as test
     //WEBSOCKET///////////////////////////
     var server = require('http').createServer(app);
     var io = require('socket.io')(server);
     //Changes in case of production
-    if (process.env.NODE_ENV === 'production'){
-        //Development as default
-        console.log(process.cwd());
-        let dirPro = process.cwd();
-        var webSocketHandler = require(dirPro + '/app/controllers/webSocketHandler.server.js');
-        var config = require(dirPro + '/app/models/socketData.js');
-    } else if (process.env.NODE_ENV === 'development'){
-        //Development as default
-        var webSocketHandler = require(process.cwd() + '/app/controllers/webSocketHandler.server.js');
-        var config = require(process.cwd() + '/app/models/socketData.js');
-     }
-  
     var endpoint = io
         .of('/')
         .on('connection', function (socket) {
