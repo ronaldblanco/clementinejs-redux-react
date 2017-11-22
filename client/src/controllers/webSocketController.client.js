@@ -1,40 +1,64 @@
-(function () {
-'use strict';
-//GLOBALS for SOCKET use
-var connected = 0;
-var act = false;
-var name = '';
-//////////////////////////
+/* eslint-disable no-console */
+/* eslint-disable no-undef */
+/* eslint-disable max-len */
+/* eslint-disable no-shadow */
+/* eslint-disable object-shorthand */
+(() => {
+  //  GLOBALS for SOCKET use
+  let connected = 0;
+  let act = false;
+  let name = '';
+  //  ////////////////////////
 
-var socket = io.connect('/');
-var socket1 = io.connect('/');
-    socket1.on('broadcast', function(data) {
-        console.log('broadcast:', data);
-        alert(data);
-    });
+  const socket = io.connect('/');
+  const socket1 = io.connect('/');
+  socket1.on('broadcast', (data) => {
+    console.log('broadcast:', data);
+    // eslint-disable-next-line no-alert
+    alert(data);
+  });
 
-var client = io.connect('/');
-client.on('stats', function(data) {
-        	
+  const client = io.connect('/');
+  client.on('stats', (data) => {
     connected = data.numClients;
     act = data.data.act;
     name = data.data.name;
-            
-    var count = document.querySelector('#count');
-    var lastope = document.querySelector('#lastope');
-    
-    if(act === true) {
-        count.innerHTML = 'Connected Clients: <kbd>'+connected+'</kbd>';
-        lastope.innerHTML = 'Last data operation: <kbd>' + data.data.ope + '</kbd> <kbd>'+name+'</kbd>';
-        document.getElementById('adddata').addEventListener('click', function() {
-        	var name = document.querySelector('#name').value;
-            window.setTimeout(function(){socket.emit('event', { message: 'I did add a name to the array!', name: name, ope: 'add' });},1000);
-        });
-        document.getElementById('deldata').addEventListener('click', function() {
-        	 var name = document.querySelector('input[name = "radioData"]:checked').value;
-             window.setTimeout(function(){socket.emit('event', { message: 'I did remove a name to the array!', name: name, ope: 'del' });},1000);
-        });
-    }
-});
 
+    const count = document.querySelector('#count');
+    const lastope = document.querySelector('#lastope');
+
+    if (act === true) {
+      count.innerHTML = `Connected Clients: <kbd>${connected}</kbd>`;
+      lastope.innerHTML = `Last data operation: <kbd>${data.data.ope}</kbd> <kbd>${name}</kbd>`;
+      document.getElementById('adddata').addEventListener('click', () => {
+        const name = document.querySelector('#name').value;
+        window.setTimeout(() => {
+          socket.emit(
+            'event',
+            {
+              message: 'I did add a name to the array!',
+              name: name, ope: 'add',
+            }
+          );
+        }, 1000);
+      });
+      document.getElementById('deldata').addEventListener('click', () => {
+        const name = document.querySelector('input[name = "radioData"]:checked').value;
+        window.setTimeout(() => {
+          socket.emit(
+            'event',
+            {
+              message: 'I did remove a name to the array!',
+              name: name, ope: 'del',
+            }
+          );
+        }, 1000);
+      });
+    }
+  });
 })();
+/* eslint-enable no-console */
+/* eslint-enable no-undef */
+/* eslint-enable max-len */
+/* eslint-enable no-shadow */
+/* eslint-enable object-shorthand */

@@ -1,38 +1,44 @@
 // no require needed here, at least, I don't think so
-//var config = require('../models/socketData.js');
-//var numClients = 0;
 // Controller agrees to implement the function called "respond"
 
-module.exports.respond = function(endpoint, socket, act, config, numClients){
-    config.act = act;
-    var io = endpoint;
-    socket.on('event', function(data) {
-        //console.log('WEBSOCKETSERVER->'+config);
-        //console.log('A client sent us this message:', data.message);
-        if(data.message == 'I did add a name to the array!'){
-            config.name = data.name;
-            config.ope = data.ope;
-            io.emit('stats', { numClients: numClients, data: config }); 
-            //io.emit('broadcast', config.name + ' was Add by a Client!');
-        } 
-        else if(data.message == 'I did remove a name to the array!'){
-            config.name = data.name;
-            config.ope = data.ope;
-            io.emit('stats', { numClients: numClients, data: config }); 
-            //io.emit('broadcast', config.name + ' was remove by a Client!');
-        }
-        else if(data.message == 'Send me again please!'){
-            //io.emit('stats', { numClients: numClients, data: config }); 
-        }
-    });
-	
-	numClients++;
-    io.emit('stats', { numClients: numClients, data: config });
-    //console.log('Connected clients:', numClients);
+/* eslint-disable no-console */
+/* eslint-disable no-undef */
+/* eslint-disable max-len */
+/* eslint-disable no-shadow */
+/* eslint-disable object-shorthand */
+/* eslint-disable no-param-reassign */
+/* eslint-disable brace-style */
+module.exports.respond = (endpoint, socket, act, config, numClients) => {
+  config.act = act;
+  const io = endpoint;
+  socket.on('event', (data) => {
+    if (data.message === 'I did add a name to the array!') {
+      config.name = data.name;
+      config.ope = data.ope;
+      io.emit('stats', { numClients: numClients, data: config });
+    }
+    else if (data.message === 'I did remove a name to the array!') {
+      config.name = data.name;
+      config.ope = data.ope;
+      io.emit('stats', { numClients: numClients, data: config });
+    }
+    else if (data.message === 'Send me again please!') {
+      // io.emit('stats', { numClients: numClients, data: config });
+    }
+  });
 
-    socket.on('disconnect', function() {
-        numClients--;
-        io.emit('stats', { numClients: numClients, data: config });
-        //console.log('Connected clients:', numClients);
-    });
+  numClients++;
+  io.emit('stats', { numClients: numClients, data: config });
+
+  socket.on('disconnect', () => {
+    numClients--;
+    io.emit('stats', { numClients: numClients, data: config });
+  });
 };
+/* eslint-enable no-console */
+/* eslint-enable no-undef */
+/* eslint-enable max-len */
+/* eslint-enable no-shadow */
+/* eslint-enable object-shorthand */
+/* eslint-enable no-param-reassign */
+/* eslint-enable brace-style */
