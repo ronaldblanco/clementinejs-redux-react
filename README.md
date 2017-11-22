@@ -7,12 +7,15 @@ And The version [Clementinejs-pnald](https://github.com/ronaldblanco/clementinej
 
 The APP it is running here: [clementinejs-redux-react-pnald](https://clementinejs-redux-react-pnald.herokuapp.com)<br>
 
-To Run:<br>
-
+.env.sample file it is provided<br>
 NODE_ENV=production or development<br>
 ADMIN=TRUE To access Administration Panel of the APP<br>
+SOCKET=TRUE To enable the websocket function<br>
 If GITHUB_KEY it is not set github authentication will be ignored<br>
 If TWITTER_CONSUMER_KEY it is not set twitter authentication will be ignored<br>
+
+To Run:<br>
+
 "npm run start" to run the server in production (with good practices for production)<br>
 "npm run development" to run the server in development (AutoWatch and AutoBuild)<br>
 "npm run build" to build production and development in /dist/public folder<br>

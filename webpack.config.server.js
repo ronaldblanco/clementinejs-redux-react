@@ -47,4 +47,4 @@ module.exports = {
 		__dirname: true,
 		fs:        "empty"
   }
-}
+};

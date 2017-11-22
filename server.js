@@ -14,7 +14,12 @@ require('winston-daily-rotate-file');
 import compression from 'compression';
 import functions from'./app/common/functions.server.js';
 
-//const env = require('dotenv');
+// For Socket////////////////
+import webSocketHandler from './app/controllers/webSocketHandler.server.js';
+import config from './app/models/socketData.js';
+// ////////////////////
+
+// const env = require('dotenv');
 const env = process.env.NODE_ENV !== 'production' ? require('dotenv') : null;
 if (env) env.load();
 
@@ -38,7 +43,13 @@ mongoose.connect(process.env.MONGODB_URI ||
 
 /* if (process.env.NODE_ENV === 'development') app.use('/', express.static(`${process.cwd()}/public`));
 else if (process.env.NODE_ENV === 'production') app.use('/', express.static(`${process.cwd()}/dist/public`));
-else */ app.use('/', express.static(`${process.cwd()}/dist/public`));
+else */
+// Files///////////////
+app.use('/', express.static(`${process.cwd()}/dist/public`));
+// Client controllers
+app.use('/controllers', express.static(process.cwd() + '/client/src/controllers'));
+// Socket///////////////
+app.use('/socket', express.static(process.cwd() + '/node_modules/socket.io-client/dist'));
 /////EMAIL CONFIG////////////////////////////////////////////////////////////////////////////
 app.use('/emailjs', express.static(process.cwd() + '/node_modules/emailjs'));
 ////////////////////////////////////////////////////////////////////////////////////
@@ -116,15 +127,39 @@ let appEnv = {
   env: process.env.NODE_ENV,
   admin: process.env.ADMIN,
   twitter: process.env.TWITTER_CONSUMER_KEY,
-  github: process.env.GITHUB_KEY
+  github: process.env.GITHUB_KEY,
+  socket: process.env.SOCKET
 };
 
 routes(app, passport, passportGitHub, emailServer, passportLocal, appEnv);
 
 const port = process.env.PORT || 8080;
-app.listen(port, error => {
-  /* eslint-disable no-console */
-  if (error) console.log(error);
-  console.log(`Node.js listening on port ${port}...`);
-  /* eslint-enable no-console */
-});
+
+if (process.env.SOCKET === 'TRUE' && process.env.SOCKET !== undefined){
+    //Uncomment to used the Websocket Controller
+    //using: socket.io http and model config.js as test
+    //WEBSOCKET///////////////////////////
+    var server = require('http').createServer(app);
+    var io = require('socket.io')(server);
+    //Changes in case of production
+    var endpoint = io
+        .of('/')
+        .on('connection', function (socket) {
+            webSocketHandler.respond(endpoint, socket, true, config, 0);
+    });
+
+    server.listen(port,  function () {
+	    console.log('Node.js with WebSocket listening on port ' + port + '...');
+    });
+    //WEBSOCKET//////////////////////////
+    
+} else if (process.env.SOCKET === 'FALSE' || process.env.SOCKET === undefined || process.env.SOCKET === null){
+  app.listen(port, error => {
+    /* eslint-disable no-console */
+    if (error) console.log(error);
+    console.log(`Node.js listening on port ${port}...`);
+    /* eslint-enable no-console */
+  });
+}
+
+
