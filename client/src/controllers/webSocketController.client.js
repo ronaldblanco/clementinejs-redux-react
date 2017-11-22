@@ -33,25 +33,13 @@
       document.getElementById('adddata').addEventListener('click', () => {
         const name = document.querySelector('#name').value;
         window.setTimeout(() => {
-          socket.emit(
-            'event',
-            {
-              message: 'I did add a name to the array!',
-              name: name, ope: 'add',
-            }
-          );
+          socket.emit('event', { message: 'I did add a name to the array!', name: name, ope: 'add' });
         }, 1000);
       });
       document.getElementById('deldata').addEventListener('click', () => {
         const name = document.querySelector('input[name = "radioData"]:checked').value;
         window.setTimeout(() => {
-          socket.emit(
-            'event',
-            {
-              message: 'I did remove a name to the array!',
-              name: name, ope: 'del',
-            }
-          );
+          socket.emit('event', { message: 'I did remove a name to the array!', name: name, ope: 'del' });
         }, 1000);
       });
     }
