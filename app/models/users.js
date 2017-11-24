@@ -1,6 +1,19 @@
 
 import mongoose, { Schema } from 'mongoose';
 
+const Data = new Schema({
+  name: {
+    type: String,
+    required: true
+  },
+  value: {
+    type: String,
+    required: false
+  }
+}, {
+  _id: false
+});
+
 const User = new Schema({
   twitter: {
     id: String,
@@ -14,7 +27,7 @@ const User = new Schema({
     clicks: Number,
   },
   info: {
-    data: Array,
+    data: [Data],
   },
 });
 

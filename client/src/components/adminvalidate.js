@@ -57,12 +57,12 @@ export const validate = values => {
           userErrors.datas = dataArrayErrors;
           usersArrayErrors[userIndex] = userErrors;
         }
-        if (user.datas.length > 5) {
+        if (user.datas.length > 2) {
           if (!userErrors.datas) {
             userErrors.datas = [];
           }
           /* eslint-disable no-underscore-dangle */
-          userErrors.datas._error = 'No more than five datas or names allowed';
+          userErrors.datas._error = 'No more than two Var allowed on this Form!';
           /* eslint-enable no-underscore-dangle */
           usersArrayErrors[userIndex] = userErrors;
         }//
@@ -79,7 +79,17 @@ export const renderField = ({ input, label, type, meta: { touched, error } }) =>
   <div>
     <label>{label}</label>
     <div>
-      <input {...input} type={type} placeholder={label} className="form-control" />
+      <input {...input}
+        type={type}
+        placeholder={label}
+        title={label}
+        className="form-control"
+        style={{
+          margin: '0% 0% 0% 0%',
+          height: '30px',
+          width: '100%',
+        }}
+      />
       {touched && error && <span>{error}</span>}
     </div>
   </div>

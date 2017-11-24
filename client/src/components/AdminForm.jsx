@@ -5,7 +5,7 @@ import { validate, renderField } from './adminvalidate';
 import { connect } from 'react-redux';
 let Link = require('react-router').Link;
 
-import { adminOnSubmit/* , loadInit */ } from '../actions';
+import { adminOnSubmit } from '../actions';
 import { getAdmin } from '../reducer';
 
 const renderDatas = ({ fields, meta: { error } }) => (
@@ -27,7 +27,13 @@ const renderDatas = ({ fields, meta: { error } }) => (
           name={`${data}.name`}
           type="text"
           component={renderField}
-          label={`Data #${index + 1}`}
+          label={`Name #${index + 1}`}
+        />
+        <Field
+          name={`${data}.value`}
+          type="text"
+          component={renderField}
+          label={`Value #${index + 1}`}
         />
       </li>
     ))}

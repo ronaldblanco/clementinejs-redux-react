@@ -43,7 +43,7 @@ function setDatas(nDatas) {
 
 export const adddata = () => (dispatch) => {
   dispatch({ type: 'LOADING', what: 'datas' });
-  query = `?name=${document.querySelector('#name').value}`;
+  query = `?name=${document.querySelector('#name').value}?value=${document.querySelector('#value').value}`;
   ajax('POST', `/api/:id/infoadd${query}`).then(() => {
     ajax('GET', '/api/:id/info').then(data => {
       const nDatas = data.data;
@@ -107,7 +107,7 @@ export const adminOnSubmit = (values, dispatch, getState) => {
             info = `?username=${user.username}?display=${user.display}?email=${user.email}?password=${md5Hex(user.password)}?clicks=${user.clicks}`;
           }
           user.datas.map((data, indexData) => {
-            info = `${info}?datas=${data.name}`;
+            info = `${info}?datas=${data.name}::${data.value}`;
             // return info;
           });
           ajax('POST', `/admin/setusers${info}`).then(data => {
@@ -129,7 +129,7 @@ export const adminOnSubmit = (values, dispatch, getState) => {
       // console.log(values.users[i].username);
       info = `?username=${values.users[i].username}?display=${values.users[i].display}?email=${values.users[i].email}?password=${md5Hex(values.users[i].password)}?clicks=${values.users[i].clicks}`;
       values.users[i].datas.map((data, indexData) => {
-        info = `${info}?datas=${data.name}`;
+        info = `${info}?datas=${data.name}::${data.value}`;
       });
       ajax('POST', `/admin/setusers${info}`).then(data => {
         /* eslint-disable no-console */
