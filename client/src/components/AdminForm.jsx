@@ -9,20 +9,26 @@ import { adminOnSubmit } from '../actions';
 import { getAdmin } from '../reducer';
 
 const renderDatas = ({ fields, meta: { error } }) => (
-  <ul>
+  <ul style={{ paddingLeft: 0 }}>
     <li>
       <button type="button" onClick={() => fields.push()} className="btn btn-primary" >
         Add Data
       </button>
     </li>
     {fields.map((data, index) => (
-      <li key={index}>
+      <li key={index} style={{ display: 'flex', flexWrap: 'nowrap' }}>
         <button
           type="button"
           title="Remove Data"
           onClick={() => fields.remove(index)}
           className="btn"
-        />
+          style={{
+            margin: '25px 0px 0px 0px',
+            height: '30px',
+          }}
+        >
+          Remove
+        </button>
         <Field
           name={`${data}.name`}
           type="text"
@@ -56,7 +62,14 @@ const renderUsers = ({ fields, meta: { error, submitFailed } }) => (
           title="Remove User"
           onClick={() => fields.remove(index)}
           className="btn"
-        />
+          style={{
+            margin: '0px 0px 0px 0px',
+            height: '35px',
+            width: '110px',
+          }}
+        >
+          Remove User
+        </button>
         <h4>User #{index + 1}</h4>
         <Field
           name={`${user}.username`}
@@ -89,6 +102,11 @@ const renderUsers = ({ fields, meta: { error, submitFailed } }) => (
           label="Clicks"
         />
         <FieldArray name={`${user}.datas`} component={renderDatas} />
+        <p>---------------------------------------------------------
+        ------------------------------------------------------------
+        -----------------------------------------------------------
+        ----------------------------</p>
+        <br />
       </li>
     ))}
   </ul>

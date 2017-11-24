@@ -43,6 +43,7 @@ function setDatas(nDatas) {
 
 export const adddata = () => (dispatch) => {
   dispatch({ type: 'LOADING', what: 'datas' });
+  // eslint-disable-next-line max-len
   query = `?name=${document.querySelector('#name').value}?value=${document.querySelector('#value').value}`;
   ajax('POST', `/api/:id/infoadd${query}`).then(() => {
     ajax('GET', '/api/:id/info').then(data => {

@@ -14,8 +14,8 @@ function DataHandler() {
 
   this.addData = (req, res) => {
     // const myUrl = url.parse(req.originalUrl);
-    let name = req.originalUrl.split('?name=')[1].split('?value=')[0];
-    let value = req.originalUrl.split('?value=')[1];
+    const name = req.originalUrl.split('?name=')[1].split('?value=')[0];
+    const value = req.originalUrl.split('?value=')[1];
     // console.log(myUrl);
     const newData = { name: unescape(name), value: unescape(value) };
     Users

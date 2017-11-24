@@ -79,7 +79,8 @@ export const renderField = ({ input, label, type, meta: { touched, error } }) =>
   <div>
     <label>{label}</label>
     <div>
-      <input {...input}
+      <input
+        {...input}
         type={type}
         placeholder={label}
         title={label}
