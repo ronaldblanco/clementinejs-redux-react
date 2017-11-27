@@ -57,15 +57,15 @@ export const validate = values => {
           userErrors.datas = dataArrayErrors;
           usersArrayErrors[userIndex] = userErrors;
         }
-        if (user.datas.length > 2) {
+        /* if (user.datas.length > 2) {
           if (!userErrors.datas) {
             userErrors.datas = [];
           }
-          /* eslint-disable no-underscore-dangle */
+          // eslint-disable-next-line no-underscore-dangle
           userErrors.datas._error = 'No more than two Var allowed on this Form!';
-          /* eslint-enable no-underscore-dangle */
+
           usersArrayErrors[userIndex] = userErrors;
-        }//
+        } */
       }
     });
     if (usersArrayErrors.length) {

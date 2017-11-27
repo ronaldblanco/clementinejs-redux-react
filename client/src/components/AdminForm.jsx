@@ -60,33 +60,25 @@ const renderUsers = ({ fields, meta: { error, submitFailed } }) => (
       <li key={index}>
         <h4>User #{index + 1}</h4>
         <Row>
+          <Col xs={12} style={{ margin: '0px 0px 0px 0px' }}>
+            <Field
+              name={`${user}.display`}
+              type="text"
+              component={renderField}
+              label="Display Name"
+            />
+          </Col>
+        </Row>
+        <Row>
           <Col xs={6} style={{ margin: '0px 0px 0px 0px' }}>
             <Field
               name={`${user}.username`}
               type="text"
               component={renderField}
-              label="User"
+              label="Username"
             />
           </Col>
           <Col xs={6} style={{ margin: '0px 0px 0px 0px' }}>
-            <Field
-              name={`${user}.display`}
-              type="text"
-              component={renderField}
-              label="Display"
-            />
-          </Col>
-        </Row>
-        <Row>
-          <Col xs={5} style={{ margin: '0px 0px 0px 0px' }}>
-            <Field
-              name={`${user}.email`}
-              type="text"
-              component={renderField}
-              label="Email"
-            />
-          </Col>
-          <Col xs={5} style={{ margin: '0px 0px 0px 0px' }}>
             <Field
               name={`${user}.password`}
               type="password"
@@ -94,7 +86,17 @@ const renderUsers = ({ fields, meta: { error, submitFailed } }) => (
               label="Password"
             />
           </Col>
-          <Col xs={2} style={{ margin: '0px 0px 0px 0px' }}>
+        </Row>
+        <Row>
+          <Col xs={6} style={{ margin: '0px 0px 0px 0px' }}>
+            <Field
+              name={`${user}.email`}
+              type="text"
+              component={renderField}
+              label="Email"
+            />
+          </Col>
+          <Col xs={3} style={{ margin: '0px 0px 0px 0px' }}>
             <Field
               name={`${user}.clicks`}
               type="text"
