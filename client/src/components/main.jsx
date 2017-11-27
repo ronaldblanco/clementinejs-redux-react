@@ -36,8 +36,9 @@ const Main = ({ click, reset, clicks, user, adddata, deldata, datas }) => (
         <br />
         <br />
         <div className="w3-third">
-          New Data Name:
+          New Vars:
           <input type="text" name="name" id="name" className="form-control" placeholder="Name" />
+          <input type="text" name="value" id="value" className="form-control" placeholder="Value" />
           <br />
           <button onClick={adddata} type="submit" className="btn btn-add btn-primary" id="adddata">
           New Data!</button>
@@ -51,7 +52,7 @@ const Main = ({ click, reset, clicks, user, adddata, deldata, datas }) => (
           </button>
         </div>
         <div className="w3-third">
-          <p>Here are your Data Names:</p>
+          <p>Here are your Vars:</p>
           <Li datas={datas} />
         </div>
       </div>

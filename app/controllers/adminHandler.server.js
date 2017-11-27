@@ -49,7 +49,7 @@ function AdminHandler() {
     form.datas.shift();
     const newData = [];
     form.datas.map((data) => {
-      newData.push({ name: data });
+      newData.push({ name: data.split('::')[0], value: data.split('::')[1] });
       return 0;
     });
     form.datas = newData;

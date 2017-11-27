@@ -2,39 +2,52 @@ import React from 'react';
 import { Field, FieldArray, reduxForm } from 'redux-form';
 import { validate, renderField } from './adminvalidate';
 
+import { Button, Col, Row } from 'react-bootstrap';
+
 import { connect } from 'react-redux';
 let Link = require('react-router').Link;
 
-import { adminOnSubmit/* , loadInit */ } from '../actions';
+import { adminOnSubmit } from '../actions';
 import { getAdmin } from '../reducer';
 
 const renderDatas = ({ fields, meta: { error } }) => (
-  <ul>
+  <ul style={{ paddingLeft: 0 }}>
     <li>
-      <button type="button" onClick={() => fields.push()} className="btn btn-primary" >
-        Add Data
-      </button>
+      <Button type="button" onClick={() => fields.push()} className="btn btn-primary" >
+        Add Var
+      </Button>
     </li>
     {fields.map((data, index) => (
-      <li key={index}>
-        <button
-          type="button"
-          title="Remove Data"
-          onClick={() => fields.remove(index)}
-          className="btn"
-        />
+      <li key={index} style={{ display: 'flex', flexWrap: 'nowrap' }}>
         <Field
           name={`${data}.name`}
           type="text"
           component={renderField}
-          label={`Data #${index + 1}`}
         />
+        <Field
+          name={`${data}.value`}
+          type="text"
+          component={renderField}
+        />
+        <Button
+          type="button"
+          title="Remove Var"
+          onClick={() => fields.remove(index)}
+          className="btn"
+          style={{
+            margin: '20px 0px 0px 0px',
+            height: '30px',
+          }}
+        >
+          Remove
+        </Button>
       </li>
     ))}
     {error && <li className="error">{error}</li>}
   </ul>
 );
 
+/* eslint-disable max-len */
 const renderUsers = ({ fields, meta: { error, submitFailed } }) => (
   <ul>
     <li>
@@ -45,51 +58,75 @@ const renderUsers = ({ fields, meta: { error, submitFailed } }) => (
     </li>
     {fields.map((user, index) => (
       <li key={index}>
+        <h4>User #{index + 1}</h4>
+        <Row>
+          <Col xs={6} style={{ margin: '0px 0px 0px 0px' }}>
+            <Field
+              name={`${user}.username`}
+              type="text"
+              component={renderField}
+              label="User"
+            />
+          </Col>
+          <Col xs={6} style={{ margin: '0px 0px 0px 0px' }}>
+            <Field
+              name={`${user}.display`}
+              type="text"
+              component={renderField}
+              label="Display"
+            />
+          </Col>
+        </Row>
+        <Row>
+          <Col xs={5} style={{ margin: '0px 0px 0px 0px' }}>
+            <Field
+              name={`${user}.email`}
+              type="text"
+              component={renderField}
+              label="Email"
+            />
+          </Col>
+          <Col xs={5} style={{ margin: '0px 0px 0px 0px' }}>
+            <Field
+              name={`${user}.password`}
+              type="password"
+              component={renderField}
+              label="Password"
+            />
+          </Col>
+          <Col xs={2} style={{ margin: '0px 0px 0px 0px' }}>
+            <Field
+              name={`${user}.clicks`}
+              type="text"
+              component={renderField}
+              label="Clicks"
+            />
+          </Col>
+        </Row>
+        <FieldArray name={`${user}.datas`} component={renderDatas} />
         <button
           type="button"
           title="Remove User"
           onClick={() => fields.remove(index)}
           className="btn"
-        />
-        <h4>User #{index + 1}</h4>
-        <Field
-          name={`${user}.username`}
-          type="text"
-          component={renderField}
-          label="User Name"
-        />
-        <Field
-          name={`${user}.display`}
-          type="text"
-          component={renderField}
-          label="Display Name"
-        />
-        <Field
-          name={`${user}.email`}
-          type="text"
-          component={renderField}
-          label="Email"
-        />
-        <Field
-          name={`${user}.password`}
-          type="password"
-          component={renderField}
-          label="Password"
-        />
-        <Field
-          name={`${user}.clicks`}
-          type="text"
-          component={renderField}
-          label="Clicks"
-        />
-        <FieldArray name={`${user}.datas`} component={renderDatas} />
+          style={{
+            margin: '0px 0px 0px 0px',
+            height: '35px',
+            width: '110px',
+          }}
+        >
+          Remove User
+        </button>
+        <p>-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------</p>
+        <br />
       </li>
     ))}
   </ul>
 );
+/* eslint-enable max-len */
 
 const AdminForm = props => {
-  const { handleSubmit, pristine, reset, submitting/* , load , values */ } = props;
+  const { handleSubmit, pristine, reset, submitting } = props;
   return (
     <div className="container">
       <div>

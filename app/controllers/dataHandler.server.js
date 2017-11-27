@@ -13,8 +13,11 @@ function DataHandler() {
   };
 
   this.addData = (req, res) => {
-    const myUrl = url.parse(req.originalUrl);
-    const newData = { name: unescape(myUrl.query.params.name) };
+    // const myUrl = url.parse(req.originalUrl);
+    const name = req.originalUrl.split('?name=')[1].split('?value=')[0];
+    const value = req.originalUrl.split('?value=')[1];
+    // console.log(myUrl);
+    const newData = { name: unescape(name), value: unescape(value) };
     Users
       .findOneAndUpdate({ 'twitter.id': req.user.twitter.id }, { $push: { 'info.data': newData } })
       .exec((err, result) => {
