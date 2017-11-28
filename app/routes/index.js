@@ -5,6 +5,8 @@ import UserHandler from '../controllers/userHandler.server.js';
 import AdminHandler from '../controllers/adminHandler.server.js';
 import ServerRender from '../serverRender.js';
 
+import { wrap } from'../common/errors.js';
+
 export default function (app, passport, passportGitHub, emailServer, passportLocal, appEnv) {
   function isLoggedIn(req, res, next) {
     if (req.isAuthenticated()) {
@@ -55,9 +57,9 @@ export default function (app, passport, passportGitHub, emailServer, passportLoc
     });
 
   app.route('/api/user/clicks')
-		.get(isLoggedIn, clickHandler.getClicks)
-		.post(isLoggedIn, clickHandler.addClick)
-		.delete(isLoggedIn, clickHandler.resetClicks);
+		.get(isLoggedIn, wrap(clickHandler.getClicks))
+		.post(isLoggedIn, wrap(clickHandler.addClick))
+		.delete(isLoggedIn, wrap(clickHandler.resetClicks));
 
   app.route('/api/:id/info')
 		.get(isLoggedIn, dataHandler.getDatas);
