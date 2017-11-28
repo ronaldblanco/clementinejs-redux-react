@@ -16,11 +16,11 @@ function validateEmail(emailV) {
 // ///////////////////////////////////////////////////
 
 function AdminHandler() {
-  this.getAllUsers = (req, res) => {
+  this.getAllUsers = (req, res, next ) => {
     Users
       .find({}, {})
       .exec((err, result) => {
-        if (err) { throw err; }
+        if (err) { return next(err); }
         const users = [];
         result.forEach((user) => {
           users.push({
@@ -35,9 +35,9 @@ function AdminHandler() {
         /* eslint-disable object-shorthand */
         res.send({ users: users });
         /* eslint-enable object-shorthand */
-      });
+      }).catch(next);
   };
-  this.adminAddUser = (req, res) => {
+  this.adminAddUser = (req, res, next) => {
     const form = {};
     // eslint-disable-next-line max-len
     form.username = unescape(req.originalUrl.toString().split('?username=')[1].split('?display=')[0]);
@@ -60,7 +60,7 @@ function AdminHandler() {
         .findOneAndUpdate({ 'twitter.username': form.username }, { 'twitter.displayName': form.display, 'twitter.email': form.email, 'twitter.password': form.password, 'nbrClicks.clicks': form.clicks, 'info.data': form.datas })
           /* eslint-enable max-len */
           .exec((err, result) => {
-            if (err) { throw err; }
+            if (err) { return next(err); }
             if (result === null) {
               const newUser = new Users();
               newUser.twitter.username = form.username;
@@ -73,7 +73,7 @@ function AdminHandler() {
               newUser.info.data = form.datas;
               newUser.save((erru) => {
                 if (erru) {
-                  throw erru;
+                  return next(erru);
                 }
                 final = { result: 'created-new' };
               });
@@ -81,10 +81,10 @@ function AdminHandler() {
             /* eslint-disable object-shorthand */
             final = { result: result };
             /* eslint-enable object-shorthand */
-          });
+          }).catch(next);
     res.send(final);
   };
-  this.adminDelUser = (req, res) => {
+  this.adminDelUser = (req, res, next) => {
     const form = {};
     form.username = req.originalUrl.toString().split('?username=')[1];
     // console.log(form);
@@ -92,11 +92,11 @@ function AdminHandler() {
     Users
         .findOne({ 'twitter.username': form.username }, {})
           .remove().exec((err, result) => {
-            if (err) { throw err; }
+            if (err) { return next(err); }
             /* eslint-disable object-shorthand */
             final = { result: result };
             /* eslint-enable object-shorthand */
-          });
+          }).catch(next);
     res.send(final);
   };
 }
