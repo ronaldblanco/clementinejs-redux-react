@@ -29,8 +29,8 @@ const Main = ({ click, reset, clicks, user, adddata, deldata, datas }) => (
           <p>You have clicked the button <span id="click-nbr">{clicks}</span> times.</p>
           <br />
           <div className="btn-container">
-            <button onClick={click} className="btn">CLICK ME!</button>
-            <button onClick={reset} className="btn">RESET</button>
+            <button onClick={click} className="btn" id="clickb">CLICK ME!</button>
+            <button onClick={reset} className="btn" id="resetb">RESET</button>
           </div>
         </div>
         <br />

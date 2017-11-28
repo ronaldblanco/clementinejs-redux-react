@@ -12,19 +12,22 @@ module.exports.respond = (endpoint, socket, act, config, numClients) => {
   config.act = act;
   const io = endpoint;
   socket.on('event', (data) => {
-    if (data.message === 'I did add a name to the array!') {
+    // if (data.message === 'I did add a var to the array!') {
+    if (data.message !== undefined) {
       config.name = data.name;
       config.ope = data.ope;
+      config.username = data.username;
       io.emit('stats', { numClients: numClients, data: config });
     }
-    else if (data.message === 'I did remove a name to the array!') {
+    /* else if (data.message === 'I did remove a var to the array!') {
       config.name = data.name;
       config.ope = data.ope;
+      config.username = data.username;
       io.emit('stats', { numClients: numClients, data: config });
-    }
-    else if (data.message === 'Send me again please!') {
+    } */
+    /* else if (data.message === 'Send me again please!') {
       // io.emit('stats', { numClients: numClients, data: config });
-    }
+    } */
   });
 
   numClients++;
