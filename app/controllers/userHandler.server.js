@@ -15,9 +15,11 @@ const logger = new (winston.Logger)({
     functions.transport,
   ],
 });
-function logIf(erra, messagea, env) {
+function logIf(erra, messagea, env, next) {
   if (env === 'development') {
     functions.logIt(logger, erra || messagea);
+  } else {
+    return next(erra);
   }
 }
 // functions.logIt(logger,'//////////////////STARTING LOGGER INFO////////////////////////');
@@ -44,7 +46,7 @@ function UserHandler(emailServer, env) {
     port: emailServer.port,
     ssl: true,
   });
-  this.formValues = (req, res) => {
+  this.formValues = (req, res, next) => {
     const form = {};
     form.username = req.originalUrl.toString().split('?username=')[1].split('?display=')[0];
     form.display = req.originalUrl.toString().split('?display=')[1].split('?password=')[0];
@@ -53,7 +55,7 @@ function UserHandler(emailServer, env) {
     Users
       .findOne({ 'twitter.username': req.body.username }, { _id: false })
         .exec((err, result) => {
-          if (err) { throw err; }
+          if (err) { return next(err); }
           if (result === null) {
             const newUser = new Users();
             newUser.twitter.username = form.username;
@@ -64,11 +66,11 @@ function UserHandler(emailServer, env) {
             newUser.twitter.displayName = form.display;
             newUser.save((erru) => {
               if (erru) {
-                throw erru;
+                return next(erru);
               }
             });
           }
-        });
+        }).catch(next);
     // let message = {};
     message.message = 'The User was created correctly!';
     message.type = 'alert alert-success';
@@ -76,13 +78,13 @@ function UserHandler(emailServer, env) {
     res.send(message);
   };
   /* eslint-disable func-names */
-  this.addUser = (req, res) => { // Add Local user
+  this.addUser = (req, res, next) => { // Add Local user
   // console.log(newUser);
   /* eslint-enable func-names */
     Users
       .findOne({ 'twitter.username': req.body.username }, { _id: false })
         .exec((err, result) => {
-          if (err) { throw err; }
+          if (err) { return next(err); }
           if (result === null) {
             const newUser = new Users();
             newUser.twitter.username = req.body.username;
@@ -93,7 +95,7 @@ function UserHandler(emailServer, env) {
             newUser.twitter.displayName = req.body.display;
             newUser.save((erru) => {
               if (erru) {
-                throw erru;
+                return next(erru);
               }
 						// ///////////Email send!!////////////////////
               if (emailU !== false) {
@@ -104,7 +106,7 @@ function UserHandler(emailServer, env) {
                   to: `New User <${emailU}>`,
                   // cc: 'else <else@your-email.com>',
                   subject: 'Welcome Email!',
-                }, (errm, messagem) => logIf(errm, messagem, env));
+                }, (errm, messagem) => logIf(errm, messagem, env, next));
               }
 						// //////////////////////////////
               message.message = 'The User was created correctly!';
@@ -116,10 +118,10 @@ function UserHandler(emailServer, env) {
             message.type = 'alert alert-info';
             res.redirect('/creationoklocal');
           }
-        });
+        }).catch(next);
   };
   /* eslint-disable func-names */
-  this.resetPass = (req, res) => { // Reset Password
+  this.resetPass = (req, res, next) => { // Reset Password
   /* eslint-enable func-names */
     const username = req.originalUrl.toString().split('?name=')[1];
     const newPass = randomize('0', 7);
@@ -128,7 +130,7 @@ function UserHandler(emailServer, env) {
       Users
         .findOneAndUpdate({ 'twitter.username': username }, { 'twitter.password': md5Hex(newPass) })
           .exec((err, result) => {
-            if (err) { throw err; }
+            if (err) { return next(err); }
             if (result !== undefined && result !== null) {
               // send the message and get a callback with an error
               // or details of the message that was sent
@@ -140,7 +142,7 @@ function UserHandler(emailServer, env) {
                 to: `New User <${username}>`,
                 // cc: 'else <else@your-email.com>',
                 subject: 'Your password was reset!',
-              }, (errm, messagem) => logIf(errm, messagem, env));
+              }, (errm, messagem) => logIf(errm, messagem, env, next));
               message.message = 'The password was reset correctly; an email was send to the user!';
               message.type = 'alert alert-success';
               res.send({
@@ -148,7 +150,7 @@ function UserHandler(emailServer, env) {
                 type: 'alert alert-success',
               });
             }
-          });
+          }).catch(next);
     } else {
       message.type = 'alert alert-warning';
       message.message = 'The username it is not a valid email account!';
