@@ -1,3 +1,14 @@
+/* 
+  Express compatible with promise generators
+  by creating a little wrap function
+*/
+var Promise = require('bluebird');
+export function wrap (genFn) { // 1
+    var cr = Promise.coroutine(genFn); // 2
+    return function (req, res, next) { // 3
+        cr(req, res, next).catch(next); // 4
+    };
+}
 
 // To log errors
 export function logErrors(err, req, res, next) {
