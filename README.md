@@ -16,10 +16,13 @@ If TWITTER_CONSUMER_KEY it is not set twitter authentication will be ignored<br>
 
 To Run:<br>
 
-"npm run start" to run the server in production (with good practices for production)<br>
+"npm run start" to run the server in production (with good practices for production only)<br>
+"npm run start-pm2" to run the server in production (with PM2 and good practices for production)<br>
+"npm run production" to run the server in production (with good practices for production only)<br>
 "npm run development" to run the server in development (AutoWatch and AutoBuild)<br>
+"npm run development-sync" to run the server in development (Tracking the sync functions)<br>
 "npm run build" to build production and development in /dist/public folder<br>
-"npm run build_dev" to build directly to /dist/public folder (not compresed for best check)<br>
+"npm run build-dev" to build directly to /dist/public folder (not compresed for best check)<br>
 "npm run lint" to test with lint (eslint corrected)<br>
 
 Clementinejs FCC Pnald using:<br>

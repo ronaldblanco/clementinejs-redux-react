@@ -13,6 +13,8 @@ import winston from 'winston';
 require('winston-daily-rotate-file');
 import compression from 'compression';
 import functions from'./app/common/functions.server.js';
+import forceSsl from'./app/common/force-ssl.js';
+import { logErrors, clientErrorHandler, errorHandler  } from'./app/common/errors.js';
 
 // For Socket////////////////
 import webSocketHandler from './app/controllers/webSocketHandler.server.js';
@@ -102,8 +104,14 @@ if (process.env.NODE_ENV === 'production'){
     name: 'session',
     keys: ['key1', 'key2']
   }));
-  
-  app.use(helmet());
+  // Forzing Cache of static/////////////////////////
+  app.use(functions.cacheIt);
+  // ///////////////////////////////////////////////
+  // COMPRESSION////////////////////////////////////
+  app.use(compression({filter: functions.shouldCompress}));
+  // ///////////////////////////////////////////////
+  app.use(forceSsl);// Forcing SSL
+  app.use(helmet());// Good and security practices for production!
 }
 // ///////////////////////
 
@@ -115,13 +123,11 @@ app.use(require('body-parser').urlencoded({ extended: true }));
 app.use(passport.initialize());
 app.use(passport.session());
 
-// Forzing Cache of static/////////////////////////
-app.use(functions.cacheIt);
-// ///////////////////////////////////////////////
-
-//COMPRESSION////////////////////////////////////
-app.use(compression({filter: functions.shouldCompress}));
-/////////////////////////////////////////////////
+// Error-handling middleware
+app.use(logErrors);
+app.use(clientErrorHandler);
+app.use(errorHandler);
+// //////////////////////////
 
 let appEnv = {
   env: process.env.NODE_ENV,

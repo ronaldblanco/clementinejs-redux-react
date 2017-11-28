@@ -27,11 +27,13 @@
   ],
   "scripts": {
     "start": "nodemon dist/server.js --exec babel-node -e txt",
+    "start-pm2": "pm2 start dist/server.js",
     "production": "nodemon dist/server.js --exec babel-node -e txt",
     "development": "nodemon server.js --exec babel-node --ignore 'dist/**/*.*' -e js,jsx,json",
+    "development-sync": "nodemon server.js --exec babel-node --ignore 'dist/**/*.*' -e js,jsx,json --trace-sync-io",
     "postinstall": "make webpack",
     "build": "make build",
-    "build_dev": "make build_dev",
+    "build-dev": "make build_dev",
     "lint": "eslint --ext .js --ext .jsx ./app ./client/src"
   },
   "author": "Ronald Blanco <pnald.blanco@gmail.com> (https://github.com/ronaldblanco)",
