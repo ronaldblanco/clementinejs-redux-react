@@ -111,7 +111,7 @@ module.exports = {
     if (req.headers['x-no-compression']) {
       // don't compress responses with this request header
       /* eslint-disable no-console */
-      console.log(`${req.url} not Compressed`);
+      // console.log(`${req.url} not Compressed`);
       /* eslint-enable no-console */
       return false;
     }
