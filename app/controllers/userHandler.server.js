@@ -15,6 +15,7 @@ const logger = new (winston.Logger)({
     functions.transport,
   ],
 });
+// eslint-disable-next-line consistent-return
 function logIf(erra, messagea, env, next) {
   if (env === 'development') {
     functions.logIt(logger, erra || messagea);
@@ -37,7 +38,8 @@ function validateEmail(emailV) {
   return false;
 }
 // ///////////////////////////////////////////////////
-
+/* eslint-disable func-names */
+/* eslint-disable consistent-return */
 function UserHandler(emailServer, env) {
   const server = email.server.connect({
     user: emailServer.user,
@@ -166,5 +168,6 @@ function UserHandler(emailServer, env) {
     res.send(message);
   };
 }
-
+/* eslint-enable func-names */
+/* eslint-enable consistent-return */
 module.exports = UserHandler;

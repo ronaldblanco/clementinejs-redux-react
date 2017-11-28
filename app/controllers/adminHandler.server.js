@@ -14,9 +14,10 @@ function validateEmail(emailV) {
   return false;
 }
 // ///////////////////////////////////////////////////
-
+/* eslint-disable func-names */
+/* eslint-disable consistent-return */
 function AdminHandler() {
-  this.getAllUsers = (req, res, next ) => {
+  this.getAllUsers = (req, res, next) => {
     Users
       .find({}, {})
       .exec((err, result) => {
@@ -100,5 +101,6 @@ function AdminHandler() {
     res.send(final);
   };
 }
-
+/* eslint-enable func-names */
+/* eslint-enable consistent-return */
 module.exports = AdminHandler;

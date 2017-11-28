@@ -1,7 +1,8 @@
 
 import Users from '../models/users.js';
 import url from 'urlparser';
-
+/* eslint-disable func-names */
+/* eslint-disable consistent-return */
 function DataHandler() {
   this.getDatas = (req, res, next) => {
     Users
@@ -52,5 +53,6 @@ function DataHandler() {
       }).catch(next);
   };
 }
-
+/* eslint-enable func-names */
+/* eslint-enable consistent-return */
 module.exports = DataHandler;

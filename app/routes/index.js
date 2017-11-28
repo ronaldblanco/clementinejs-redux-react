@@ -5,7 +5,7 @@ import UserHandler from '../controllers/userHandler.server.js';
 import AdminHandler from '../controllers/adminHandler.server.js';
 import ServerRender from '../serverRender.js';
 
-import { wrap } from'../common/errors.js';
+import { wrap } from '../common/errors.js';
 
 export default function (app, passport, passportGitHub, emailServer, passportLocal, appEnv) {
   function isLoggedIn(req, res, next) {
