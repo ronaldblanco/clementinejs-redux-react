@@ -1,4 +1,11 @@
 
+/* eslint-disable no-console */
+/* eslint-disable no-undef */
+/* eslint-disable max-len */
+/* eslint-disable no-shadow */
+/* eslint-disable object-shorthand */
+/* eslint-disable no-underscore-dangle */
+/* eslint-disable curly */
 //  GLOBALS for SOCKET use
 let connected = 0;
 let act = false;
@@ -11,14 +18,10 @@ if (window.__INITIAL_STATE__.mainReducer.user !== undefined) {
 }
 const count = document.querySelector('#count');
 const lastope = document.querySelector('#lastope');
-const client = io.connect('/');    
-/* eslint-disable no-console */
-/* eslint-disable no-undef */
-/* eslint-disable max-len */
-/* eslint-disable no-shadow */
-/* eslint-disable object-shorthand */
+const client = io.connect('/');
+
 // Functions //////////////
-function listeners (data, socket){
+function listeners(data, socket) {
   if (document.getElementById('adddata') !== null) document.getElementById('adddata').addEventListener('click', () => {
     const name = document.querySelector('#name').value;
     window.setTimeout(() => {
@@ -42,12 +45,12 @@ function listeners (data, socket){
     }, 1000);
   });
 }
-function clientOn(stats, socket){
+function clientOn(stats, socket) {
   client.on(stats, (data) => {
     connected = data.numClients;
     act = data.data.act;
     name = data.data.name;
-    if(data.data.ope === 'click') name = data.data.clicks;
+    if (data.data.ope === 'click') name = data.data.clicks;
 
     if (act === true) {
       count.innerHTML = `Connected Clients: <kbd>${connected}</kbd>`;
@@ -70,8 +73,10 @@ function clientOn(stats, socket){
   clientOn('stats', socket);
   clientOn('statsclick', socket);
 })();
+/* eslint-enable no-underscore-dangle */
 /* eslint-enable no-console */
 /* eslint-enable no-undef */
 /* eslint-enable max-len */
 /* eslint-enable no-shadow */
 /* eslint-enable object-shorthand */
+/* eslint-enable curly */
