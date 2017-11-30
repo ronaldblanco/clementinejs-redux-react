@@ -8,6 +8,11 @@
 /* eslint-disable object-shorthand */
 /* eslint-disable no-param-reassign */
 /* eslint-disable brace-style */
+function values(config, data) {
+  config.name = data.name;
+  config.ope = data.ope;
+  config.username = data.username;
+}
 module.exports.respond = (endpoint, socket, act, config, numClients) => {
   config.act = act;
   const io = endpoint;
@@ -15,20 +20,15 @@ module.exports.respond = (endpoint, socket, act, config, numClients) => {
 
   socket.on('event', (data) => {
     if (data.message !== undefined) {
-      config.name = data.name;
-      config.ope = data.ope;
-      config.username = data.username;
+      values(config, data);
       io.emit('stats', { numClients: numClients, data: config });
     }
   });
 
   socket.on('eventclick', (data) => {
-    console.log('eventclick');
     if (config.clicks === 0) config.clicks = data.initclicks;
     config.clicks = config.clicks + 1;
-    config.name = data.name;
-    config.ope = data.ope;
-    config.username = data.username;
+    values(config, data);
     io.emit('statsclick', { numClients: numClients, data: config });
   });
 

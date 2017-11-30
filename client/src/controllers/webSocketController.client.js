@@ -21,28 +21,25 @@ const lastope = document.querySelector('#lastope');
 const client = io.connect('/');
 
 // Functions //////////////
+function socketEmit(id, event, socket) {
+    window.setTimeout(() => {
+      socket.emit(id, event);
+    }, 1000);
+}
 function listeners(data, socket) {
   if (document.getElementById('adddata') !== null) document.getElementById('adddata').addEventListener('click', () => {
     const name = document.querySelector('#name').value;
-    window.setTimeout(() => {
-      socket.emit('event', { message: 'I did add a var to the array!', name: name, ope: 'add', username: userName });
-    }, 1000);
+    socketEmit('event', { message: 'I did add a var to the array!', name: name, ope: 'add', username: userName }, socket);
   });
   if (document.getElementById('deldata') !== null) document.getElementById('deldata').addEventListener('click', () => {
     const name = document.querySelector('input[name = "radioData"]:checked').value;
-    window.setTimeout(() => {
-      socket.emit('event', { message: 'I did remove a var to the array!', name: name, ope: 'del', username: userName });
-    }, 1000);
+    socketEmit('event', { message: 'I did remove a var to the array!', name: name, ope: 'del', username: userName }, socket);
   });
   if (document.getElementById('clickb') !== null) document.getElementById('clickb').addEventListener('click', () => {
-    window.setTimeout(() => {
-      socket.emit('eventclick', { message: 'I did click!', name: '', ope: 'click', username: userName, initclicks: click });
-    }, 1000);
+    socketEmit('eventclick', { message: 'I did click!', name: '', ope: 'click', username: userName, initclicks: click }, socket);
   });
   if (document.getElementById('resetb') !== null) document.getElementById('resetb').addEventListener('click', () => {
-    window.setTimeout(() => {
-      socket.emit('event', { message: 'I did reset!', name: '', ope: 'reset', username: userName });
-    }, 1000);
+    socketEmit('event', { message: 'I did reset!', name: '', ope: 'reset', username: userName }, socket);
   });
 }
 function clientOn(stats, socket) {
