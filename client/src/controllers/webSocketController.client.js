@@ -9,9 +9,11 @@
 //  GLOBALS for SOCKET use
 let connected = 0;
 let act = false;
-let name = '';
+let name = 'None';
 let userName = '';
 let click = 0;
+let ope = 'None';
+let username = 'None';
 if (window.__INITIAL_STATE__.mainReducer.user !== undefined) {
   userName = window.__INITIAL_STATE__.mainReducer.user.username;
   click = window.__INITIAL_STATE__.mainReducer.clicks;
@@ -39,7 +41,7 @@ function listeners(data, socket) {
     socketEmit('eventclick', { message: 'I did click!', name: '', ope: 'click', username: userName, initclicks: click }, socket);
   });
   if (document.getElementById('resetb') !== null) document.getElementById('resetb').addEventListener('click', () => {
-    socketEmit('event', { message: 'I did reset!', name: '', ope: 'reset', username: userName }, socket);
+    socketEmit('event', { message: 'I did reset!', name: '0', ope: 'reset', username: userName }, socket);
   });
 }
 function clientOn(stats, socket) {
@@ -51,7 +53,9 @@ function clientOn(stats, socket) {
 
     if (act === true) {
       count.innerHTML = `Connected Clients: <kbd>${connected}</kbd>`;
-      lastope.innerHTML = `Last Vars operation: User:<kbd>${data.data.username}</kbd> <kbd>${data.data.ope}</kbd> <kbd>${name}</kbd>`;
+      ope = data.data.ope;
+      username = data.data.username;
+      lastope.innerHTML = `Last Vars operation: User:<kbd>${username}</kbd> <kbd>${ope}</kbd> <kbd>${name}</kbd>`;
       listeners(data, socket);
     }
   });

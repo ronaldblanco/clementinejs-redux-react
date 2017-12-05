@@ -62,13 +62,13 @@ export default function (app, passport, passportGitHub, emailServer, passportLoc
 		.delete(isLoggedIn, wrap(clickHandler.resetClicks));
 
   app.route('/api/:id/info')
-		.get(isLoggedIn, dataHandler.getDatas);
+		.get(isLoggedIn, wrap(dataHandler.getDatas));
 
   app.route('/api/:id/infoadd')
-		.post(isLoggedIn, dataHandler.addData);
+		.post(isLoggedIn, wrap(dataHandler.addData));
 
   app.route('/api/:id/infodel')
-    .delete(isLoggedIn, dataHandler.deleteData);
+    .delete(isLoggedIn, wrap(dataHandler.deleteData));
 
   app.route('/admin/getusers')
 		.get(isNotLoggedIn, adminHandler.getAllUsers);
