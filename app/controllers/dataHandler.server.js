@@ -8,7 +8,7 @@ function DataHandler() {
     const vars = yield Users
       .findOne({ 'twitter.id': req.user.twitter.id })
       .exec();
-      res.json(vars.info);
+    res.json(vars.info);
   };
 
   this.addData = function* (req, res) {
@@ -18,7 +18,7 @@ function DataHandler() {
     const vars = yield Users
       .findOneAndUpdate({ 'twitter.id': req.user.twitter.id }, { $push: { 'info.data': newData } })
       .exec();
-      res.json(vars.info);
+    res.json(vars.info);
   };
 
   this.deleteData = function* (req, res) {
@@ -27,7 +27,7 @@ function DataHandler() {
       .findOneAndUpdate({ 'twitter.id': req.user.twitter.id },
       { $pull: { 'info.data': { name: unescape(myUrl.query.params.name) } } })
       .exec();
-      res.json(vars.info);
+    res.json(vars.info);
   };
 
   this.getAllDatas = (req, res, next) => {

@@ -24,9 +24,9 @@ const client = io.connect('/');
 
 // Functions //////////////
 function socketEmit(id, event, socket) {
-    window.setTimeout(() => {
-      socket.emit(id, event);
-    }, 1000);
+  window.setTimeout(() => {
+    socket.emit(id, event);
+  }, 1000);
 }
 function listeners(data, socket) {
   if (document.getElementById('adddata') !== null) document.getElementById('adddata').addEventListener('click', () => {
