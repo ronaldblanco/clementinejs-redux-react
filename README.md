@@ -11,6 +11,7 @@ The APP it is running here: [clementinejs-redux-react-pnald](https://clementinej
 NODE_ENV=production or development<br>
 ADMIN=TRUE To access Administration Panel of the APP<br>
 SOCKET=TRUE To enable the websocket function<br>
+SSLFORCE=TRUE To force SSL on production<br>
 If GITHUB_KEY it is not set github authentication will be ignored<br>
 If TWITTER_CONSUMER_KEY it is not set twitter authentication will be ignored<br>
 
@@ -24,6 +25,12 @@ To Run:<br>
 "npm run build" to build production and development in /dist/public folder<br>
 "npm run build-dev" to build directly to /dist/public folder (not compresed for best check)<br>
 "npm run lint" to test with lint (eslint corrected)<br>
+
+To build on Windows only:<br>
+
+"npm run win-postinstall" to build production in /dist/public folder<br>
+"npm run win-build" to build production and development in /dist/public folder<br>
+"npm run win-build-dev" to build directly to /dist/public folder (not compresed for best check)<br>
 
 Clementinejs FCC Pnald using:<br>
 redux, react, react-redux, react-router, react-dom, redux-thunk and redux-form<br>
