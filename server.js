@@ -110,7 +110,7 @@ if (process.env.NODE_ENV === 'production'){
   // COMPRESSION////////////////////////////////////
   app.use(compression({filter: functions.shouldCompress}));
   // ///////////////////////////////////////////////
-  app.use(forceSsl);// Forcing SSL
+  if(process.env.SSLFORCE === 'TRUE' && process.env.SSLFORCE !== undefined) app.use(forceSsl);// Forcing SSL
   app.use(helmet());// Good and security practices for production!
 }
 // ///////////////////////

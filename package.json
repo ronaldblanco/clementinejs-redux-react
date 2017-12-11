@@ -34,6 +34,9 @@
     "postinstall": "make webpack",
     "build": "make build",
     "build-dev": "make build_dev",
+	"win-postinstall": "postinstall.cmd",
+    "win-build": "production.cmd",
+    "win-build-dev": "development.cmd",
     "lint": "eslint --ext .js --ext .jsx ./app ./client/src"
   },
   "author": "Ronald Blanco <pnald.blanco@gmail.com> (https://github.com/ronaldblanco)",
